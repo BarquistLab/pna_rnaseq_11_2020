@@ -1,0 +1,7 @@
+data/read_analysis_1/reads/*.fastq*
+data/read_analysis_1/rna_align/*.bam
+*.fastq*
+*.bam*
+*.sam*
+*~
+\#*\#
