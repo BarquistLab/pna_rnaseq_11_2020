@@ -1,0 +1,13 @@
+#Summary
+#Generated on	Tue Nov 17 16:21:55 CET 2020
+#Version	5
+chroms	1
+bases	5084350
+defined	5067450
+undefined	16900
+contigs	4
+scaffolds	4
+interpad	300
+source	/home/jakob/pna_rnaseq_11_2020/data/reference_sequences/FQ312003_wplasmids.fa
+bytes	5140300
+last modified	1605621774000

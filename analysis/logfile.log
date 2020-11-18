@@ -1,0 +1,2659 @@
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006413_S1_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006413_S1_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006413_S1_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006413_S1_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.023 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.102 seconds.
+Memory: max=1029m, total=1029m, free=947m, used=82m
+
+Input is being processed as unpaired
+Started output streams:	0.106 seconds.
+Processing time:   		18.008 seconds.
+
+Input:                  	11831771 reads 		887382825 bases.
+QTrimmed:               	2401 reads (0.02%) 	59634 bases (0.01%)
+KTrimmed:               	120350 reads (1.02%) 	4037360 bases (0.45%)
+Total Removed:          	7459 reads (0.06%) 	4096994 bases (0.46%)
+Result:                 	11824312 reads (99.94%) 	883285831 bases (99.54%)
+
+Time:                         	18.221 seconds.
+Reads Processed:      11831k 	649.35k reads/sec
+Bases Processed:        887m 	48.70m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006414_S2_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006414_S2_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006414_S2_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006414_S2_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.019 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.218 seconds.
+Memory: max=1029m, total=1029m, free=936m, used=93m
+
+Input is being processed as unpaired
+Started output streams:	0.092 seconds.
+Processing time:   		17.193 seconds.
+
+Input:                  	11554354 reads 		866576550 bases.
+QTrimmed:               	2340 reads (0.02%) 	57248 bases (0.01%)
+KTrimmed:               	314435 reads (2.72%) 	11301713 bases (1.30%)
+Total Removed:          	10845 reads (0.09%) 	11358961 bases (1.31%)
+Result:                 	11543509 reads (99.91%) 	855217589 bases (98.69%)
+
+Time:                         	17.507 seconds.
+Reads Processed:      11554k 	659.98k reads/sec
+Bases Processed:        866m 	49.50m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006415_S3_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006415_S3_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006415_S3_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006415_S3_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.021 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.218 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.087 seconds.
+Processing time:   		17.897 seconds.
+
+Input:                  	11566711 reads 		867503325 bases.
+QTrimmed:               	2408 reads (0.02%) 	59434 bases (0.01%)
+KTrimmed:               	140290 reads (1.21%) 	4724339 bases (0.54%)
+Total Removed:          	7530 reads (0.07%) 	4783773 bases (0.55%)
+Result:                 	11559181 reads (99.93%) 	862719552 bases (99.45%)
+
+Time:                         	18.208 seconds.
+Reads Processed:      11566k 	635.27k reads/sec
+Bases Processed:        867m 	47.65m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006416_S4_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006416_S4_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006416_S4_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006416_S4_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.025 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.114 seconds.
+Memory: max=1029m, total=1029m, free=936m, used=93m
+
+Input is being processed as unpaired
+Started output streams:	0.097 seconds.
+Processing time:   		17.005 seconds.
+
+Input:                  	11394009 reads 		854550675 bases.
+QTrimmed:               	2256 reads (0.02%) 	56149 bases (0.01%)
+KTrimmed:               	97007 reads (0.85%) 	3455554 bases (0.40%)
+Total Removed:          	8812 reads (0.08%) 	3511703 bases (0.41%)
+Result:                 	11385197 reads (99.92%) 	851038972 bases (99.59%)
+
+Time:                         	17.219 seconds.
+Reads Processed:      11394k 	661.70k reads/sec
+Bases Processed:        854m 	49.63m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006417_S5_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006417_S5_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006417_S5_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006417_S5_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.018 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.225 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.100 seconds.
+Processing time:   		17.963 seconds.
+
+Input:                  	11575416 reads 		868156200 bases.
+QTrimmed:               	2402 reads (0.02%) 	56492 bases (0.01%)
+KTrimmed:               	641988 reads (5.55%) 	26581672 bases (3.06%)
+Total Removed:          	18197 reads (0.16%) 	26638164 bases (3.07%)
+Result:                 	11557219 reads (99.84%) 	841518036 bases (96.93%)
+
+Time:                         	18.290 seconds.
+Reads Processed:      11575k 	632.87k reads/sec
+Bases Processed:        868m 	47.46m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006418_S6_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006418_S6_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006418_S6_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006418_S6_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.021 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=984m, used=45m
+
+Added 219105 kmers; time: 	0.223 seconds.
+Memory: max=1029m, total=1029m, free=952m, used=77m
+
+Input is being processed as unpaired
+Started output streams:	0.101 seconds.
+Processing time:   		18.465 seconds.
+
+Input:                  	12231108 reads 		917333100 bases.
+QTrimmed:               	2492 reads (0.02%) 	60331 bases (0.01%)
+KTrimmed:               	456459 reads (3.73%) 	18209332 bases (1.99%)
+Total Removed:          	13755 reads (0.11%) 	18269663 bases (1.99%)
+Result:                 	12217353 reads (99.89%) 	899063437 bases (98.01%)
+
+Time:                         	18.793 seconds.
+Reads Processed:      12231k 	650.83k reads/sec
+Bases Processed:        917m 	48.81m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006419_S7_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006419_S7_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006419_S7_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006419_S7_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.019 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.121 seconds.
+Memory: max=1029m, total=1029m, free=947m, used=82m
+
+Input is being processed as unpaired
+Started output streams:	0.112 seconds.
+Processing time:   		21.286 seconds.
+
+Input:                  	13640111 reads 		1023008325 bases.
+QTrimmed:               	2695 reads (0.02%) 	63973 bases (0.01%)
+KTrimmed:               	128317 reads (0.94%) 	4578602 bases (0.45%)
+Total Removed:          	12220 reads (0.09%) 	4642575 bases (0.45%)
+Result:                 	13627891 reads (99.91%) 	1018365750 bases (99.55%)
+
+Time:                         	21.525 seconds.
+Reads Processed:      13640k 	633.70k reads/sec
+Bases Processed:       1023m 	47.53m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006420_S8_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006420_S8_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006420_S8_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006420_S8_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.018 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.110 seconds.
+Memory: max=1029m, total=1029m, free=936m, used=93m
+
+Input is being processed as unpaired
+Started output streams:	0.103 seconds.
+Processing time:   		18.810 seconds.
+
+Input:                  	12515989 reads 		938699175 bases.
+QTrimmed:               	2544 reads (0.02%) 	61822 bases (0.01%)
+KTrimmed:               	626415 reads (5.00%) 	26343896 bases (2.81%)
+Total Removed:          	22940 reads (0.18%) 	26405718 bases (2.81%)
+Result:                 	12493049 reads (99.82%) 	912293457 bases (97.19%)
+
+Time:                         	19.027 seconds.
+Reads Processed:      12515k 	657.81k reads/sec
+Bases Processed:        938m 	49.34m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006421_S9_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006421_S9_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006421_S9_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006421_S9_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.022 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.105 seconds.
+Memory: max=1029m, total=1029m, free=936m, used=93m
+
+Input is being processed as unpaired
+Started output streams:	0.096 seconds.
+Processing time:   		17.275 seconds.
+
+Input:                  	11478071 reads 		860855325 bases.
+QTrimmed:               	2359 reads (0.02%) 	56148 bases (0.01%)
+KTrimmed:               	876970 reads (7.64%) 	36915420 bases (4.29%)
+Total Removed:          	22993 reads (0.20%) 	36971568 bases (4.29%)
+Result:                 	11455078 reads (99.80%) 	823883757 bases (95.71%)
+
+Time:                         	17.481 seconds.
+Reads Processed:      11478k 	656.59k reads/sec
+Bases Processed:        860m 	49.24m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006422_S10_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006422_S10_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006422_S10_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006422_S10_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.030 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.222 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.090 seconds.
+Processing time:   		18.178 seconds.
+
+Input:                  	11900490 reads 		892536750 bases.
+QTrimmed:               	2397 reads (0.02%) 	59876 bases (0.01%)
+KTrimmed:               	275246 reads (2.31%) 	9865623 bases (1.11%)
+Total Removed:          	12536 reads (0.11%) 	9925499 bases (1.11%)
+Result:                 	11887954 reads (99.89%) 	882611251 bases (98.89%)
+
+Time:                         	18.496 seconds.
+Reads Processed:      11900k 	643.41k reads/sec
+Bases Processed:        892m 	48.26m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006423_S11_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006423_S11_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006423_S11_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006423_S11_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.019 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.104 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.098 seconds.
+Processing time:   		18.230 seconds.
+
+Input:                  	12361921 reads 		927144075 bases.
+QTrimmed:               	2513 reads (0.02%) 	61475 bases (0.01%)
+KTrimmed:               	77786 reads (0.63%) 	2575484 bases (0.28%)
+Total Removed:          	6530 reads (0.05%) 	2636959 bases (0.28%)
+Result:                 	12355391 reads (99.95%) 	924507116 bases (99.72%)
+
+Time:                         	18.436 seconds.
+Reads Processed:      12361k 	670.52k reads/sec
+Bases Processed:        927m 	50.29m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006424_S12_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006424_S12_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006424_S12_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006424_S12_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.025 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.217 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.085 seconds.
+Processing time:   		19.425 seconds.
+
+Input:                  	13003672 reads 		975275400 bases.
+QTrimmed:               	2670 reads (0.02%) 	64987 bases (0.01%)
+KTrimmed:               	246285 reads (1.89%) 	8819121 bases (0.90%)
+Total Removed:          	9480 reads (0.07%) 	8884108 bases (0.91%)
+Result:                 	12994192 reads (99.93%) 	966391292 bases (99.09%)
+
+Time:                         	19.732 seconds.
+Reads Processed:      13003k 	659.01k reads/sec
+Bases Processed:        975m 	49.43m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006425_S13_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006425_S13_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006425_S13_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006425_S13_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.025 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.224 seconds.
+Memory: max=1029m, total=1029m, free=947m, used=82m
+
+Input is being processed as unpaired
+Started output streams:	0.105 seconds.
+Processing time:   		17.136 seconds.
+
+Input:                  	11417069 reads 		856280175 bases.
+QTrimmed:               	2177 reads (0.02%) 	53749 bases (0.01%)
+KTrimmed:               	104896 reads (0.92%) 	3622213 bases (0.42%)
+Total Removed:          	5653 reads (0.05%) 	3675962 bases (0.43%)
+Result:                 	11411416 reads (99.95%) 	852604213 bases (99.57%)
+
+Time:                         	17.468 seconds.
+Reads Processed:      11417k 	653.58k reads/sec
+Bases Processed:        856m 	49.02m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006426_S14_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006426_S14_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006426_S14_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006426_S14_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.025 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.116 seconds.
+Memory: max=1029m, total=1029m, free=936m, used=93m
+
+Input is being processed as unpaired
+Started output streams:	0.089 seconds.
+Processing time:   		18.551 seconds.
+
+Input:                  	12936520 reads 		970239000 bases.
+QTrimmed:               	2662 reads (0.02%) 	64984 bases (0.01%)
+KTrimmed:               	80872 reads (0.63%) 	2863159 bases (0.30%)
+Total Removed:          	6615 reads (0.05%) 	2928143 bases (0.30%)
+Result:                 	12929905 reads (99.95%) 	967310857 bases (99.70%)
+
+Time:                         	18.761 seconds.
+Reads Processed:      12936k 	689.54k reads/sec
+Bases Processed:        970m 	51.72m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006427_S15_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006427_S15_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006427_S15_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006427_S15_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.029 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.119 seconds.
+Memory: max=1029m, total=1029m, free=936m, used=93m
+
+Input is being processed as unpaired
+Started output streams:	0.098 seconds.
+Processing time:   		19.262 seconds.
+
+Input:                  	12519808 reads 		938985600 bases.
+QTrimmed:               	2627 reads (0.02%) 	65287 bases (0.01%)
+KTrimmed:               	744282 reads (5.94%) 	31567468 bases (3.36%)
+Total Removed:          	23551 reads (0.19%) 	31632755 bases (3.37%)
+Result:                 	12496257 reads (99.81%) 	907352845 bases (96.63%)
+
+Time:                         	19.482 seconds.
+Reads Processed:      12519k 	642.63k reads/sec
+Bases Processed:        938m 	48.20m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006428_S16_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006428_S16_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006428_S16_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006428_S16_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.022 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=984m, used=45m
+
+Added 219105 kmers; time: 	0.106 seconds.
+Memory: max=1029m, total=1029m, free=936m, used=93m
+
+Input is being processed as unpaired
+Started output streams:	0.104 seconds.
+Processing time:   		17.044 seconds.
+
+Input:                  	11660466 reads 		874534950 bases.
+QTrimmed:               	2364 reads (0.02%) 	56176 bases (0.01%)
+KTrimmed:               	962493 reads (8.25%) 	40413534 bases (4.62%)
+Total Removed:          	27211 reads (0.23%) 	40469710 bases (4.63%)
+Result:                 	11633255 reads (99.77%) 	834065240 bases (95.37%)
+
+Time:                         	17.257 seconds.
+Reads Processed:      11660k 	675.69k reads/sec
+Bases Processed:        874m 	50.68m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006429_S17_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006429_S17_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006429_S17_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006429_S17_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.025 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.107 seconds.
+Memory: max=1029m, total=1029m, free=952m, used=77m
+
+Input is being processed as unpaired
+Started output streams:	0.079 seconds.
+Processing time:   		17.699 seconds.
+
+Input:                  	11799811 reads 		884985825 bases.
+QTrimmed:               	2389 reads (0.02%) 	58858 bases (0.01%)
+KTrimmed:               	128846 reads (1.09%) 	4352513 bases (0.49%)
+Total Removed:          	8821 reads (0.07%) 	4411371 bases (0.50%)
+Result:                 	11790990 reads (99.93%) 	880574454 bases (99.50%)
+
+Time:                         	17.888 seconds.
+Reads Processed:      11799k 	659.65k reads/sec
+Bases Processed:        884m 	49.47m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006430_S18_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006430_S18_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006430_S18_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006430_S18_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.024 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.116 seconds.
+Memory: max=1029m, total=1029m, free=947m, used=82m
+
+Input is being processed as unpaired
+Started output streams:	0.089 seconds.
+Processing time:   		20.238 seconds.
+
+Input:                  	13672938 reads 		1025470350 bases.
+QTrimmed:               	2882 reads (0.02%) 	67876 bases (0.01%)
+KTrimmed:               	1540500 reads (11.27%) 	65102685 bases (6.35%)
+Total Removed:          	34054 reads (0.25%) 	65170561 bases (6.36%)
+Result:                 	13638884 reads (99.75%) 	960299789 bases (93.64%)
+
+Time:                         	20.447 seconds.
+Reads Processed:      13672k 	668.70k reads/sec
+Bases Processed:       1025m 	50.15m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006431_S19_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006431_S19_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006431_S19_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006431_S19_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.021 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.130 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.113 seconds.
+Processing time:   		17.124 seconds.
+
+Input:                  	11205089 reads 		840381675 bases.
+QTrimmed:               	2250 reads (0.02%) 	53443 bases (0.01%)
+KTrimmed:               	1563612 reads (13.95%) 	68112682 bases (8.10%)
+Total Removed:          	38160 reads (0.34%) 	68166125 bases (8.11%)
+Result:                 	11166929 reads (99.66%) 	772215550 bases (91.89%)
+
+Time:                         	17.371 seconds.
+Reads Processed:      11205k 	645.06k reads/sec
+Bases Processed:        840m 	48.38m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006432_S20_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006432_S20_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006432_S20_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006432_S20_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.019 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.118 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.081 seconds.
+Processing time:   		16.721 seconds.
+
+Input:                  	11350925 reads 		851319375 bases.
+QTrimmed:               	2347 reads (0.02%) 	57196 bases (0.01%)
+KTrimmed:               	261098 reads (2.30%) 	9223853 bases (1.08%)
+Total Removed:          	11681 reads (0.10%) 	9281049 bases (1.09%)
+Result:                 	11339244 reads (99.90%) 	842038326 bases (98.91%)
+
+Time:                         	16.923 seconds.
+Reads Processed:      11350k 	670.74k reads/sec
+Bases Processed:        851m 	50.31m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006433_S21_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006433_S21_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006433_S21_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006433_S21_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.030 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.115 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.121 seconds.
+Processing time:   		17.389 seconds.
+
+Input:                  	11544070 reads 		865805250 bases.
+QTrimmed:               	2300 reads (0.02%) 	56734 bases (0.01%)
+KTrimmed:               	166286 reads (1.44%) 	5897845 bases (0.68%)
+Total Removed:          	11444 reads (0.10%) 	5954579 bases (0.69%)
+Result:                 	11532626 reads (99.90%) 	859850671 bases (99.31%)
+
+Time:                         	17.629 seconds.
+Reads Processed:      11544k 	654.84k reads/sec
+Bases Processed:        865m 	49.11m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006434_S22_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006434_S22_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006434_S22_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006434_S22_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.026 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=984m, used=45m
+
+Added 219105 kmers; time: 	0.126 seconds.
+Memory: max=1029m, total=1029m, free=952m, used=77m
+
+Input is being processed as unpaired
+Started output streams:	0.090 seconds.
+Processing time:   		20.012 seconds.
+
+Input:                  	13260062 reads 		994504650 bases.
+QTrimmed:               	2599 reads (0.02%) 	64506 bases (0.01%)
+KTrimmed:               	353296 reads (2.66%) 	13300167 bases (1.34%)
+Total Removed:          	13973 reads (0.11%) 	13364673 bases (1.34%)
+Result:                 	13246089 reads (99.89%) 	981139977 bases (98.66%)
+
+Time:                         	20.234 seconds.
+Reads Processed:      13260k 	655.34k reads/sec
+Bases Processed:        994m 	49.15m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006435_S23_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006435_S23_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006435_S23_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006435_S23_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.024 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.133 seconds.
+Memory: max=1029m, total=1029m, free=936m, used=93m
+
+Input is being processed as unpaired
+Started output streams:	0.107 seconds.
+Processing time:   		20.134 seconds.
+
+Input:                  	13638425 reads 		1022881875 bases.
+QTrimmed:               	2726 reads (0.02%) 	65015 bases (0.01%)
+KTrimmed:               	374994 reads (2.75%) 	13932518 bases (1.36%)
+Total Removed:          	16886 reads (0.12%) 	13997533 bases (1.37%)
+Result:                 	13621539 reads (99.88%) 	1008884342 bases (98.63%)
+
+Time:                         	20.377 seconds.
+Reads Processed:      13638k 	669.32k reads/sec
+Bases Processed:       1022m 	50.20m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006436_S24_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006436_S24_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006436_S24_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006436_S24_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.022 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.128 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.102 seconds.
+Processing time:   		19.412 seconds.
+
+Input:                  	12967228 reads 		972542100 bases.
+QTrimmed:               	2603 reads (0.02%) 	63764 bases (0.01%)
+KTrimmed:               	115609 reads (0.89%) 	4175343 bases (0.43%)
+Total Removed:          	12254 reads (0.09%) 	4239107 bases (0.44%)
+Result:                 	12954974 reads (99.91%) 	968302993 bases (99.56%)
+
+Time:                         	19.646 seconds.
+Reads Processed:      12967k 	660.05k reads/sec
+Bases Processed:        972m 	49.50m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006437_S25_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006437_S25_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006437_S25_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006437_S25_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.027 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=984m, used=45m
+
+Added 219105 kmers; time: 	0.115 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.083 seconds.
+Processing time:   		21.648 seconds.
+
+Input:                  	14460722 reads 		1084554150 bases.
+QTrimmed:               	2894 reads (0.02%) 	68620 bases (0.01%)
+KTrimmed:               	1410513 reads (9.75%) 	58910597 bases (5.43%)
+Total Removed:          	34863 reads (0.24%) 	58979217 bases (5.44%)
+Result:                 	14425859 reads (99.76%) 	1025574933 bases (94.56%)
+
+Time:                         	21.849 seconds.
+Reads Processed:      14460k 	661.86k reads/sec
+Bases Processed:       1084m 	49.64m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006438_S26_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006438_S26_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006438_S26_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006438_S26_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.023 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=984m, used=45m
+
+Added 219105 kmers; time: 	0.127 seconds.
+Memory: max=1029m, total=1029m, free=947m, used=82m
+
+Input is being processed as unpaired
+Started output streams:	0.106 seconds.
+Processing time:   		17.766 seconds.
+
+Input:                  	11555018 reads 		866626350 bases.
+QTrimmed:               	2438 reads (0.02%) 	58042 bases (0.01%)
+KTrimmed:               	741681 reads (6.42%) 	31158825 bases (3.60%)
+Total Removed:          	21578 reads (0.19%) 	31216867 bases (3.60%)
+Result:                 	11533440 reads (99.81%) 	835409483 bases (96.40%)
+
+Time:                         	18.003 seconds.
+Reads Processed:      11555k 	641.85k reads/sec
+Bases Processed:        866m 	48.14m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006439_S27_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006439_S27_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006439_S27_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006439_S27_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.028 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.218 seconds.
+Memory: max=1029m, total=1029m, free=947m, used=82m
+
+Input is being processed as unpaired
+Started output streams:	0.085 seconds.
+Processing time:   		17.186 seconds.
+
+Input:                  	11414454 reads 		856084050 bases.
+QTrimmed:               	2369 reads (0.02%) 	57467 bases (0.01%)
+KTrimmed:               	132181 reads (1.16%) 	4662880 bases (0.54%)
+Total Removed:          	8364 reads (0.07%) 	4720347 bases (0.55%)
+Result:                 	11406090 reads (99.93%) 	851363703 bases (99.45%)
+
+Time:                         	17.496 seconds.
+Reads Processed:      11414k 	652.40k reads/sec
+Bases Processed:        856m 	48.93m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006440_S28_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006440_S28_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006440_S28_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006440_S28_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.023 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.112 seconds.
+Memory: max=1029m, total=1029m, free=947m, used=82m
+
+Input is being processed as unpaired
+Started output streams:	0.093 seconds.
+Processing time:   		18.383 seconds.
+
+Input:                  	12128143 reads 		909610725 bases.
+QTrimmed:               	2512 reads (0.02%) 	58780 bases (0.01%)
+KTrimmed:               	877846 reads (7.24%) 	37554889 bases (4.13%)
+Total Removed:          	25411 reads (0.21%) 	37613669 bases (4.14%)
+Result:                 	12102732 reads (99.79%) 	871997056 bases (95.86%)
+
+Time:                         	18.591 seconds.
+Reads Processed:      12128k 	652.35k reads/sec
+Bases Processed:        909m 	48.93m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006441_S29_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006441_S29_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006441_S29_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006441_S29_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.025 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=989m, used=40m
+
+Added 219105 kmers; time: 	0.219 seconds.
+Memory: max=1029m, total=1029m, free=941m, used=88m
+
+Input is being processed as unpaired
+Started output streams:	0.088 seconds.
+Processing time:   		17.238 seconds.
+
+Input:                  	11377770 reads 		853332750 bases.
+QTrimmed:               	2397 reads (0.02%) 	56802 bases (0.01%)
+KTrimmed:               	667117 reads (5.86%) 	28413294 bases (3.33%)
+Total Removed:          	20759 reads (0.18%) 	28470096 bases (3.34%)
+Result:                 	11357011 reads (99.82%) 	824862654 bases (96.66%)
+
+Time:                         	17.548 seconds.
+Reads Processed:      11377k 	648.37k reads/sec
+Bases Processed:        853m 	48.63m bases/sec
+java -ea -Xmx1g -Xms1g -cp /home/jakob/bin/bbmap/current/ jgi.BBDuk -Xmx1g in=../data/fastq/ID-006442_S30_R1_001.fastq.gz ref=~/bin/bbmap/resources/adapters.fa t=20 out=../data/libs/ID-006442_S30_R1_001_trimmed.fastq.gz ktrim=r k=23 mink=11 hdist=1 qtrim=r trimq=10
+Executing jgi.BBDuk [-Xmx1g, in=../data/fastq/ID-006442_S30_R1_001.fastq.gz, ref=/home/jakob/bin/bbmap/resources/adapters.fa, t=20, out=../data/libs/ID-006442_S30_R1_001_trimmed.fastq.gz, ktrim=r, k=23, mink=11, hdist=1, qtrim=r, trimq=10]
+Version 38.79
+
+Set threads to 20
+maskMiddle was disabled because useShortKmers=true
+0.024 seconds.
+Initial:
+Memory: max=1029m, total=1029m, free=995m, used=34m
+
+Added 219105 kmers; time: 	0.224 seconds.
+Memory: max=1029m, total=1029m, free=947m, used=82m
+
+Input is being processed as unpaired
+Started output streams:	0.088 seconds.
+Processing time:   		15.846 seconds.
+
+Input:                  	10693456 reads 		802009200 bases.
+QTrimmed:               	2139 reads (0.02%) 	50928 bases (0.01%)
+KTrimmed:               	233397 reads (2.18%) 	8704318 bases (1.09%)
+Total Removed:          	10703 reads (0.10%) 	8755246 bases (1.09%)
+Result:                 	10682753 reads (99.90%) 	793253954 bases (98.91%)
+
+Time:                         	16.163 seconds.
+Reads Processed:      10693k 	661.60k reads/sec
+Bases Processed:        802m 	49.62m bases/sec
+java -ea -Xmx175661m -Xms175661m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006413_S1_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006413_S1_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006413_S1_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006413_S1_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+Writing reference.
+Executing dna.FastaToChromArrays2 [../data/reference_sequences/FQ312003_wplasmids.fa, 1, writeinthread=false, genscaffoldinfo=true, retain, waitforwriting=false, gz=true, maxlen=536670912, writechroms=true, minscaf=1, midpad=300, startpad=8000, stoppad=8000, nodisk=false]
+
+Set genScaffoldInfo=true
+Writing chunk 1
+Set genome to 1
+
+Loaded Reference:	0.008 seconds.
+Loading index for chunk 1-1, build 1
+No index available; generating from reference genome: /home/jakob/pna_rnaseq_11_2020/scripts/ref/index/1/chr1_index_k8_c8_b1.block
+Indexing threads started for block 0-1
+Indexing threads finished for block 0-1
+Generated Index:	0.234 seconds.
+Finished Writing:	0.040 seconds.
+Analyzed Index:   	0.073 seconds.
+Found samtools 1.4
+Started output stream:	0.157 seconds.
+Cleared Memory:    	0.236 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11824312	(883285831 bases)
+
+Mapping:          	508.490 seconds.
+Reads/sec:       	23253.76
+kBases/sec:      	1737.07
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 98.4412% 	 11639999 	 98.6085% 	   870995204
+unambiguous:     	 14.0381% 	  1659904 	 14.0556% 	   124150936
+ambiguous:       	 84.4032% 	  9980095 	 84.5530% 	   746844268
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 70.3784% 	  8321762 	 70.5181% 	   622876530
+semiperfect site:	 70.3792% 	  8321861 	 70.5190% 	   622883955
+
+Match Rate:      	      NA 	       NA 	 71.0648% 	   865739363
+Error Rate:      	 28.2554% 	  3314102 	 28.9340% 	   352486213
+Sub Rate:        	 27.2016% 	  3190505 	  0.4188% 	     5101524
+Del Rate:        	  1.5877% 	   186219 	 28.5038% 	   347245001
+Ins Rate:        	  0.5233% 	    61373 	  0.0115% 	      139688
+N Rate:          	  0.0485% 	     5687 	  0.0012% 	       14629
+
+Total time:     	509.657 seconds.
+java -ea -Xmx175638m -Xms175638m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006414_S2_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006414_S2_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006414_S2_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006414_S2_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.143 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.059 seconds.
+Analyzed Index:   	0.057 seconds.
+Found samtools 1.4
+Started output stream:	0.050 seconds.
+Cleared Memory:    	0.297 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11543509	(855217589 bases)
+
+Mapping:          	520.697 seconds.
+Reads/sec:       	22169.32
+kBases/sec:      	1642.45
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 96.5777% 	 11148450 	 97.3794% 	   832805996
+unambiguous:     	 13.0579% 	  1507341 	 13.1641% 	   112581374
+ambiguous:       	 83.5197% 	  9641109 	 84.2154% 	   720224622
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 68.9923% 	  7964135 	 69.6311% 	   595497679
+semiperfect site:	 68.9930% 	  7964211 	 69.6318% 	   595503379
+
+Match Rate:      	      NA 	       NA 	 69.4384% 	   827685259
+Error Rate:      	 27.9019% 	  3180336 	 30.5605% 	   364271714
+Sub Rate:        	 26.9278% 	  3069307 	  0.4165% 	     4964775
+Del Rate:        	  1.5275% 	   174103 	 30.1320% 	   359164714
+Ins Rate:        	  0.5288% 	    60273 	  0.0119% 	      142225
+N Rate:          	  0.0479% 	     5461 	  0.0012% 	       13737
+
+Total time:     	521.479 seconds.
+java -ea -Xmx175545m -Xms175545m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006415_S3_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006415_S3_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006415_S3_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006415_S3_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.160 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.068 seconds.
+Analyzed Index:   	0.056 seconds.
+Found samtools 1.4
+Started output stream:	0.061 seconds.
+Cleared Memory:    	0.303 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11559181	(862719552 bases)
+
+Mapping:          	531.801 seconds.
+Reads/sec:       	21735.89
+kBases/sec:      	1622.26
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 98.2590% 	 11357931 	 98.5123% 	   849884468
+unambiguous:     	 13.1141% 	  1515888 	 13.1434% 	   113390872
+ambiguous:       	 85.1448% 	  9842043 	 85.3688% 	   736493596
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 69.3120% 	  8011900 	 69.5132% 	   599704015
+semiperfect site:	 69.3126% 	  8011974 	 69.5138% 	   599709565
+
+Match Rate:      	      NA 	       NA 	 70.3398% 	   844631047
+Error Rate:      	 29.1408% 	  3342044 	 29.6590% 	   356141311
+Sub Rate:        	 28.0845% 	  3220892 	  0.4249% 	     5102162
+Del Rate:        	  1.6362% 	   187646 	 29.2227% 	   350901833
+Ins Rate:        	  0.5069% 	    58136 	  0.0114% 	      137316
+N Rate:          	  0.0489% 	     5607 	  0.0012% 	       13943
+
+Total time:     	532.614 seconds.
+java -ea -Xmx167649m -Xms167649m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006416_S4_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006416_S4_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006416_S4_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006416_S4_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.199 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.091 seconds.
+Analyzed Index:   	0.115 seconds.
+Found samtools 1.4
+Started output stream:	0.054 seconds.
+Cleared Memory:    	0.218 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11385197	(851038972 bases)
+
+Mapping:          	493.464 seconds.
+Reads/sec:       	23071.97
+kBases/sec:      	1724.62
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 99.3840% 	 11315061 	 99.4593% 	   846437591
+unambiguous:     	 13.7211% 	  1562175 	 13.7256% 	   116810475
+ambiguous:       	 85.6629% 	  9752886 	 85.7337% 	   729627116
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 70.0026% 	  7969934 	 70.0692% 	   596316376
+semiperfect site:	 70.0032% 	  7969999 	 70.0698% 	   596321251
+
+Match Rate:      	      NA 	       NA 	 72.3663% 	   841231280
+Error Rate:      	 29.4049% 	  3341243 	 27.6326% 	   321218634
+Sub Rate:        	 28.3175% 	  3217680 	  0.4357% 	     5064620
+Del Rate:        	  1.6094% 	   182875 	 27.1859% 	   316025845
+Ins Rate:        	  0.5017% 	    57008 	  0.0110% 	      128169
+N Rate:          	  0.0479% 	     5444 	  0.0012% 	       13522
+
+Total time:     	494.329 seconds.
+java -ea -Xmx168007m -Xms168007m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006417_S5_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006417_S5_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006417_S5_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006417_S5_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.142 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.065 seconds.
+Analyzed Index:   	0.055 seconds.
+Found samtools 1.4
+Started output stream:	0.056 seconds.
+Cleared Memory:    	0.227 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11557219	(841518036 bases)
+
+Mapping:          	653.366 seconds.
+Reads/sec:       	17688.73
+kBases/sec:      	1287.97
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 93.5142% 	 10807643 	 95.5750% 	   804281217
+unambiguous:     	 10.7178% 	  1238675 	 10.9955% 	    92528974
+ambiguous:       	 82.7965% 	  9568968 	 84.5796% 	   711752243
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 66.0569% 	  7634336 	 67.8185% 	   570704737
+semiperfect site:	 66.0577% 	  7634438 	 67.8194% 	   570712387
+
+Match Rate:      	      NA 	       NA 	 61.2117% 	   798830719
+Error Rate:      	 27.9376% 	  3169511 	 38.7872% 	   506185053
+Sub Rate:        	 26.7598% 	  3035890 	  0.4014% 	     5237977
+Del Rate:        	  1.9874% 	   225471 	 38.3707% 	   500748527
+Ins Rate:        	  0.7083% 	    80355 	  0.0152% 	      198549
+N Rate:          	  0.0467% 	     5301 	  0.0011% 	       13972
+
+Total time:     	654.029 seconds.
+java -ea -Xmx167948m -Xms167948m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006418_S6_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006418_S6_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006418_S6_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006418_S6_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.166 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.057 seconds.
+Analyzed Index:   	0.048 seconds.
+Found samtools 1.4
+Started output stream:	0.044 seconds.
+Cleared Memory:    	0.207 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	12217353	(899063437 bases)
+
+Mapping:          	609.359 seconds.
+Reads/sec:       	20049.52
+kBases/sec:      	1475.43
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 94.9740% 	 11603306 	 96.3009% 	   865806144
+unambiguous:     	 11.1775% 	  1365598 	 11.3582% 	   102117554
+ambiguous:       	 83.7964% 	 10237708 	 84.9427% 	   763688590
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 68.5083% 	  8369896 	 69.6588% 	   626277107
+semiperfect site:	 68.5091% 	  8369993 	 69.6596% 	   626284382
+
+Match Rate:      	      NA 	       NA 	 64.1332% 	   860378859
+Error Rate:      	 26.9214% 	  3229238 	 35.8657% 	   481156979
+Sub Rate:        	 25.8275% 	  3098030 	  0.3893% 	     5222406
+Del Rate:        	  1.8365% 	   220292 	 35.4623% 	   475744664
+Ins Rate:        	  0.6367% 	    76376 	  0.0142% 	      189909
+N Rate:          	  0.0473% 	     5678 	  0.0011% 	       14970
+
+Total time:     	610.081 seconds.
+java -ea -Xmx175733m -Xms175733m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006419_S7_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006419_S7_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006419_S7_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006419_S7_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.180 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.094 seconds.
+Analyzed Index:   	0.109 seconds.
+Found samtools 1.4
+Started output stream:	0.067 seconds.
+Cleared Memory:    	0.301 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	13627891	(1018365750 bases)
+
+Mapping:          	626.069 seconds.
+Reads/sec:       	21767.40
+kBases/sec:      	1626.60
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 98.8448% 	 13470467 	 98.9665% 	  1007840737
+unambiguous:     	 14.0659% 	  1916881 	 14.0835% 	   143421425
+ambiguous:       	 84.7790% 	 11553586 	 84.8830% 	   864419312
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 69.1980% 	  9430231 	 69.3027% 	   705754927
+semiperfect site:	 69.1987% 	  9430329 	 69.3034% 	   705762277
+
+Match Rate:      	      NA 	       NA 	 68.7960% 	  1001435202
+Error Rate:      	 29.7731% 	  4035577 	 31.2029% 	   454207949
+Sub Rate:        	 28.4301% 	  3853539 	  0.4262% 	     6203478
+Del Rate:        	  2.0472% 	   277480 	 30.7640% 	   447818967
+Ins Rate:        	  0.6090% 	    82552 	  0.0127% 	      185504
+N Rate:          	  0.0487% 	     6598 	  0.0011% 	       16553
+
+Total time:     	627.005 seconds.
+java -ea -Xmx175558m -Xms175558m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006420_S8_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006420_S8_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006420_S8_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006420_S8_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.147 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.070 seconds.
+Analyzed Index:   	0.059 seconds.
+Found samtools 1.4
+Started output stream:	0.062 seconds.
+Cleared Memory:    	0.233 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	12493049	(912293457 bases)
+
+Mapping:          	676.721 seconds.
+Reads/sec:       	18461.14
+kBases/sec:      	1348.11
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 94.0485% 	 11749528 	 95.8178% 	   874139709
+unambiguous:     	 13.1158% 	  1638568 	 13.4292% 	   122513376
+ambiguous:       	 80.9327% 	 10110960 	 82.3887% 	   751626333
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 66.6402% 	  8325389 	 68.2040% 	   622220574
+semiperfect site:	 66.6408% 	  8325474 	 68.2047% 	   622226949
+
+Match Rate:      	      NA 	       NA 	 59.5553% 	   868167589
+Error Rate:      	 27.8973% 	  3420101 	 40.4438% 	   589569390
+Sub Rate:        	 26.7630% 	  3281034 	  0.3932% 	     5732133
+Del Rate:        	  2.0112% 	   246569 	 40.0351% 	   583611493
+Ins Rate:        	  0.7221% 	    88532 	  0.0155% 	      225764
+N Rate:          	  0.0458% 	     5609 	  0.0010% 	       14223
+
+Total time:     	677.489 seconds.
+java -ea -Xmx175508m -Xms175508m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006421_S9_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006421_S9_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006421_S9_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006421_S9_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.152 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.066 seconds.
+Analyzed Index:   	0.064 seconds.
+Found samtools 1.4
+Started output stream:	0.067 seconds.
+Cleared Memory:    	0.231 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11455078	(823883757 bases)
+
+Mapping:          	649.817 seconds.
+Reads/sec:       	17628.15
+kBases/sec:      	1267.87
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 91.6828% 	 10502334 	 94.4459% 	   778124293
+unambiguous:     	 13.1972% 	  1511744 	 13.6975% 	   112851409
+ambiguous:       	 78.4856% 	  8990590 	 80.7484% 	   665272884
+low-Q discards:  	  0.0000% 	        1 	  0.0000% 	          11
+
+perfect best site:	 65.2190% 	  7470884 	 67.6598% 	   557438172
+semiperfect site:	 65.2197% 	  7470965 	 67.6605% 	   557444247
+
+Match Rate:      	      NA 	       NA 	 59.7506% 	   772748997
+Error Rate:      	 27.0408% 	  3027847 	 40.2484% 	   520529064
+Sub Rate:        	 25.9608% 	  2906912 	  0.3993% 	     5163876
+Del Rate:        	  1.9364% 	   216820 	 39.8338% 	   515167118
+Ins Rate:        	  0.6997% 	    78351 	  0.0153% 	      198070
+N Rate:          	  0.0451% 	     5051 	  0.0010% 	       13350
+
+Total time:     	650.554 seconds.
+java -ea -Xmx175608m -Xms175608m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006422_S10_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006422_S10_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006422_S10_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006422_S10_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.161 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.062 seconds.
+Analyzed Index:   	0.111 seconds.
+Found samtools 1.4
+Started output stream:	0.048 seconds.
+Cleared Memory:    	0.298 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11887954	(882611251 bases)
+
+Mapping:          	534.758 seconds.
+Reads/sec:       	22230.55
+kBases/sec:      	1650.49
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 97.2360% 	 11559368 	 97.8234% 	   863400246
+unambiguous:     	 13.6595% 	  1623841 	 13.7395% 	   121266148
+ambiguous:       	 83.5764% 	  9935527 	 84.0839% 	   742134098
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 69.3159% 	  8240240 	 69.7853% 	   615933257
+semiperfect site:	 69.3167% 	  8240335 	 69.7861% 	   615940382
+
+Match Rate:      	      NA 	       NA 	 70.4313% 	   858148241
+Error Rate:      	 28.1902% 	  3315046 	 29.5675% 	   360256566
+Sub Rate:        	 27.2029% 	  3198944 	  0.4185% 	     5099301
+Del Rate:        	  1.5212% 	   178889 	 29.1377% 	   355019255
+Ins Rate:        	  0.5199% 	    61133 	  0.0113% 	      138010
+N Rate:          	  0.0480% 	     5648 	  0.0012% 	       14694
+
+Total time:     	535.586 seconds.
+java -ea -Xmx175651m -Xms175651m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006423_S11_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006423_S11_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006423_S11_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006423_S11_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.152 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.100 seconds.
+Analyzed Index:   	0.054 seconds.
+Found samtools 1.4
+Started output stream:	0.046 seconds.
+Cleared Memory:    	0.224 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	12355391	(924507116 bases)
+
+Mapping:          	547.678 seconds.
+Reads/sec:       	22559.58
+kBases/sec:      	1688.05
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 99.0465% 	 12237584 	 99.1267% 	   916433610
+unambiguous:     	 12.8280% 	  1584954 	 12.8354% 	   118663817
+ambiguous:       	 86.2185% 	 10652630 	 86.2914% 	   797769793
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 68.7555% 	  8495005 	 68.8207% 	   636252534
+semiperfect site:	 68.7561% 	  8495087 	 68.8214% 	   636258684
+
+Match Rate:      	      NA 	       NA 	 71.4653% 	   910661814
+Error Rate:      	 30.3961% 	  3738327 	 28.5335% 	   363593604
+Sub Rate:        	 29.0379% 	  3571290 	  0.4395% 	     5600699
+Del Rate:        	  1.9892% 	   244646 	 28.0817% 	   357837264
+Ins Rate:        	  0.5988% 	    73640 	  0.0122% 	      155641
+N Rate:          	  0.0493% 	     6063 	  0.0012% 	       15456
+
+Total time:     	548.442 seconds.
+java -ea -Xmx175602m -Xms175602m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006424_S12_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006424_S12_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006424_S12_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006424_S12_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.191 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.074 seconds.
+Analyzed Index:   	0.066 seconds.
+Found samtools 1.4
+Started output stream:	0.051 seconds.
+Cleared Memory:    	0.308 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	12994192	(966391292 bases)
+
+Mapping:          	599.628 seconds.
+Reads/sec:       	21670.43
+kBases/sec:      	1611.65
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 97.1378% 	 12622272 	 97.7023% 	   944186580
+unambiguous:     	 11.1372% 	  1447192 	 11.2006% 	   108241734
+ambiguous:       	 86.0006% 	 11175080 	 86.5017% 	   835944846
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 68.3617% 	  8883052 	 68.8101% 	   664974753
+semiperfect site:	 68.3624% 	  8883146 	 68.8108% 	   664981780
+
+Match Rate:      	      NA 	       NA 	 67.7212% 	   938237792
+Error Rate:      	 29.0833% 	  3734768 	 32.2777% 	   447188519
+Sub Rate:        	 27.7454% 	  3562959 	  0.4151% 	     5750942
+Del Rate:        	  2.0653% 	   265222 	 31.8494% 	   441255204
+Ins Rate:        	  0.6166% 	    79179 	  0.0132% 	      182373
+N Rate:          	  0.0482% 	     6193 	  0.0011% 	       15473
+
+Total time:     	600.493 seconds.
+java -ea -Xmx175606m -Xms175606m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006425_S13_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006425_S13_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006425_S13_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006425_S13_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.146 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.095 seconds.
+Analyzed Index:   	0.119 seconds.
+Found samtools 1.4
+Started output stream:	0.059 seconds.
+Cleared Memory:    	0.298 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11411416	(852604213 bases)
+
+Mapping:          	483.440 seconds.
+Reads/sec:       	23604.60
+kBases/sec:      	1763.62
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 98.5329% 	 11243994 	 98.7434% 	   841890516
+unambiguous:     	 10.8085% 	  1233406 	 10.8274% 	    92315252
+ambiguous:       	 87.7243% 	 10010588 	 87.9160% 	   749575264
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 70.0450% 	  7993128 	 70.2156% 	   598660892
+semiperfect site:	 70.0456% 	  7993193 	 70.2161% 	   598665767
+
+Match Rate:      	      NA 	       NA 	 73.4657% 	   836896354
+Error Rate:      	 28.6455% 	  3246843 	 26.5331% 	   302255752
+Sub Rate:        	 27.4117% 	  3107000 	  0.4261% 	     4853992
+Del Rate:        	  1.8136% 	   205558 	 26.0959% 	   297275792
+Ins Rate:        	  0.5123% 	    58069 	  0.0111% 	      125968
+N Rate:          	  0.0494% 	     5604 	  0.0012% 	       14202
+
+Total time:     	484.331 seconds.
+java -ea -Xmx175464m -Xms175464m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006426_S14_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006426_S14_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006426_S14_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006426_S14_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.148 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.077 seconds.
+Analyzed Index:   	0.055 seconds.
+Found samtools 1.4
+Started output stream:	0.103 seconds.
+Cleared Memory:    	0.301 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	12929905	(967310857 bases)
+
+Mapping:          	506.763 seconds.
+Reads/sec:       	25514.70
+kBases/sec:      	1908.80
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 99.4292% 	 12856099 	 99.5026% 	   962499097
+unambiguous:     	 11.7577% 	  1520257 	 11.7606% 	   113761178
+ambiguous:       	 87.6715% 	 11335842 	 87.7420% 	   848737919
+low-Q discards:  	  0.0000% 	        1 	  0.0000% 	          14
+
+perfect best site:	 71.1633% 	  9201342 	 71.2294% 	   689009486
+semiperfect site:	 71.1641% 	  9201446 	 71.2302% 	   689017286
+
+Match Rate:      	      NA 	       NA 	 77.2249% 	   957029223
+Error Rate:      	 28.2936% 	  3650281 	 22.7738% 	   282229922
+Sub Rate:        	 27.1975% 	  3508866 	  0.4307% 	     5337568
+Del Rate:        	  1.5244% 	   196666 	 22.3337% 	   276775959
+Ins Rate:        	  0.4406% 	    56841 	  0.0094% 	      116395
+N Rate:          	  0.0482% 	     6220 	  0.0013% 	       15911
+
+Total time:     	507.570 seconds.
+java -ea -Xmx175426m -Xms175426m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006427_S15_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006427_S15_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006427_S15_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006427_S15_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.168 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.065 seconds.
+Analyzed Index:   	0.059 seconds.
+Found samtools 1.4
+Started output stream:	0.071 seconds.
+Cleared Memory:    	0.314 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	12496257	(907352845 bases)
+
+Mapping:          	594.071 seconds.
+Reads/sec:       	21034.97
+kBases/sec:      	1527.35
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 93.2584% 	 11653814 	 95.4583% 	   866143437
+unambiguous:     	  9.1338% 	  1141385 	  9.3961% 	    85255572
+ambiguous:       	 84.1246% 	 10512429 	 86.0622% 	   780887865
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 69.0285% 	  8625983 	 71.0490% 	   644664724
+semiperfect site:	 69.0295% 	  8626098 	 71.0499% 	   644673349
+
+Match Rate:      	      NA 	       NA 	 68.7737% 	   861125518
+Error Rate:      	 24.6809% 	  3023492 	 31.2251% 	   390974546
+Sub Rate:        	 23.7230% 	  2906150 	  0.3874% 	     4850426
+Del Rate:        	  1.5297% 	   187397 	 30.8256% 	   385971651
+Ins Rate:        	  0.5246% 	    64270 	  0.0122% 	      152469
+N Rate:          	  0.0471% 	     5764 	  0.0012% 	       15024
+
+Total time:     	594.937 seconds.
+java -ea -Xmx175690m -Xms175690m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006428_S16_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006428_S16_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006428_S16_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006428_S16_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.144 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.062 seconds.
+Analyzed Index:   	0.115 seconds.
+Found samtools 1.4
+Started output stream:	0.057 seconds.
+Cleared Memory:    	0.301 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11633255	(834065240 bases)
+
+Mapping:          	653.572 seconds.
+Reads/sec:       	17799.50
+kBases/sec:      	1276.16
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 90.8240% 	 10565784 	 93.9046% 	   783225911
+unambiguous:     	 11.5298% 	  1341295 	 11.9975% 	   100067081
+ambiguous:       	 79.2941% 	  9224489 	 81.9071% 	   683158830
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 65.0258% 	  7564618 	 67.7049% 	   564702998
+semiperfect site:	 65.0267% 	  7564725 	 67.7059% 	   564711023
+
+Match Rate:      	      NA 	       NA 	 62.9290% 	   778092748
+Error Rate:      	 26.4055% 	  2997379 	 37.0698% 	   458353868
+Sub Rate:        	 25.5252% 	  2897454 	  0.4002% 	     4948171
+Del Rate:        	  1.5850% 	   179917 	 36.6558% 	   453234624
+Ins Rate:        	  0.5807% 	    65921 	  0.0138% 	      171073
+N Rate:          	  0.0452% 	     5133 	  0.0011% 	       13919
+
+Total time:     	654.405 seconds.
+java -ea -Xmx175455m -Xms175455m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006429_S17_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006429_S17_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006429_S17_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006429_S17_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.142 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.067 seconds.
+Analyzed Index:   	0.070 seconds.
+Found samtools 1.4
+Started output stream:	0.064 seconds.
+Cleared Memory:    	0.301 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11790990	(880574454 bases)
+
+Mapping:          	496.562 seconds.
+Reads/sec:       	23745.25
+kBases/sec:      	1773.34
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 98.3726% 	 11599104 	 98.5501% 	   867806784
+unambiguous:     	 14.8142% 	  1746745 	 14.8361% 	   130642921
+ambiguous:       	 83.5584% 	  9852359 	 83.7140% 	   737163863
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 70.2157% 	  8279123 	 70.3637% 	   619604593
+semiperfect site:	 70.2163% 	  8279196 	 70.3643% 	   619610068
+
+Match Rate:      	      NA 	       NA 	 72.1051% 	   862625257
+Error Rate:      	 28.3589% 	  3315836 	 27.8937% 	   333704564
+Sub Rate:        	 27.3940% 	  3203025 	  0.4215% 	     5042052
+Del Rate:        	  1.5326% 	   179198 	 27.4618% 	   328537186
+Ins Rate:        	  0.4501% 	    52628 	  0.0105% 	      125326
+N Rate:          	  0.0489% 	     5722 	  0.0012% 	       14149
+
+Total time:     	497.387 seconds.
+java -ea -Xmx175531m -Xms175531m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006430_S18_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006430_S18_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006430_S18_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006430_S18_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.137 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.065 seconds.
+Analyzed Index:   	0.048 seconds.
+Found samtools 1.4
+Started output stream:	0.043 seconds.
+Cleared Memory:    	0.234 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	13638884	(960299789 bases)
+
+Mapping:          	865.515 seconds.
+Reads/sec:       	15758.12
+kBases/sec:      	1109.51
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 87.3471% 	 11913164 	 91.5511% 	   879164723
+unambiguous:     	 11.3622% 	  1549679 	 12.0418% 	   115637198
+ambiguous:       	 75.9848% 	 10363485 	 79.5093% 	   763527525
+low-Q discards:  	  0.0000% 	        1 	  0.0000% 	          13
+
+perfect best site:	 61.6758% 	  8411896 	 65.3355% 	   627416655
+semiperfect site:	 61.6763% 	  8411962 	 65.3360% 	   627421605
+
+Match Rate:      	      NA 	       NA 	 56.3674% 	   872832343
+Error Rate:      	 26.4952% 	  3497147 	 43.6317% 	   675622843
+Sub Rate:        	 25.5094% 	  3367028 	  0.3915% 	     6062936
+Del Rate:        	  1.9125% 	   252434 	 43.2236% 	   669304663
+Ins Rate:        	  0.7189% 	    94883 	  0.0165% 	      255244
+N Rate:          	  0.0433% 	     5717 	  0.0009% 	       14200
+
+Total time:     	866.187 seconds.
+java -ea -Xmx175552m -Xms175552m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006431_S19_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006431_S19_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006431_S19_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006431_S19_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.197 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.096 seconds.
+Analyzed Index:   	0.059 seconds.
+Found samtools 1.4
+Started output stream:	0.055 seconds.
+Cleared Memory:    	0.232 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11166929	(772215550 bases)
+
+Mapping:          	730.194 seconds.
+Reads/sec:       	15293.11
+kBases/sec:      	1057.55
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 85.9646% 	  9599602 	 91.1664% 	   704000890
+unambiguous:     	 11.7205% 	  1308816 	 12.6211% 	    97462213
+ambiguous:       	 74.2441% 	  8290786 	 78.5453% 	   606538677
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 61.7069% 	  6890768 	 66.4066% 	   512801829
+semiperfect site:	 61.7072% 	  6890803 	 66.4069% 	   512804454
+
+Match Rate:      	      NA 	       NA 	 58.0471% 	   698997383
+Error Rate:      	 24.9407% 	  2705463 	 41.9519% 	   505180491
+Sub Rate:        	 23.9335% 	  2596199 	  0.3984% 	     4798052
+Del Rate:        	  1.8728% 	   203154 	 41.5374% 	   500188368
+Ins Rate:        	  0.6910% 	    74956 	  0.0161% 	      194071
+N Rate:          	  0.0424% 	     4603 	  0.0009% 	       11384
+
+Total time:     	731.022 seconds.
+java -ea -Xmx175775m -Xms175775m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006432_S20_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006432_S20_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006432_S20_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006432_S20_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.149 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.073 seconds.
+Analyzed Index:   	0.096 seconds.
+Found samtools 1.4
+Started output stream:	0.050 seconds.
+Cleared Memory:    	0.297 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11339244	(842038326 bases)
+
+Mapping:          	524.535 seconds.
+Reads/sec:       	21617.71
+kBases/sec:      	1605.30
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 96.6719% 	 10961860 	 97.3060% 	   819354046
+unambiguous:     	 13.9172% 	  1578104 	 14.0080% 	   117953141
+ambiguous:       	 82.7547% 	  9383756 	 83.2980% 	   701400905
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 69.4256% 	  7872340 	 69.9382% 	   588906335
+semiperfect site:	 69.4263% 	  7872415 	 69.9389% 	   588911960
+
+Match Rate:      	      NA 	       NA 	 67.2486% 	   814293413
+Error Rate:      	 27.5986% 	  3085565 	 32.7503% 	   396563976
+Sub Rate:        	 26.5988% 	  2973789 	  0.4040% 	     4892051
+Del Rate:        	  1.6867% 	   188581 	 32.3335% 	   391516851
+Ins Rate:        	  0.5545% 	    61991 	  0.0128% 	      155074
+N Rate:          	  0.0482% 	     5391 	  0.0011% 	       13508
+
+Total time:     	525.346 seconds.
+java -ea -Xmx175661m -Xms175661m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006433_S21_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006433_S21_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006433_S21_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006433_S21_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.149 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.065 seconds.
+Analyzed Index:   	0.049 seconds.
+Found samtools 1.4
+Started output stream:	0.060 seconds.
+Cleared Memory:    	0.302 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11532626	(859850671 bases)
+
+Mapping:          	519.313 seconds.
+Reads/sec:       	22207.48
+kBases/sec:      	1655.75
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 98.1893% 	 11323809 	 98.4410% 	   846445459
+unambiguous:     	 13.6167% 	  1570366 	 13.6467% 	   117341028
+ambiguous:       	 84.5726% 	  9753443 	 84.7943% 	   729104431
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 67.9267% 	  7833732 	 68.1325% 	   585838052
+semiperfect site:	 67.9275% 	  7833823 	 68.1333% 	   585844877
+
+Match Rate:      	      NA 	       NA 	 70.4222% 	   840982756
+Error Rate:      	 30.4935% 	  3486210 	 29.5766% 	   353204246
+Sub Rate:        	 29.3731% 	  3358117 	  0.4445% 	     5307736
+Del Rate:        	  1.7618% 	   201424 	 29.1204% 	   347755867
+Ins Rate:        	  0.5144% 	    58809 	  0.0118% 	      140643
+N Rate:          	  0.0483% 	     5519 	  0.0012% 	       14324
+
+Total time:     	520.073 seconds.
+java -ea -Xmx175608m -Xms175608m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006434_S22_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006434_S22_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006434_S22_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006434_S22_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.192 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.076 seconds.
+Analyzed Index:   	0.095 seconds.
+Found samtools 1.4
+Started output stream:	0.045 seconds.
+Cleared Memory:    	0.313 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	13246089	(981139977 bases)
+
+Mapping:          	601.539 seconds.
+Reads/sec:       	22020.35
+kBases/sec:      	1631.05
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 96.6230% 	 12798770 	 97.4843% 	   956457751
+unambiguous:     	  9.7236% 	  1287995 	  9.8097% 	    96246600
+ambiguous:       	 86.8994% 	 11510775 	 87.6747% 	   860211151
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 68.6991% 	  9099942 	 69.3942% 	   680853790
+semiperfect site:	 68.6998% 	  9100033 	 69.3948% 	   680860615
+
+Match Rate:      	      NA 	       NA 	 70.2961% 	   950608801
+Error Rate:      	 28.2218% 	  3694413 	 29.7027% 	   401667114
+Sub Rate:        	 27.0642% 	  3542884 	  0.4190% 	     5666377
+Del Rate:        	  1.7646% 	   231002 	 29.2713% 	   395833820
+Ins Rate:        	  0.5625% 	    73636 	  0.0123% 	      166917
+N Rate:          	  0.0473% 	     6198 	  0.0012% 	       15656
+
+Total time:     	602.429 seconds.
+java -ea -Xmx175608m -Xms175608m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006435_S23_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006435_S23_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006435_S23_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006435_S23_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.150 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.110 seconds.
+Analyzed Index:   	0.064 seconds.
+Found samtools 1.4
+Started output stream:	0.050 seconds.
+Cleared Memory:    	0.235 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	13621539	(1008884342 bases)
+
+Mapping:          	623.318 seconds.
+Reads/sec:       	21853.27
+kBases/sec:      	1618.57
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 96.4151% 	 13133221 	 97.2627% 	   981268118
+unambiguous:     	 11.9004% 	  1621014 	 12.0076% 	   121142710
+ambiguous:       	 84.5147% 	 11512207 	 85.2551% 	   860125408
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 69.3852% 	  9451330 	 70.0751% 	   706976970
+semiperfect site:	 69.3859% 	  9451422 	 70.0758% 	   706983858
+
+Match Rate:      	      NA 	       NA 	 69.7737% 	   975327345
+Error Rate:      	 27.3600% 	  3677240 	 30.2252% 	   422500668
+Sub Rate:        	 26.3713% 	  3544357 	  0.4113% 	     5748938
+Del Rate:        	  1.5580% 	   209404 	 29.8013% 	   416576210
+Ins Rate:        	  0.5479% 	    73639 	  0.0126% 	      175520
+N Rate:          	  0.0471% 	     6335 	  0.0012% 	       16315
+
+Total time:     	624.033 seconds.
+java -ea -Xmx175603m -Xms175603m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006436_S24_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006436_S24_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006436_S24_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006436_S24_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.141 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.068 seconds.
+Analyzed Index:   	0.108 seconds.
+Found samtools 1.4
+Started output stream:	0.063 seconds.
+Cleared Memory:    	0.304 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	12954974	(968302993 bases)
+
+Mapping:          	570.659 seconds.
+Reads/sec:       	22701.77
+kBases/sec:      	1696.81
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 99.3509% 	 12870885 	 99.4240% 	   962725355
+unambiguous:     	 13.7635% 	  1783062 	 13.7679% 	   133315427
+ambiguous:       	 85.5874% 	 11087823 	 85.6560% 	   829409928
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 68.7198% 	  8902628 	 68.7843% 	   666040210
+semiperfect site:	 68.7205% 	  8902718 	 68.7850% 	   666046944
+
+Match Rate:      	      NA 	       NA 	 72.5991% 	   956605347
+Error Rate:      	 30.6702% 	  3963907 	 27.3996% 	   361032061
+Sub Rate:        	 29.4379% 	  3804641 	  0.4524% 	     5961163
+Del Rate:        	  1.8380% 	   237547 	 26.9364% 	   354928318
+Ins Rate:        	  0.5147% 	    66519 	  0.0108% 	      142580
+N Rate:          	  0.0484% 	     6250 	  0.0012% 	       16265
+
+Total time:     	571.487 seconds.
+java -ea -Xmx175667m -Xms175667m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006437_S25_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006437_S25_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006437_S25_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006437_S25_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.156 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.065 seconds.
+Analyzed Index:   	0.056 seconds.
+Found samtools 1.4
+Started output stream:	0.067 seconds.
+Cleared Memory:    	0.310 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	14425859	(1025574933 bases)
+
+Mapping:          	835.446 seconds.
+Reads/sec:       	17267.26
+kBases/sec:      	1227.58
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 88.7001% 	 12795745 	 92.3738% 	   947362686
+unambiguous:     	 10.2116% 	  1473111 	 10.7143% 	   109882844
+ambiguous:       	 78.4885% 	 11322634 	 81.6595% 	   837479842
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 63.4859% 	  9158381 	 66.6595% 	   683643601
+semiperfect site:	 63.4866% 	  9158485 	 66.6603% 	   683651385
+
+Match Rate:      	      NA 	       NA 	 62.3917% 	   941119745
+Error Rate:      	 25.9832% 	  3632742 	 37.6073% 	   567270663
+Sub Rate:        	 25.1472% 	  3515862 	  0.3988% 	     6015376
+Del Rate:        	  1.5255% 	   213283 	 37.1945% 	   561043692
+Ins Rate:        	  0.5755% 	    80465 	  0.0140% 	      211595
+N Rate:          	  0.0449% 	     6276 	  0.0011% 	       15970
+
+Total time:     	836.257 seconds.
+java -ea -Xmx175531m -Xms175531m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006438_S26_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006438_S26_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006438_S26_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006438_S26_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.145 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.064 seconds.
+Analyzed Index:   	0.055 seconds.
+Found samtools 1.4
+Started output stream:	0.049 seconds.
+Cleared Memory:    	0.308 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11533440	(835409483 bases)
+
+Mapping:          	583.417 seconds.
+Reads/sec:       	19768.77
+kBases/sec:      	1431.93
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 92.7514% 	 10697425 	 95.1907% 	   795232219
+unambiguous:     	  9.5840% 	  1105365 	  9.8802% 	    82539797
+ambiguous:       	 83.1674% 	  9592060 	 85.3105% 	   712692422
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 67.2226% 	  7753081 	 69.3627% 	   579462259
+semiperfect site:	 67.2236% 	  7753188 	 69.3636% 	   579470284
+
+Match Rate:      	      NA 	       NA 	 66.7417% 	   790320558
+Error Rate:      	 25.9943% 	  2940472 	 33.2571% 	   393813255
+Sub Rate:        	 25.0994% 	  2839239 	  0.4002% 	     4739548
+Del Rate:        	  1.5103% 	   170841 	 32.8435% 	   388915270
+Ins Rate:        	  0.5570% 	    63012 	  0.0134% 	      158437
+N Rate:          	  0.0464% 	     5249 	  0.0012% 	       13676
+
+Total time:     	584.202 seconds.
+java -ea -Xmx175618m -Xms175618m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006439_S27_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006439_S27_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006439_S27_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006439_S27_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.176 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.079 seconds.
+Analyzed Index:   	0.105 seconds.
+Found samtools 1.4
+Started output stream:	0.044 seconds.
+Cleared Memory:    	0.238 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11406090	(851363703 bases)
+
+Mapping:          	480.969 seconds.
+Reads/sec:       	23714.82
+kBases/sec:      	1770.10
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 98.4567% 	 11230063 	 98.6912% 	   840220773
+unambiguous:     	 10.8290% 	  1235164 	 10.8462% 	    92340515
+ambiguous:       	 87.6277% 	  9994899 	 87.8450% 	   747880258
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 70.4553% 	  8036200 	 70.6486% 	   601476238
+semiperfect site:	 70.4561% 	  8036285 	 70.6493% 	   601482613
+
+Match Rate:      	      NA 	       NA 	 73.9327% 	   835251917
+Error Rate:      	 28.1596% 	  3189854 	 26.0661% 	   294481111
+Sub Rate:        	 27.0674% 	  3066130 	  0.4271% 	     4824698
+Del Rate:        	  1.5502% 	   175599 	 25.6275% 	   289526179
+Ins Rate:        	  0.5415% 	    61345 	  0.0115% 	      130234
+N Rate:          	  0.0485% 	     5489 	  0.0012% 	       13924
+
+Total time:     	481.777 seconds.
+java -ea -Xmx175588m -Xms175588m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006440_S28_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006440_S28_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006440_S28_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006440_S28_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.214 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.099 seconds.
+Analyzed Index:   	0.062 seconds.
+Found samtools 1.4
+Started output stream:	0.057 seconds.
+Cleared Memory:    	0.231 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	12102732	(871997056 bases)
+
+Mapping:          	631.633 seconds.
+Reads/sec:       	19161.02
+kBases/sec:      	1380.54
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 92.3622% 	 11178349 	 95.0263% 	   828626912
+unambiguous:     	 10.9897% 	  1330055 	 11.3855% 	    99280953
+ambiguous:       	 81.3725% 	  9848294 	 83.6409% 	   729345959
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 66.7939% 	  8083889 	 69.2089% 	   603499936
+semiperfect site:	 66.7946% 	  8083975 	 69.2097% 	   603506386
+
+Match Rate:      	      NA 	       NA 	 66.1474% 	   823415585
+Error Rate:      	 26.0464% 	  3090537 	 33.8515% 	   421389217
+Sub Rate:        	 25.1742% 	  2987045 	  0.4045% 	     5034784
+Del Rate:        	  1.4641% 	   173725 	 33.4339% 	   416191552
+Ins Rate:        	  0.5593% 	    66359 	  0.0131% 	      162881
+N Rate:          	  0.0451% 	     5350 	  0.0011% 	       13662
+
+Total time:     	632.456 seconds.
+java -ea -Xmx175577m -Xms175577m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006441_S29_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006441_S29_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006441_S29_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006441_S29_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.147 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.065 seconds.
+Analyzed Index:   	0.071 seconds.
+Found samtools 1.4
+Started output stream:	0.072 seconds.
+Cleared Memory:    	0.231 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	11357011	(824862654 bases)
+
+Mapping:          	562.395 seconds.
+Reads/sec:       	20194.02
+kBases/sec:      	1466.70
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 93.6176% 	 10632158 	 95.8249% 	   790423479
+unambiguous:     	 10.7641% 	  1222479 	 11.0745% 	    91349245
+ambiguous:       	 82.8535% 	  9409679 	 84.7504% 	   699074234
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 67.0192% 	  7611382 	 68.9636% 	   568855363
+semiperfect site:	 67.0200% 	  7611464 	 68.9644% 	   568861513
+
+Match Rate:      	      NA 	       NA 	 66.9658% 	   785412406
+Error Rate:      	 27.0105% 	  3016983 	 33.0331% 	   387430599
+Sub Rate:        	 26.1210% 	  2917638 	  0.4129% 	     4843305
+Del Rate:        	  1.4905% 	   166483 	 32.6070% 	   382432980
+Ins Rate:        	  0.5538% 	    61858 	  0.0132% 	      154314
+N Rate:          	  0.0465% 	     5199 	  0.0011% 	       13454
+
+Total time:     	563.138 seconds.
+java -ea -Xmx175607m -Xms175607m -cp /home/jakob/bin/bbmap/current/ align2.BBMap build=1 overwrite=true fastareadlen=500 in=../data/libs/ID-006442_S30_R1_001_trimmed.fastq.gz trimreaddescription=t t=20 ref=../data/reference_sequences/FQ312003_wplasmids.fa k=8 ambig=random outm=../data/rna_align/ID-006442_S30_R1_001.bam
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, in=../data/libs/ID-006442_S30_R1_001_trimmed.fastq.gz, trimreaddescription=t, t=20, ref=../data/reference_sequences/FQ312003_wplasmids.fa, k=8, ambig=random, outm=../data/rna_align/ID-006442_S30_R1_001.bam]
+Version 38.79
+
+Set threads to 20
+Choosing a site randomly for ambiguous mappings.
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	0.147 seconds.
+Loading index for chunk 1-1, build 1
+Generated Index:	0.057 seconds.
+Analyzed Index:   	0.050 seconds.
+Found samtools 1.4
+Started output stream:	0.062 seconds.
+Cleared Memory:    	0.308 seconds.
+Processing reads in single-ended mode.
+Started read stream.
+Started 20 mapping threads.
+Detecting finished threads: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+   ------------------   Results   ------------------   
+
+Genome:                	1
+Key Length:            	8
+Max Indel:             	16000
+Minimum Score Ratio:  	0.56
+Mapping Mode:         	normal
+Reads Used:           	10682753	(793253954 bases)
+
+Mapping:          	433.085 seconds.
+Reads/sec:       	24666.62
+kBases/sec:      	1831.63
+
+
+Read 1 data:      	pct reads	num reads 	pct bases	   num bases
+
+mapped:          	 97.5432% 	 10420296 	 98.1522% 	   778595948
+unambiguous:     	 10.6476% 	  1137452 	 10.7054% 	    84921069
+ambiguous:       	 86.8956% 	  9282844 	 87.4468% 	   693674879
+low-Q discards:  	  0.0000% 	        0 	  0.0000% 	           0
+
+perfect best site:	 69.7083% 	  7446761 	 70.2015% 	   556875795
+semiperfect site:	 69.7092% 	  7446863 	 70.2024% 	   556883445
+
+Match Rate:      	      NA 	       NA 	 75.7347% 	   774082592
+Error Rate:      	 28.0434% 	  2969850 	 24.2640% 	   248002340
+Sub Rate:        	 27.1660% 	  2876924 	  0.4306% 	     4400832
+Del Rate:        	  1.2730% 	   134818 	 23.8238% 	   243502159
+Ins Rate:        	  0.4328% 	    45834 	  0.0097% 	       99349
+N Rate:          	  0.0478% 	     5059 	  0.0013% 	       13175
+
+Total time:     	433.846 seconds.
+
+        ==========     _____ _    _ ____  _____  ______          _____  
+        =====         / ____| |  | |  _ \|  __ \|  ____|   /\   |  __ \ 
+          =====      | (___ | |  | | |_) | |__) | |__     /  \  | |  | |
+            ====      \___ \| |  | |  _ <|  _  /|  __|   / /\ \ | |  | |
+              ====    ____) | |__| | |_) | | \ \| |____ / ____ \| |__| |
+        ==========   |_____/ \____/|____/|_|  \_\______/_/    \_\_____/
+	  v2.0.1
+
+//========================== featureCounts setting ===========================\\
+||                                                                            ||
+||             Input files : 30 BAM files                                     ||
+||                           o ID-006413_S1_R1_001.bam                        ||
+||                           o ID-006414_S2_R1_001.bam                        ||
+||                           o ID-006415_S3_R1_001.bam                        ||
+||                           o ID-006416_S4_R1_001.bam                        ||
+||                           o ID-006417_S5_R1_001.bam                        ||
+||                           o ID-006418_S6_R1_001.bam                        ||
+||                           o ID-006419_S7_R1_001.bam                        ||
+||                           o ID-006420_S8_R1_001.bam                        ||
+||                           o ID-006421_S9_R1_001.bam                        ||
+||                           o ID-006422_S10_R1_001.bam                       ||
+||                           o ID-006423_S11_R1_001.bam                       ||
+||                           o ID-006424_S12_R1_001.bam                       ||
+||                           o ID-006425_S13_R1_001.bam                       ||
+||                           o ID-006426_S14_R1_001.bam                       ||
+||                           o ID-006427_S15_R1_001.bam                       ||
+||                           o ID-006428_S16_R1_001.bam                       ||
+||                           o ID-006429_S17_R1_001.bam                       ||
+||                           o ID-006430_S18_R1_001.bam                       ||
+||                           o ID-006431_S19_R1_001.bam                       ||
+||                           o ID-006432_S20_R1_001.bam                       ||
+||                           o ID-006433_S21_R1_001.bam                       ||
+||                           o ID-006434_S22_R1_001.bam                       ||
+||                           o ID-006435_S23_R1_001.bam                       ||
+||                           o ID-006436_S24_R1_001.bam                       ||
+||                           o ID-006437_S25_R1_001.bam                       ||
+||                           o ID-006438_S26_R1_001.bam                       ||
+||                           o ID-006439_S27_R1_001.bam                       ||
+||                           o ID-006440_S28_R1_001.bam                       ||
+||                           o ID-006441_S29_R1_001.bam                       ||
+||                           o ID-006442_S30_R1_001.bam                       ||
+||                                                                            ||
+||             Output file : counttable.txt                                   ||
+||                 Summary : counttable.txt.summary                           ||
+||              Annotation : FQ312003.1.gff (GTF)                             ||
+||      Dir for temp files : ../data/rna_align                                ||
+||                                                                            ||
+||                 Threads : 5                                                ||
+||                   Level : meta-feature level                               ||
+||              Paired-end : no                                               ||
+||      Multimapping reads : not counted                                      ||
+|| Multi-overlapping reads : not counted                                      ||
+||   Min overlapping bases : 1                                                ||
+||                                                                            ||
+\\============================================================================//
+
+//================================= Running ==================================\\
+||                                                                            ||
+|| Load annotation file FQ312003.1.gff ...                                    ||
+||    Features : 4981                                                         ||
+||    Meta-features : 4915                                                    ||
+||    Chromosomes/contigs : 4                                                 ||
+||                                                                            ||
+|| Process BAM file ID-006413_S1_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11639999                                             ||
+||    Successfully assigned alignments : 883257 (7.6%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006414_S2_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11148450                                             ||
+||    Successfully assigned alignments : 842644 (7.6%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006415_S3_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11357931                                             ||
+||    Successfully assigned alignments : 862692 (7.6%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006416_S4_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11315061                                             ||
+||    Successfully assigned alignments : 873619 (7.7%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006417_S5_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 10807643                                             ||
+||    Successfully assigned alignments : 772829 (7.2%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006418_S6_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11603306                                             ||
+||    Successfully assigned alignments : 837778 (7.2%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006419_S7_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 13470467                                             ||
+||    Successfully assigned alignments : 1029447 (7.6%)                       ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006420_S8_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11749528                                             ||
+||    Successfully assigned alignments : 946522 (8.1%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006421_S9_R1_001.bam...                                ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 10502334                                             ||
+||    Successfully assigned alignments : 869903 (8.3%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006422_S10_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11559368                                             ||
+||    Successfully assigned alignments : 847268 (7.3%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006423_S11_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 12237584                                             ||
+||    Successfully assigned alignments : 804221 (6.6%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006424_S12_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 12622272                                             ||
+||    Successfully assigned alignments : 852571 (6.8%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006425_S13_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11243994                                             ||
+||    Successfully assigned alignments : 732623 (6.5%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006426_S14_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 12856099                                             ||
+||    Successfully assigned alignments : 882305 (6.9%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006427_S15_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11653814                                             ||
+||    Successfully assigned alignments : 775448 (6.7%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006428_S16_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 10565784                                             ||
+||    Successfully assigned alignments : 813363 (7.7%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006429_S17_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11599104                                             ||
+||    Successfully assigned alignments : 856320 (7.4%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006430_S18_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11913164                                             ||
+||    Successfully assigned alignments : 955337 (8.0%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006431_S19_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 9599602                                              ||
+||    Successfully assigned alignments : 801367 (8.3%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006432_S20_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 10961860                                             ||
+||    Successfully assigned alignments : 778389 (7.1%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006433_S21_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11323809                                             ||
+||    Successfully assigned alignments : 847251 (7.5%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006434_S22_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 12798770                                             ||
+||    Successfully assigned alignments : 812873 (6.4%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006435_S23_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 13133221                                             ||
+||    Successfully assigned alignments : 902813 (6.9%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006436_S24_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 12870885                                             ||
+||    Successfully assigned alignments : 915927 (7.1%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006437_S25_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 12795745                                             ||
+||    Successfully assigned alignments : 947759 (7.4%)                        ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006438_S26_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 10697425                                             ||
+||    Successfully assigned alignments : 740893 (6.9%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006439_S27_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11230063                                             ||
+||    Successfully assigned alignments : 729584 (6.5%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006440_S28_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 11178349                                             ||
+||    Successfully assigned alignments : 850191 (7.6%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006441_S29_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 10632158                                             ||
+||    Successfully assigned alignments : 786208 (7.4%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ID-006442_S30_R1_001.bam...                               ||
+||    Single-end reads are included.                                          ||
+||    Total alignments : 10420296                                             ||
+||    Successfully assigned alignments : 684139 (6.6%)                        ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Write the final count table.                                               ||
+|| Write the read assignment summary.                                         ||
+||                                                                            ||
+|| Summary of counting results can be found in file "../data/rna_align/count  ||
+|| table.txt.summary"                                                         ||
+||                                                                            ||
+\\============================================================================//
+

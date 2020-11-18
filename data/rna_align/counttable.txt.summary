@@ -1,0 +1,15 @@
+Status	../data/rna_align/ID-006413_S1_R1_001.bam	../data/rna_align/ID-006414_S2_R1_001.bam	../data/rna_align/ID-006415_S3_R1_001.bam	../data/rna_align/ID-006416_S4_R1_001.bam	../data/rna_align/ID-006417_S5_R1_001.bam	../data/rna_align/ID-006418_S6_R1_001.bam	../data/rna_align/ID-006419_S7_R1_001.bam	../data/rna_align/ID-006420_S8_R1_001.bam	../data/rna_align/ID-006421_S9_R1_001.bam	../data/rna_align/ID-006422_S10_R1_001.bam	../data/rna_align/ID-006423_S11_R1_001.bam	../data/rna_align/ID-006424_S12_R1_001.bam	../data/rna_align/ID-006425_S13_R1_001.bam	../data/rna_align/ID-006426_S14_R1_001.bam	../data/rna_align/ID-006427_S15_R1_001.bam	../data/rna_align/ID-006428_S16_R1_001.bam	../data/rna_align/ID-006429_S17_R1_001.bam	../data/rna_align/ID-006430_S18_R1_001.bam	../data/rna_align/ID-006431_S19_R1_001.bam	../data/rna_align/ID-006432_S20_R1_001.bam	../data/rna_align/ID-006433_S21_R1_001.bam	../data/rna_align/ID-006434_S22_R1_001.bam	../data/rna_align/ID-006435_S23_R1_001.bam	../data/rna_align/ID-006436_S24_R1_001.bam	../data/rna_align/ID-006437_S25_R1_001.bam	../data/rna_align/ID-006438_S26_R1_001.bam	../data/rna_align/ID-006439_S27_R1_001.bam	../data/rna_align/ID-006440_S28_R1_001.bam	../data/rna_align/ID-006441_S29_R1_001.bam	../data/rna_align/ID-006442_S30_R1_001.bam
+Assigned	883257	842644	862692	873619	772829	837778	1029447	946522	869903	847268	804221	852571	732623	882305	775448	813363	856320	955337	801367	778389	847251	812873	902813	915927	947759	740893	729584	850191	786208	684139
+Unassigned_Unmapped	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Read_Type	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Singleton	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_MappingQuality	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Chimera	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_FragmentLength	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Duplicate	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_MultiMapping	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Secondary	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_NonSplit	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_NoFeatures	10715847	10265765	10453925	10399590	10000534	10726324	12391362	10759804	9593584	10671482	11396010	11729503	10476878	11932158	10844489	9718590	10703367	10918507	8767615	10147159	10436162	11946885	12187796	11911964	11807910	9923831	10465718	10291897	9811705	9703277
+Unassigned_Overlapping_Length	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Unassigned_Ambiguity	40895	40041	41314	41852	34280	39204	49658	43202	38847	40618	37353	40198	34493	41636	33877	33831	39417	39320	30620	36312	40396	39012	42612	42994	40076	32701	34761	36261	34245	32880

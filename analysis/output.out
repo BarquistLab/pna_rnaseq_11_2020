@@ -1,0 +1,95 @@
+Start trimming
+mkdir: created directory '../data/libs'
+../data/fastq/ID-006413_S1_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006413_S1_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006414_S2_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006414_S2_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006415_S3_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006415_S3_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006416_S4_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006416_S4_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006417_S5_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006417_S5_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006418_S6_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006418_S6_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006419_S7_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006419_S7_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006420_S8_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006420_S8_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006421_S9_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006421_S9_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006422_S10_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006422_S10_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006423_S11_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006423_S11_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006424_S12_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006424_S12_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006425_S13_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006425_S13_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006426_S14_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006426_S14_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006427_S15_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006427_S15_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006428_S16_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006428_S16_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006429_S17_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006429_S17_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006430_S18_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006430_S18_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006431_S19_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006431_S19_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006432_S20_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006432_S20_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006433_S21_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006433_S21_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006434_S22_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006434_S22_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006435_S23_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006435_S23_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006436_S24_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006436_S24_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006437_S25_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006437_S25_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006438_S26_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006438_S26_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006439_S27_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006439_S27_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006440_S28_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006440_S28_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006441_S29_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006441_S29_R1_001_trimmed.fastq.gz
+../data/fastq/ID-006442_S30_R1_001.fastq.gz starts trimming nowwwwwww
+ID-006442_S30_R1_001_trimmed.fastq.gz
+Trimming done. Start maopping
+mkdir: created directory '../data/rna_align'
+Starting mapping for sample: ID-006413_S1_R1_001
+Starting mapping for sample: ID-006414_S2_R1_001
+Starting mapping for sample: ID-006415_S3_R1_001
+Starting mapping for sample: ID-006416_S4_R1_001
+Starting mapping for sample: ID-006417_S5_R1_001
+Starting mapping for sample: ID-006418_S6_R1_001
+Starting mapping for sample: ID-006419_S7_R1_001
+Starting mapping for sample: ID-006420_S8_R1_001
+Starting mapping for sample: ID-006421_S9_R1_001
+Starting mapping for sample: ID-006422_S10_R1_001
+Starting mapping for sample: ID-006423_S11_R1_001
+Starting mapping for sample: ID-006424_S12_R1_001
+Starting mapping for sample: ID-006425_S13_R1_001
+Starting mapping for sample: ID-006426_S14_R1_001
+Starting mapping for sample: ID-006427_S15_R1_001
+Starting mapping for sample: ID-006428_S16_R1_001
+Starting mapping for sample: ID-006429_S17_R1_001
+Starting mapping for sample: ID-006430_S18_R1_001
+Starting mapping for sample: ID-006431_S19_R1_001
+Starting mapping for sample: ID-006432_S20_R1_001
+Starting mapping for sample: ID-006433_S21_R1_001
+Starting mapping for sample: ID-006434_S22_R1_001
+Starting mapping for sample: ID-006435_S23_R1_001
+Starting mapping for sample: ID-006436_S24_R1_001
+Starting mapping for sample: ID-006437_S25_R1_001
+Starting mapping for sample: ID-006438_S26_R1_001
+Starting mapping for sample: ID-006439_S27_R1_001
+Starting mapping for sample: ID-006440_S28_R1_001
+Starting mapping for sample: ID-006441_S29_R1_001
+Starting mapping for sample: ID-006442_S30_R1_001
+Finished mapping. Start connecting all tab files
