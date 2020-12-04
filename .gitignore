@@ -5,3 +5,4 @@ data/read_analysis_1/rna_align/*.bam
 *.sam*
 *~
 \#*\#
+*.fna

@@ -54,7 +54,7 @@ fa12e81d3bd2c79f6f0961345704a20d9f3cc82c  ID-006430_S18_R1_001.fastq.gz
 quality check was conducted using:
 
 ```bash
-fastqc -o fastqc/ *.fastq.gz
+fastqc -o ../../analysis/fastqc/ *.fastq.gz
 ```
 
 to put all fastqc files in the fastQC folder.

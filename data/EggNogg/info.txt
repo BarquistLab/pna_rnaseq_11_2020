@@ -1,0 +1,24 @@
+emapper_version	2.0
+original_file	salmonella_combined_eggnogg_input.fasta
+job_input	/data/shared/emapper_jobs/user_data/MM_73t5rcrm/query_seqs.fa
+job_output	query_seqs.fa
+job_output_dir	/data/shared/emapper_jobs/user_data/MM_73t5rcrm
+email	jakobjung@tutanota.com
+job_name	MM_73t5rcrm
+job_path	/data/shared/emapper_jobs/user_data/MM_73t5rcrm
+nseqs	5025
+nsites	4486934
+seq_type	nt
+job_cpus	6
+database	none
+go_evidence	non-electronic
+search_mode	diamond
+orthology_type	all
+seed_evalue	0.001
+seed_score	60
+query_cov	20
+subject_cov	0
+tax_scope	590
+emapper_flags	
+date_created	11/22/20
+cmdline	python2 "$EMAPPERPATH"/emapper.py --cpu "6"        -i "/data/shared/emapper_jobs/user_data/MM_73t5rcrm/query_seqs.fa" --output "query_seqs.fa"        --output_dir "/data/shared/emapper_jobs/user_data/MM_73t5rcrm"        -m "diamond" -d "none"        --tax_scope "590"        --go_evidence "non-electronic"        --target_orthologs "all"        --seed_ortholog_evalue 0.001        --seed_ortholog_score 60        --query-cover 20        --subject-cover 0        --override                --temp_dir "/data/shared/emapper_jobs/user_data/MM_73t5rcrm"

@@ -1,0 +1,492 @@
+---
+title: "RNAseq with edgeR metaanalysis of O'Rourke et al. 2020"
+author: "Jakob Jung"
+date: "july 21, 2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Packages
+Here the necessary packages are imported. They can be installed from Bioconductor or CRAN if not statet otherwise:
+```{r, message=FALSE}
+library(edgeR)
+library(dplyr)
+library(VennDiagram)
+library(ggplot2)
+library('RUVSeq')
+library(RColorBrewer)
+library(oligo)
+library(EDASeq)
+library(gplots)
+library(ggrepel)
+
+```
+
+
+
+# Data Acquisition  
+
+Let's import the gene-wise counts:
+```{r}
+GenewiseCounts <- read.csv(
+  "../data/metaanalysis/ab_data.csv", row.names = 2, header = T, comment.char = "#")
+GenewiseCounts$gene_id <- NULL
+dim(GenewiseCounts)
+head(GenewiseCounts[,1:6])
+```
+\hfill\break
+
+
+We have to change colnames, since they include the whole path:
+```{r}
+#gwc <- GenewiseCounts[, c("R01_Colistin_BR1", "R01_Colistin_BR2", "R01_Colistin_BR3", 
+#                          "R01_Water1_BR1", "R01_Water1_BR2", "R01_Water1_BR3",
+#                          "R08_Polymyxin_BR1", "R08_Polymyxin_BR2", "R10_Polymyxin_BR1",
+#                          "R10_Polymyxin_BR2","R08_Water1_BR1", "R08_Water1_BR2", "R08_Water1_BR3",
+#                          "R10_Water_BR1", "R10_Water_BR2", "R10_Water_BR3")]
+gwc <- GenewiseCounts[, grepl(c("Water|Colistin|Polymyxin"), colnames(GenewiseCounts))]
+gwc <- GenewiseCounts
+
+be <- as.factor(gsub("(R\\d\\d)_.*", "\\1", colnames(gwc)))
+
+
+
+dim(gwc)
+```
+
+We also create a variable for groups of the sample data manually (from the colnames):
+```{r}
+test <- gsub("R\\d\\d_([^_12]*).*", "\\1",colnames(gwc))
+test <- as.factor(test)
+test
+```
+
+
+Now that we have these two dataframes, we can import them into the edgeR environment:
+```{r}
+y <- DGEList(gwc, group = test, genes = rownames(gwc))
+options(digits = 3)
+head(y$samples)
+```
+Now we are ready to go. 
+
+# Filtering
+Now we want to filter out Genes which have very low counts across all libraries. 
+We do this by creating a cutoff $$\frac {10} {L} $$
+where L is the minimum library size in millions. We delete genes that are below the cutoff in at least 2 libraries and check how many are kept:
+```{r}
+L <- min(y$samples$lib.size) / 1000000
+cutoff <- 10/L
+keep <- rowSums(cpm(y) > cutoff) >= 4
+table(keep)
+```
+Now we retain only the unfiltered genes:
+```{r}
+y <- y[keep, , keep.lib.sizes=FALSE]
+```
+
+```{r}
+y <- calcNormFactors(y, method = "TMM")
+```
+
+# Design matrix
+We create a design matrix for the samples:
+```{r}
+design <- model.matrix(~0+test+be)
+colnames(design) <- c(levels(test), "R05", "R06", "R07", "R08", "R09", "R10")
+rownames(design) <- colnames(y$counts)
+design[1:5,]
+
+y <- estimateDisp(y, design, robust=TRUE)
+y$common.dispersion
+plotBCV(y)
+```
+
+
+# Normalization
+Here, we check different Normalization techniques and access their effectivity.
+
+## TMM Normalization
+Let's check how the usually recommended TMM normalization of edgeR performs. for this we use RLE and PCA plots:
+```{r}
+#y <- calcNormFactors(y, method = "TMM")
+#y <- estimateCommonDisp(y)
+
+x <- cpm(y)
+x <- removeBatchEffect(x, batch=be)
+x <- na.omit(x)
+
+
+colors <- brewer.pal(4, "Set1")
+plotRLE(cpm(y), outline=FALSE, ylim=c(-2, 2), col=colors[as.factor(test)])
+plotPCA(cpm(y), col=colors[as.factor(test)], cex=0.7)
+
+```
+
+
+
+We also create a heatmap showing hierarchical clustering between TMM-normalized libraries:
+```{r}
+# We estimate the variance for each row in the logcounts matrix
+logcounts <- cpm(y,log=TRUE)
+var_genes <- apply(logcounts, 1, var)
+
+# Get the gene names for the top 500 most variable genes
+select_var <- names(sort(var_genes, decreasing=TRUE))[1:500]
+
+# Subset logcounts matrix
+highly_variable_lcpm <- logcounts[select_var,]
+
+# Get some nicer colours
+mypalette <- brewer.pal(11,"RdYlBu")
+col.pan <- colorpanel(100, "blue", "white", "red")
+
+# Set up colour vector for test groups
+col.cell <- c("purple","orange", "green", "red")[test]
+
+# Plot the heatmap
+heatmap.2(highly_variable_lcpm,col=col.pan,trace="none", main="Top 500 most variable genes \n across samples after TMM",ColSideColors=col.cell,scale="row",margins = c(7,0.8))
+
+```
+The heatmap also shows rather bad clustering. Because of these bad results for TMM, we switch to manually correcting for batch effects.
+
+
+# Differential Expression analysis
+
+Now we create a DGElist object and create a list of results of DE genes:
+```{r}
+fit <- glmQLFit(y, design, robust = TRUE)
+con <- makeContrasts(colistin = Colistin - Water,
+                     polymyxin = Polymyxin - Water,
+                     levels = design)
+
+res_ab <- list(colistin = glmQLFTest(fit, contrast = con[,1]), 
+            polymyxin = glmQLFTest(fit, contrast = con[,2]))
+levels(test)
+```
+
+
+```{r}
+
+cnew <- makeContrasts(Colistin = Colistin - Water,
+                     Polymyxin = Polymyxin - Water,
+                     ActinomycinD = ActinomycinD - Water,
+                     Bacitracin = Bacitracin - Water,
+                     Cefotaxime = Cefotaxime - Water,
+                     Ceftriaxone = Ceftriaxone - Water,
+                     Penicillin = Penicillin - Water,
+                     Rifampicin = Rifampicin - Water,
+                     Vancomycin = Vancomycin - Water,
+                     Ramoplanin = Ramoplanin - Water,
+                     Cerulenin = Cerulenin - Water,
+                     Chloramphenicol = Chloramphenicol - Water,
+                     Ciprofloxacin = Ciprofloxacin - Water,
+                     Doxorubicin = Doxorubicin - Water,
+                     Flavomycin = Flavomycin - Water,
+                     Cycloserine = Cycloserine - Water,
+                     DMSO = DMSO - Water,
+                     Doxycycline = Doxycycline - Water,
+                     Fidaxomicin = Fidaxomicin - Water,
+                     Isoniazid = Isoniazid - Water,
+                     Rifapentine = Rifapentine - Water,
+                     Linezolid = Linezolid - Water,
+                     Meropenem = Meropenem - Water,
+                     Metronidazole = Metronidazole - Water,
+                     Monactin = Monactin - Water,
+                     Nalidixic = Nalidixic - Water,
+                     Norfloxacin = Norfloxacin - Water,
+                     Novobiocin = Novobiocin - Water,
+                     Triclosan = Triclosan - Water,
+                     levels = design) 
+
+#res_ab <- list(colistin = glmQLFTest(fit, contrast = con[,1]), 
+#            polymyxin = glmQLFTest(fit, contrast = con[,2]))
+
+res_ab <- lapply(colnames(cnew), function(x) {
+  glmQLFTest(fit, contrast = cnew[,x])
+})
+names(res_ab) <- colnames(cnew)
+
+for (name in names(res_ab)) {
+  res_ab[[name]]$table$p_value_FDR <- p.adjust(res_ab[[name]]$table$PValue, method = "fdr")
+}
+
+de <- sapply(res_ab, function(x){
+  sum(c(x$table$p_value_FDR < 0.01 & abs(x$table$logFC)>1))
+})
+de <- de[3:29]
+sum(de) / length(de)
+```
+
+We now create MD, BCV and QLDisp plots to access qualiy of data:
+```{r}
+plotMD(y, main = "MD-plot")
+abline(h=0, col="red", lty=2, lwd=2)
+plotBCV(y)
+plotQLDisp(fit)
+```
+ 
+
+
+Now we create a function which makes nice volcano-plots and run it on all the results:
+```{r}
+do_volcano <- function(restab, pointsize = 2, x_limit = F, show_sig = F, alpha=0.05, 
+                       minlogfc=1, title = "Volcano") {
+  ggplot(restab) +
+  geom_point(
+    data = restab,
+    aes(x = logFC, y = -log10(p_value_FDR)),
+    color = "black",
+    cex = pointsize
+  ) + 
+  geom_hline(yintercept = -log10(alpha),
+             color = "black", linetype = 3) +
+  geom_vline(xintercept = c(-minlogfc,minlogfc),
+             color = "black", linetype = 3) +
+  geom_point(
+    data = restab[restab$p_value_FDR<alpha & restab$logFC < -minlogfc,],
+    aes(x = logFC, y = -log10(p_value_FDR)),
+    color = "blue",
+    cex = pointsize) +
+  theme(axis.title.x = element_text(size=20),
+        axis.title.y = element_text(size=20),
+        axis.text.x = element_text(size=15),
+        axis.text.y = element_text(size=15),
+        plot.title = element_text(hjust = 0.5, size = 23))+
+  geom_point(
+    data = restab[restab$p_value_FDR<alpha & restab$logFC > minlogfc,],
+    aes(x = logFC, y = -log10(p_value_FDR)),
+    color = "red",
+    cex = pointsize) +
+    {if(x_limit) xlim(c(-x_limit,x_limit))}+
+  ggtitle(title)+
+  xlab(expression("Log"[2]*" fold change")) +
+  ylab("- Log10 P-value (FDR adjusted)")+
+  if(show_sig){
+    geom_label_repel(
+    data = restab[(restab$p_value_FDR<alpha & abs(restab$logFC)>minlogfc),],
+    aes(x = logFC, y = -log10(p_value_FDR), 
+        label = row.names(restab[(restab$p_value_FDR<alpha & abs(restab$logFC)>minlogfc),])),
+    hjust = 0.1,
+    vjust = 2,
+    size = 3, segment.alpha = 1, segment.color = "grey")
+  } 
+}
+```
+
+Now we create volcano plots, histograms for the results : 
+```{r}
+#pdf("../analysis/KFF_RUVg_volcanoplots")
+
+for (name in names(res_ab)) {
+  res_ab[[name]]$table$p_value_FDR <- p.adjust(res_ab[[name]]$table$PValue, method = "fdr")
+  restab <- res_ab[[name]]$table
+  print(do_volcano(restab, title=paste(name," - water"), show_sig = F, 
+                   x_limit = abs(max(restab$logFC))+0.3,
+                   alpha=0.01, pointsize = 1, minlogfc = 1))
+  
+}
+#dev.off()
+#pdf("../analysis/KFF_RUVg_histograms")
+for (name in names(res_ab)) {
+  restab <- res_ab[[name]]$table
+  hist(restab$PValue, breaks=100, main=paste(name," - noPNA"))
+}  
+#dev.off()
+```
+
+
+
+
+
+# heatmap
+We create a heatmap showing the different expression patterns of DE genes of all contrasts:
+```{r}
+
+for (name in names(res_ab)) {
+  res_ab[[name]]$table$p_value_FDR <- p.adjust(res_ab[[name]]$table$PValue, method = "fdr")
+}
+topDEgenes <- c(rownames(res_ab$Colistin$table[res_ab$Colistin$table$p_value_FDR<0.01 & 
+                                           abs(res_ab$Colistin$table$logFC)>1,]),
+                rownames(res_ab$Polymyxin$table[res_ab$Polymyxin$table$p_value_FDR<0.01 & 
+                                           abs(res_ab$Polymyxin$table$logFC)>1,])
+                )
+
+
+
+logCPM_ab <- cpm(y, prior.count = 2, log = TRUE) 
+logCPM_ab <- logCPM_ab[rownames(logCPM_ab)%in%topDEgenes,]
+logCPM_ab <- t(scale(t(logCPM_ab)))
+
+
+
+#x <- data.frame(lt = rownames(logCPM_ab))
+#x <- merge(x, list_comp, by.x = "lt", by.y = "locustag", all.x = TRUE)
+#x$Prefname <- as.character(x$Prefname)
+#x$Prefname[is.na(x$Prefname)] <- as.character(x$lt[is.na(x$Prefname)])
+#rownames(logCPM_ab) <- x$Prefname
+
+
+heatmap.2(logCPM_ab, col=col.pan, Rowv = TRUE, scale = "none", 
+          trace = "none", dendrogram = "both", cexRow = 1, cexCol = 1, 
+          density.info = "none", margins = c(6,10))
+
+```
+
+```{r}
+library(ComplexHeatmap)
+# get log2change, between those and noPNA:
+logchange_ab <- data.frame(Colistin = res_ab$Colistin$table$logFC,Polymyxin =res_ab$Polymyxin$table$logFC,
+                           row.names = rownames(res_ab$Colistin$table))
+pvals_ab <- data.frame(Colistin = res_ab$Colistin$table$p_value_FDR<0.01,Polymyxin =res_ab$Polymyxin$table$p_value_FDR<0.01,
+                        row.names = rownames(res_ab$Colistin$table))
+#select only significant ones:
+logchange_ab <- logchange_ab[rownames(logchange_ab)%in%topDEgenes,]
+logchange_ab <- logchange_ab[rownames(logCPM_ab),]
+
+
+#select only significant ones:
+pvals_ab <- pvals_ab[rownames(pvals_ab)%in%topDEgenes,]
+rownames(pvals_ab) <- rownames(logCPM_ab)
+
+pvals_ab <-sapply(pvals_ab, function(x) ifelse(x, x <- "*",x<-"") )
+
+
+pvals_ab <- pvals_ab[order(logchange_ab$Colistin, decreasing = T),]
+logCPM_ab <-logCPM_ab[order(logchange_ab$Colistin, decreasing = T),]
+logchange_ab <- logchange_ab[order(logchange_ab$Colistin, decreasing = T),]
+
+
+logCPM_ab_3 <- t(logCPM_ab)
+logchange_ab_3 <- t(logchange_ab)
+pvals_ab_3 <- t(pvals_ab)
+
+rownames(logchange_ab_3) <- gsub("(.*)", " \\1",rownames(logchange_ab_3))
+
+ht1 <- Heatmap(logCPM_ab_3, name = "logCPM", column_title = "Sample clustering",
+               border = TRUE, cluster_rows = F, cluster_columns = F)
+ht2 <- Heatmap(logchange_ab_3, name = "Log2 FC",
+               col = circlize::colorRamp2(c(-2, 0, 2), c("darkgreen", "white", "brown")),
+               column_title =expression("Log"[2]*" fold change"), border = TRUE)
+ht1 %v% ht2
+
+```
+
+# Comparison of DE profiles between this and RXR/TAT:
+
+Get all the DE profiles (polymyxin, colistin, RXR, TAT). First we need to run the other PNA-scripts. 
+```{r}
+colistin_de <- res_ab$Colistin$table
+colnames(colistin_de) <- gsub("(.*)", "\\1_Colistin", colnames(colistin_de))
+
+polymyxin_de <- res_ab$Polymyxin$table
+colnames(polymyxin_de) <- gsub("(.*)", "\\1_Polymyxin", colnames(polymyxin_de))
+
+
+PNAKFF_de <- res_KFF$PNAKFF$table
+colnames(PNAKFF_de) <- gsub("(.*)", "\\1_PNA-KFF", colnames(PNAKFF_de))
+
+PNARXR_de <- res_RXR$PNARXR$table
+colnames(PNARXR_de) <- gsub("(.*)", "\\1_PNA-RXR", colnames(PNARXR_de))
+
+PNATAT_de <- res_TAT$PNATAT$table
+colnames(PNATAT_de) <- gsub("(.*)", "\\1_PNA-TAT", colnames(PNATAT_de))
+```
+
+Now we have to get allgenes which are orthologous in e. coli and salmonella:
+```{r}
+# get ortho output:
+orthotable <- read.delim("../data/orurke_metaanalysis/ecoli_salmonella.proteinortho.tsv")[-(1:9),4:5]
+
+# merge all tables to get
+tot <- merge(orthotable, PNATAT_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(tot, PNARXR_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(tot, PNAKFF_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+
+tot <-  merge(tot, colistin_de[,c(1,5)], by.y=0 ,by.x="MG1655_locustags.fna")
+tot <-  merge(tot, polymyxin_de[,c(1,5)], by.y=0 ,by.x="MG1655_locustags.fna")
+
+rownames(tot) <- tot$SL1344_locustags.fna
+
+
+```
+
+
+
+now create table of logfc of all the significant genes (to compare):
+```{r}
+# get DE genes from PNA datasets:
+degenes <- unique(c(rownames(head(PNARXR_de[PNARXR_de$p_value_FDR<0.01 & abs(PNARXR_de$logFC)>1,], n = 100)),
+             rownames(head(PNATAT_de[PNATAT_de$p_value_FDR<0.01 & abs(PNATAT_de$logFC)>1,], n = 100)),
+             rownames(head(PNAKFF_de[PNAKFF_de$p_value_FDR<0.01 & abs(PNAKFF_de$logFC)>1,], n = 100))))
+degenes <- degenes[degenes %in% rownames(tot)]
+
+de_ab <- unique(c(rownames(colistin_de[colistin_de$p_value_FDR<0.01 & abs(colistin_de$logFC)>1,]),
+             rownames(polymyxin_de[polymyxin_de$p_value_FDR<0.01 & abs(polymyxin_de$logFC)>1,])))
+de_ab <- de_ab[de_ab %in% tot$MG1655_locustags.fna]
+
+pvs_de <- tot[(tot$MG1655_locustags.fna %in% de_ab),c(4,6,8,10,12)] #|(tot$SL1344_locustags.fna %in% degenes)
+pvs_de <- pvs_de < 0.01
+pvs_de <- ifelse(pvs_de, pvs_de <- "*",pvs_de<-"") 
+
+logfc_de <- tot[(tot$MG1655_locustags.fna %in% de_ab),c(3,5,7,9,11)] # |(tot$SL1344_locustags.fna %in% degenes)
+
+logfc_de <- logfc_de[order(logfc_de$logFC_Polymyxin),]
+pvs_de <- pvs_de[rownames(logfc_de),]
+
+
+colnames(logfc_de) <- gsub ("logFC_", "", colnames(logfc_de))
+
+prefname <- ifelse(rownames(logfc_de) %in% pnames$V2 ,pnames[rownames(logfc_de),]$V1, "" )
+prefname <- ifelse(isUnique(prefname), prefname, "")
+rownames(logfc_de) <- ifelse(prefname != "", prefname, rownames(logfc_de))
+
+colnames(logfc_de) <- c("TAT-acpP", "RXR-acpP", "KFF-acpP", "Colistin", "Polymyxin")
+logfc_de <- logfc_de[,c(3,2,1,4,5)]
+
+pvs_de <- pvs_de[,c(3,2,1,4,5)]
+```
+
+create Heatmap to compare Dff. expressions 
+```{r}
+library(circlize)
+col_fun = colorRamp2(c(-2, 0, 2), c("darkblue", "beige", "red"))
+
+ht2 <- Heatmap(logfc_de, name = "Log2 FC",
+               col = col_fun,
+               cluster_rows = F, cluster_columns = F, show_heatmap_legend = F,
+               cell_fun = function(j, i, x, y, width, height, fill) {
+                 grid.text(sprintf("%.1s", pvs_de[i, j]), x, y, gp = gpar(fontsize = 10))
+               },column_split = as.factor(c(rep("",3), rep(" ", 2))), column_gap = unit(0.3, "cm"),
+               border = F, width = unit(5, "cm"), rect_gp = gpar(col = "darkgrey", lwd = 0.5),
+               row_names_gp = gpar(fontsize =9), column_names_gp = gpar(fontsize =10),
+              # row_names_max_width = max_text_width(rownames(logfc_de),gp = gpar(fontsize = 0)
+              # ), column_names_max_height=max_text_width(colnames(logfc_de),gp = gpar(fontsize = 40)),
+               #width = unit(20, "cm"), height = unit(45, "cm"), row_dend_width = unit(6, "cm"),
+               #column_dend_height = unit(3, "cm"), 
+               column_names_rot = 45)
+
+svg("../analysis/orurke_analysis/antibiotics_hm_test.svg")
+ht2
+lgd2 = Legend(col_fun = col_fun, title = expression("Log"[2]*" FC"),grid_width = unit(0.5, "cm"), 
+              legend_height = unit(2, "cm"), title_gp = gpar(fontsize =10), title_position = "leftcenter-rot", at = c(-2,-1,0,1,2),
+              labels_gp = gpar(fontsize = 7 ), labels = c("-2", "-1", " 0"," 1", " 2" ))
+draw(lgd2, x = unit(5, "cm"), y = unit(10, "cm"), just = c("right", "top"))
+dev.off()
+
+```
+
+
+
+
+
+
+
+

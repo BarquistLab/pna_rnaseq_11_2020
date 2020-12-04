@@ -1,0 +1,14 @@
+# The adjacency matrix, the number of edges between 2 species
+# file	MG1655_locustags.fna	SL1344_locustags.fna	
+MG1655_locustags.fna	0	1598
+SL1344_locustags.fna	1598	0
+# file	average number of edges
+MG1655_locustags.fna	799	
+SL1344_locustags.fna	799	
+# The 2-path matrix, the number of paths between 2 species of length 2
+# file	MG1655_locustags.fna	SL1344_locustags.fna	
+MG1655_locustags.fna(0)	2553604	0
+SL1344_locustags.fna(1)	0	2553604
+# file	average number of 2-paths
+MG1655_locustags.fna(0)	1276802
+SL1344_locustags.fna(1)	1276802
