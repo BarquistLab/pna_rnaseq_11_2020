@@ -13,7 +13,7 @@
    viewBox="0 0 504 522.25238"
    version="1.1"
    id="svg1845"
-   sodipodi:docname="antibiotics_hm_test.svg"
+   sodipodi:docname="antibiotics_hm_orurke.svg"
    inkscape:version="1.0.1 (1.0.1+r74)">
   <metadata
      id="metadata1849">
@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -46,11 +46,12 @@
      fit-margin-bottom="0"
      inkscape:zoom="1.09375"
      inkscape:cx="336"
-     inkscape:cy="250.62224"
+     inkscape:cy="323.7651"
      inkscape:window-x="72"
      inkscape:window-y="147"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1845" />
+     inkscape:current-layer="svg1845"
+     inkscape:document-rotation="0" />
   <defs
      id="defs244">
     <g
@@ -699,7 +700,9 @@
   </defs>
   <g
      id="surface10525"
-     transform="translate(0,18.252392)">
+     transform="translate(0,18.252392)"
+     inkscape:export-xdpi="273.79868"
+     inkscape:export-ydpi="273.79868">
     <rect
        x="0"
        y="0"
@@ -4860,7 +4863,9 @@
      x="166.38441"
      y="218.74745"
      id="text4478"
-     transform="rotate(-45.070944)"><tspan
+     transform="rotate(-45.070944)"
+     inkscape:export-xdpi="273.79868"
+     inkscape:export-ydpi="273.79868"><tspan
        sodipodi:role="line"
        id="tspan4476"
        x="166.38441"
@@ -4877,7 +4882,9 @@
      x="113.41729"
      y="165.64915"
      id="text5227"
-     transform="rotate(-45.070944)"><tspan
+     transform="rotate(-45.070944)"
+     inkscape:export-xdpi="273.79868"
+     inkscape:export-ydpi="273.79868"><tspan
        sodipodi:role="line"
        x="113.41729"
        y="165.64915"

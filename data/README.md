@@ -74,7 +74,7 @@ Tab file connecting locus tag names to gene names. Used in r-scripts for linking
 how it was created (bash command):
 
 ```bash
-grep -P "\tgene\t" Salmonella_combined_BMG2.gff |\
+grep -P "(\tgene\t)|(\tpseudogene\t)|(\rRNA\t)|(\tRNA\t)" ./reference_sequences/FQ312003.1.gff |\
 cut -f9 | \
 sed -r 's/^.*Name=([^;]+).*locus_tag=([^; ]+).*$/\1\t\2/' | \
 sed -r 's/^ID=.*Name=([^;]+).*$/\1\t\1/'  > link_lt_gn.tab

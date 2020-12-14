@@ -1174,13 +1174,31 @@ dev.off()
 # SPI2 analysis:
 load data:
 ```{r}
-df <- read.delim("../data/PhoPQ_analysis_salcom/salcom_spi2genes_colgan.txt", header = T, sep="\t")
-df_salcom <- data.frame(wildtype = df$WT.MEP, SPI2 = df$WT.InSPI2, 
-                        PhoPQ_ko = df$X.Delta.phoP.Q.InSPI2, row.names = df$SL1344.Locus.ID)
+df_spi2 <- read.delim("../data/PhoPQ_analysis_salcom/salcom_spi2genes_colgan.txt", header = T, sep="\t")
+df_phopq <- read.delim("../data/PhoPQ_analysis_salcom/salcom_query.phopq.txt", header = T, sep="\t")
 
-tpm_salcom <- data.frame(sapply(df_salcom, function(x) as.integer(gsub(",","", x))), row.names = rownames(df_salcom))
+df_salcom_spi2 <- data.frame(Wildtype = df_spi2$WT.MEP, SPI2 = df_spi2$WT.InSPI2, 
+                        PhoPQ_ko = df_spi2$X.Delta.phoP.Q.InSPI2, row.names = df_spi2$SL1344.Locus.ID)
 
-tpm_salcom <- tpm_salcom[order(tpm_salcom$SPI2),]
+df_salcom_phopq <- data.frame(Wildtype = df_phopq$WT.MEP, SPI2 = df_phopq$WT.InSPI2, 
+                        PhoPQ_ko = df_phopq$X.Delta.phoP.Q.InSPI2, row.names = df_phopq$SL1344.Locus.ID)
+
+tpm_salcom_spi2 <- data.frame(sapply(df_salcom_spi2, function(x) as.integer(gsub(",","", x))), 
+                              row.names = rownames(df_salcom_spi2))
+tpm_salcom_phopq <- data.frame(sapply(df_salcom_phopq, function(x) as.integer(gsub(",","", x))), 
+                              row.names = rownames(df_salcom_phopq))
+
+tpm_salcom_spi2 <- tpm_salcom_spi2[order(tpm_salcom_spi2$SPI2),]
+tpm_salcom_phopq <- tpm_salcom_phopq[order(tpm_salcom_phopq$SPI2),]
+tpm_salcom_spi2 <- tpm_salcom_spi2[!(rownames(tpm_salcom_spi2)=="SL1344_1325"),]
+
+tpm_salcom_spi2$condition <- "SPI2"
+tpm_salcom_phopq$condition <- "PhoPQ"
+
+rownames(tpm_salcom_phopq) <- gsub(".*MgrR", "MgrR", rownames(tpm_salcom_phopq))
+tpm_salcom <- data.frame(rbind(tpm_salcom_phopq, tpm_salcom_spi2), row.names = c(rownames(tpm_salcom_phopq),
+                                                                                 rownames(tpm_salcom_spi2)))
+
 str(tpm_salcom)
 ```
 Get all genes which are in our dataset:
@@ -1206,6 +1224,11 @@ logchanges_spi2 <- data.frame(lapply(reslist, function(l) {
   }), row.names = all_spi2_genes )
 })) 
 
+colnames(logchanges_spi2) <- c("KFF-acpP ", "KFF-acpP-scrambled ", "KFF-only ","RXR-acpP ",
+                          "RXR-acpP-scrambled ", "RXR-only ",
+                          "TAT-acpP ", "TAT-acpP-scrambled ", "TAT-only")
+
+
 # get mean cpm values of all conditions:
 countscpm <- cpm(y)[all_spi2_genes,]
 #levels(test) <- levels(test)[c(2,3,1,5,6,4,8,9,7,10)]
@@ -1217,10 +1240,12 @@ spi2_cpm <- spi2_cpm[,c(2,3,1,5,6,4,8,9,7,10)]
 
 pvalues_spi2 <- data.frame(lapply(reslist, function(l) {
   logfc <- data.frame( sapply(names(l), function(r) {
-    l[[r]]$table[all_spi2_genes,5]
+    l[[r]]$table[all_spi2_genes,]$p_value_FDR<0.001 & abs(l[[r]]$table[all_spi2_genes,]$logFC)>1
   }), row.names = all_spi2_genes )
 })) 
-pvalues_spi2 <-ifelse(pvalues_spi2 < 0.01, x <- "*",x<-"") 
+
+pvalues_spi2 <-sapply(pvalues_spi2, function(x) ifelse(x , x <- "*",x<-"")) 
+
 
 
 ```
@@ -1236,7 +1261,7 @@ col_fun = colorRamp2(c(-2, 0, 2), c("darkblue", "beige", "red"))
 ht_vert <- Heatmap(logchanges_spi2, cluster_rows = F, cluster_columns = F,
                name = "SPI2 analysis", col = col_fun,
                show_heatmap_legend = F, 
-               row_title_side = "right", row_title_rot = 0,
+               row_title_side = "left", row_title_rot = 0,
                border = TRUE, 
                cell_fun = function(j, i, x, y, width, height, fill) {
                  grid.text(sprintf("%.1s", pvalues_spi2[i, j]), x, y)
@@ -1244,30 +1269,30 @@ ht_vert <- Heatmap(logchanges_spi2, cluster_rows = F, cluster_columns = F,
                column_names_gp = gpar(fontsize = 10),
                row_names_gp = gpar(fontsize = 10),
                column_split = factor(ord, levels = lev), 
-               row_title = NULL,
-               row_gap = unit(0.1, "cm"),
+               row_split = factor(tpm_salcom$condition),
+               row_gap = unit(0.2, "cm"),
                width = unit(9*0.7, "cm"), height = unit(h/2, "cm"),
                column_names_rot = 45,
                rect_gp = gpar(col = "black", lwd = 0.1))
 
 
-col_col_fun = colorRamp2(c(10,100,1000), c("lightgrey", "yellow", "red"))
-ht_colgan <- Heatmap(tpm_salcom, cluster_rows = F, cluster_columns = F,
+col_col_fun = colorRamp2(c(0, 2,3), c("lightgrey", "yellow", "red"))
+ht_colgan <- Heatmap(log10(tpm_salcom[,1:3]), cluster_rows = F, cluster_columns = F,
                name = "Colgan et al., 2016", col = col_col_fun,
                show_heatmap_legend = F, 
                row_title_side = "right", row_title_rot = 0,
                border = TRUE, 
+               row_split = factor(tpm_salcom$condition),
                column_names_gp = gpar(fontsize = 10),
                row_names_gp = gpar(fontsize = 10),
-               row_title = NULL,
-               row_gap = unit(0.1, "cm"),
+               row_gap = unit(0.2, "cm"),
                width = unit(3*0.7, "cm"), height = unit(h/2, "cm"),
                column_names_rot = 45,
                rect_gp = gpar(col = "black", lwd = 0.1))
 
-col_fun_cpm = colorRamp2(c(0, 50, 100), c("lightgrey", "yellow", "red"))
+col_fun_cpm = colorRamp2(c(0, 1.7, 2), c("lightgrey", "yellow", "red"))
 order = factor(c(rep("KFF", 3), rep("RXR", 3), rep("TAT", 3), "Control"))
-ht_cpm <- Heatmap(spi2_cpm, cluster_rows = F, cluster_columns = F,
+ht_cpm <- Heatmap(log10(spi2_cpm), cluster_rows = F, cluster_columns = F,
         name = "SPI2 analysis", col = col_fun_cpm,
         show_heatmap_legend = F, 
         row_title_side = "right", row_title_rot = 0,
@@ -1285,18 +1310,20 @@ ht_cpm <- Heatmap(spi2_cpm, cluster_rows = F, cluster_columns = F,
 ht_list =  ht_vert + ht_colgan 
 ht_list
 
-lgd = Legend(col_fun = col_fun, title = "mean log2FC", 
-             at = c(-2, 0, 2), legend_width = unit(4, "cm"), legend_height = unit(5, "cm"),
+lgd = Legend(col_fun = col_fun, title = "Mean log2FC",
+             at = c(-2, 0, 2), legend_width = unit(4, "cm"),
+             labels = c("-2", " 0", " 2"), legend_height = unit(3, "cm"),
              title_position = "leftcenter-rot")
 lgd_col = Legend(col_fun = col_col_fun, title = "Transcripts per million",
-             at = c(0, 100, 1000), legend_width = unit(4, "cm"), legend_height = unit(5, "cm"),
+             at = c(0, 1, 2, 3), labels = c(0,10,100,1000), legend_width = unit(3, "cm"),
+             legend_height = unit(3, "cm"),
              title_position = "leftcenter-rot")
 
 
-svg("../analysis/PhoPQ_Salcom/hm_salcom.svg", width = 10, height = 10)
+svg("../analysis/PhoPQ_Salcom/hm_salcom_phopq_spi2.svg", width = 10, height = 15)
 draw(ht_list, ht_gap = unit(0.5, "cm"))
-draw(lgd, x = unit(5, "cm"), y = unit(10, "cm"), just = c("left", "bottom"))
-draw(lgd_col, x = unit(19, "cm"), y = unit(10, "cm"), just = c("left", "bottom"))
+draw(lgd, x = unit(4, "cm"), y = unit(18, "cm"), just = c("left", "bottom"))
+draw(lgd_col, x = unit(20, "cm"), y = unit(18, "cm"), just = c("left", "bottom"))
 dev.off()
 ```
 
