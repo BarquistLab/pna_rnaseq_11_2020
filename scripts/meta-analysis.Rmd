@@ -36,7 +36,7 @@ library(ggrepel)
 Let's import the gene-wise counts:
 ```{r}
 GenewiseCounts <- read.csv(
-  "../data/metaanalysis/ab_data.csv", row.names = 2, header = T, comment.char = "#")
+  "../data/orurke_metaanalysis/ab_data.csv", row.names = 2, header = T, comment.char = "#")
 GenewiseCounts$gene_id <- NULL
 dim(GenewiseCounts)
 head(GenewiseCounts[,1:6])
@@ -465,20 +465,16 @@ ht2 <- Heatmap(logfc_de, name = "Log2 FC",
                cell_fun = function(j, i, x, y, width, height, fill) {
                  grid.text(sprintf("%.1s", pvs_de[i, j]), x, y, gp = gpar(fontsize = 10))
                },column_split = as.factor(c(rep("",3), rep(" ", 2))), column_gap = unit(0.3, "cm"),
-               border = F, width = unit(5, "cm"), rect_gp = gpar(col = "darkgrey", lwd = 0.5),
+               border = T, width = unit(3.5, "cm"), height = unit(18, "cm"),
                row_names_gp = gpar(fontsize =9), column_names_gp = gpar(fontsize =10),
-              # row_names_max_width = max_text_width(rownames(logfc_de),gp = gpar(fontsize = 0)
-              # ), column_names_max_height=max_text_width(colnames(logfc_de),gp = gpar(fontsize = 40)),
-               #width = unit(20, "cm"), height = unit(45, "cm"), row_dend_width = unit(6, "cm"),
-               #column_dend_height = unit(3, "cm"), 
                column_names_rot = 45)
 
-svg("../analysis/orurke_analysis/antibiotics_hm_test.svg")
+pdf("../analysis/orurke_analysis/antibiotics_hm.pdf", width = 5, height = 10)
 ht2
-lgd2 = Legend(col_fun = col_fun, title = expression("Log"[2]*" FC"),grid_width = unit(0.5, "cm"), 
-              legend_height = unit(2, "cm"), title_gp = gpar(fontsize =10), title_position = "leftcenter-rot", at = c(-2,-1,0,1,2),
-              labels_gp = gpar(fontsize = 7 ), labels = c("-2", "-1", " 0"," 1", " 2" ))
-draw(lgd2, x = unit(5, "cm"), y = unit(10, "cm"), just = c("right", "top"))
+lgd2 = Legend(col_fun = col_fun, title = expression("Log"[2]*" FC"), 
+              title_gp = gpar(fontsize =10), title_position = "leftcenter-rot", at = c(-2,-1,0,1,2),
+              labels_gp = gpar(fontsize = 7 ), labels = c("-2", "-1", "  0","  1", "  2" ))
+draw(lgd2, x = unit(3, "cm"), y = unit(13, "cm"), just = c("right", "top"))
 dev.off()
 
 ```

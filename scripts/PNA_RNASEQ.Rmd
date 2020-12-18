@@ -48,6 +48,14 @@ GenewiseCounts <- read.delim(
 
 dim(GenewiseCounts)
 head(GenewiseCounts[,1:6])
+
+#geo <- GenewiseCounts
+#colnames(geo) <- gsub("\\.\\.\\.data\\.rna_align\\.(.*_S\\d\\d?_R1_001)\\.bam", "\\1", 
+#                                 colnames(geo))
+#colnames(geo) <- gsub("ID\\.", "ID-", 
+#                                 colnames(geo))
+#write.csv(geo, "../data/GEO/counttable.csv")
+
 ```
 \hfill\break
 
@@ -232,22 +240,24 @@ Now we create a function which makes nice volcano-plots and run it on all the re
 
 
 do_volcano <- function(restab, pointsize = 2, x_limit = F,y_limit=F, show_sig = F, alpha=0.05, 
-                       minlogfc=1, title = "Volcano", sRNAS = F) {
+                       minlogfc=1, title = "Volcano", sRNAS = F, phopq = F) {
+  rownames(restab) <- gsub("^([^A-Z].+)" , "italic('\\1')" , rownames(restab))
   g = ggplot(restab) +
   geom_point(
     data = restab,
     aes(x = logFC, y = -log10(FDR)),
     color = "darkgrey",
     cex = pointsize
-  ) + theme_bw()+ # chane theme to standard black&wite.
+  ) + theme_bw()+ # change theme to standard black&wite.
   geom_hline(yintercept = -log10(alpha),
              color = "black", linetype = 3) +
   geom_vline(xintercept = c(-minlogfc,minlogfc),
              color = "black", linetype = 3) +
   theme(axis.title.x = element_text(size=20),
         axis.title.y = element_text(size=20),
-        axis.text.x = element_text(size=15),
-        axis.text.y = element_text(size=15),
+        axis.text = element_text(size=15, colour = "black"),
+        panel.background = element_rect(colour = "black"),
+        axis.line = element_line(colour = "black"),
         panel.grid.minor.x = element_blank(),
         panel.grid.minor.y = element_blank(),
         panel.grid.major.x =  element_blank(),#element_line(colour="lightgrey", size=0.3),
@@ -255,7 +265,7 @@ do_volcano <- function(restab, pointsize = 2, x_limit = F,y_limit=F, show_sig = 
         plot.title = element_text(hjust = 0.5, size = 23))+
   ggtitle(title)+
   xlab(expression("Log"[2]*" fold change")) +
-  ylab("- Log10 P-value (FDR adjusted)")+
+  ylab("- Log10 P-value (FDR)")+
   scale_x_continuous(expand = c(0,0),breaks = seq(-6,6,2), limits = c(-x_limit,x_limit)) +
   scale_y_continuous(expand = c(0, 0),breaks = seq(0,16,2), limits = c(0,y_limit)) 
 
@@ -288,24 +298,38 @@ do_volcano <- function(restab, pointsize = 2, x_limit = F,y_limit=F, show_sig = 
       vjust = 2,
       size = 4, segment.alpha = 0.5,min.segment.length=0, segment.color = "black") 
   }
+  g <- g + 
+      geom_point(
+        data = restab[restab$genes %in% c("acpP", "fabF"),],
+        aes(x = logFC, y = -log10(FDR)),
+        bg = "aquamarine3", 
+        cex = pointsize+1, pch = 21)
+  if (phopq != F) {
+    g <- g + geom_point(
+        data = restab[restab$genes %in% phopq,],
+        aes(x = logFC, y = -log10(FDR)),
+        bg = "darkred", 
+        cex = pointsize+1, pch=21)
+  }
+  
   # show the sigficantest genes:
   if(show_sig){
     range01 <- function(x){(x-min(x))/(max(x)-min(x))}
     top_up <- restab[ which(restab$FDR < alpha & restab$logFC > minlogfc),]
     top_down <- restab[ which(restab$FDR < alpha & restab$logFC < -(minlogfc)),]
     
-    if (length(rownames(top_up)) > 0 && (length(rownames(top_up)) > 10)){
+    if (length(rownames(top_up)) > 0 && (length(rownames(top_up)) > 3)){
     logFC.scaled <- range01(top_up$logFC)
     FDR.scaled <- range01(-log(top_up$FDR))
     summ <- (logFC.scaled + FDR.scaled)
-    top_up <- top_up[order(-summ),][1:10,]
+    top_up <- top_up[order(-summ),][1:3,]
     }
 
-    if (length(rownames(top_down))>0 && (length(rownames(top_down))> 10)){
+    if (length(rownames(top_down))>0 && (length(rownames(top_down))> 3)){
       logFC.scaled <- range01(-top_down$logFC)
       FDR.scaled <- range01(-log(top_down$FDR))
       summ <- (logFC.scaled + FDR.scaled)
-      top_down <- top_down[order(-summ),][1:10,]
+      top_down <- top_down[order(-summ),][1:3,]
     }
 
     top_peaks <- rbind(top_up, top_down)
@@ -317,7 +341,7 @@ do_volcano <- function(restab, pointsize = 2, x_limit = F,y_limit=F, show_sig = 
         label = rownames(top_peaks)),
     hjust = 0.1,
     vjust = 2, 
-    size = 4, segment.alpha = 0.5, segment.color = "black", min.segment.length=unit(0, "cm")) 
+    size = 5, segment.alpha = 0.5, segment.color = "black", min.segment.length=unit(0, "cm"), parse = T) 
   }
   
   
@@ -330,6 +354,14 @@ Now we adjust p-values, create volcano plots, histograms for the results (and sa
 sRNAs <- c(rownames(res_KFF$PNAKFF$table)[!grepl("SL1344_", rownames(res_KFF$PNAKFF$table))], "cpxP")
 pnames <- read.delim("../data/link_lt_gn.tab", header = F)
 rownames(pnames) <- pnames$V2
+
+ppq_raw <- read.delim("../data/PHOPQ.tsv", header = F)
+ppq <- as.character(ppq_raw$V1)
+phopqvolc <- c(pnames[pnames$V1 %in% ppq,]$V2, "PinT", "SL1344_1169", "SL1344_1168")
+prefname <- ifelse(phopqvolc %in% pnames$V2 ,pnames[phopqvolc,]$V1, "" )
+prefname <- ifelse(isUnique(prefname), prefname, "")
+phopqvolc <- ifelse(prefname != "", prefname, phopqvolc)
+phopqvolc <- c(phopqvolc, "phoP", "phoQ")
 
 for (resname in names(all_res)){
   for (name in names(all_res[[resname]])){
@@ -355,12 +387,11 @@ for (resname in names(all_res)){
   #hist(restab$PValue, breaks=100, main=paste(name," - noPNA"))
   
   # make sRNA volcanos:
-  svg(paste("../analysis/volcanoplots/sRNAs/",name, "_sRNAs.svg"))
+  pdf(paste("../analysis/volcanoplots/",name, ".pdf"))
   print(do_volcano(restab, title=paste(name," - noPNA"), 
                    x_limit = 7,
                    y_limit = 16,
-                   alpha=0.001, pointsize = 3, show_sig = F,
-                   sRNAS = sRNAs))
+                   alpha=0.001, pointsize = 3, show_sig = T, phopq = phopqvolc))
   dev.off()
   }
 }
@@ -384,12 +415,16 @@ for (name in names(res_KFF)) {
   #write.csv(res_KFF[[name]]$table, dataname)
 }
 
-topDEgenes <- c(rownames(res_KFF$PNAKFF$table[res_KFF$PNAKFF$table$FDR<0.001 & 
-                                           abs(res_KFF$PNAKFF$table$logFC)>1,])[1:20],
-                rownames(res_KFF$PNAKFFscr$table[res_KFF$PNAKFFscr$table$FDR<0.001 & 
-                                           abs(res_KFF$PNAKFFscr$table$logFC)>1,])[1:20],
-                rownames(res_KFF$KFF$table[res_KFF$KFF$table$FDR<0.001 & 
-                                           abs(res_KFF$KFF$table$logFC)>1,])[1:20], 
+pttk <- res_KFF$PNAKFF$table[order(res_KFF$PNAKFF$table$PValue),]
+ptscrk <- res_KFF$PNAKFFscr$table[order(res_KFF$PNAKFFscr$table$PValue),]
+ttk <- res_KFF$KFF$table[order(res_KFF$KFF$table$PValue),]
+
+topDEgenes <- c(rownames(pttk[pttk$p_value_FDR<0.001 & 
+                                           abs(pttk$logFC)>1,])[1:20],
+                rownames(ptscrk[ptscrk$p_value_FDR<0.001 & 
+                                           abs(ptscrk$logFC)>1,])[1:20],
+                rownames(ttk[ttk$p_value_FDR<0.001 & 
+                                           abs(ttk$logFC)>1,])[1:20], 
                 "SL1344_1133", "SL1344_1134")
 topDEgenes <- unique(topDEgenes[!is.na(topDEgenes)])
 
@@ -439,8 +474,7 @@ pvals <- pvals[rownames(pvals)%in%topDEgenes,]
 colnames(pvals) <- factor(c("on-target PPNA ", "scrambled PPNA ", "peptide alone "))
 pvals <-sapply(pvals, function(x) ifelse(x, x <- "*",x<-"") )
 
-#prefname <- ifelse(rownames(pvals) %in% rownames(GO),GO[rownames(pvals),]$Preferred_name, "" )
-#rownames(pvals) <- ifelse(prefname != "", prefname, rownames(pvals))
+
 prefname <- ifelse(rownames(pvals) %in% pnames$V2 ,pnames[rownames(pvals),]$V1, "" )
 prefname <- ifelse(isUnique(prefname), prefname, "")
 rownames(pvals) <- ifelse(prefname != "", prefname, rownames(pvals))
@@ -452,7 +486,7 @@ pvals <- pvals[order(logchange$`on-target PPNA `, decreasing = T),]
 logCPM <-logCPM[order(logchange$`on-target PPNA `, decreasing = T),]
 logchange <- logchange[order(logchange$`on-target PPNA `, decreasing = T),]
 
-logCPM_T <- t(logCPM)
+logCPM_T <- t(logCPM[rownames(logchange),])
 logchange_T <- t(logchange)
 pvals_T <- t(pvals)
 rownames(logchange) <- gsub("(.*)", " \\1",rownames(logchange))
@@ -470,9 +504,12 @@ logCPM_T <- logCPM_T[sort(rownames(logCPM_T)),]
 
 nr_degenes <- dim(logCPM_T)[2]
 
+c1 =  circlize::colorRamp2(c(-2, 0, 2), c("blue", "white", "red"))
+c2 = circlize::colorRamp2(c(-2, 0, 2), c("darkblue", "white", "green"))
+
 ht3 <- Heatmap(logCPM_T, cluster_rows = F, name = "Log CPM",
-               show_row_names = F,
-               show_heatmap_legend = T, cluster_columns = F,
+               show_row_names = F,col=c1,
+               show_heatmap_legend = F, cluster_columns = F,
                row_title_side = "right", row_title_rot = 0,
                border = TRUE, 
                column_names_max_height=max_text_width(colnames(logCPM)),
@@ -484,8 +521,8 @@ ht3 <- Heatmap(logCPM_T, cluster_rows = F, name = "Log CPM",
 
 
 ht4 <- Heatmap(logchange_T, name = "Log2 FC",
-               col = circlize::colorRamp2(c(-2, 0, 2), c("darkblue", "white", "green")),
-               cluster_rows = F, cluster_columns = F, show_heatmap_legend = T,
+               col = c2,
+               cluster_rows = F, cluster_columns = F, show_heatmap_legend = F,
                cell_fun = function(j, i, x, y, width, height, fill) {
                  grid.text(sprintf("%.1s", pvals_T[i, j]), x, y)
                }, 
@@ -496,8 +533,26 @@ ht4 <- Heatmap(logchange_T, name = "Log2 FC",
 
 ht_list = ht3 %v% ht4 
 ht_list
-svg("../analysis/heatmaps/heatmap_KFF_reduced.svg", width = nr_degenes, height = 10)
+
+
+
+
+
+lgd1 = Legend(col_fun = c1, title = expression("Log CPM"), labels_gp = gpar(fontsize = 10),
+             title_gp = gpar(fontsize = 15),
+             at = c(-2, 0, 2), legend_width = unit(4, "cm"), grid_width =  unit(0.8, "cm"),
+             labels = c("-2", "  0", "  2"), legend_height = unit(3, "cm"),
+             title_position = "leftcenter-rot")
+lgd2 = Legend(col_fun = c2, title = expression("Log"[2]*" FC"), labels_gp = gpar(fontsize = 10),
+             title_gp = gpar(fontsize = 15),grid_width =  unit(0.8, "cm"),
+             at = c(-2, 0, 2), legend_width = unit(4, "cm"),
+             labels = c("-2", "  0", "  2"), legend_height = unit(3, "cm"),
+             title_position = "leftcenter-rot")
+
+pdf("../analysis/heatmaps/heatmap_KFF_reduced.pdf", width = 20, height = 10)
 draw(ht_list, ht_gap = unit(0.5, "cm"))
+draw(lgd1, x = unit(5, "cm"), y = unit(14.35, "cm"), just = c("left", "bottom"))
+draw(lgd2, x = unit(5, "cm"), y = unit(7.3, "cm"), just = c("left", "bottom"))
 dev.off()
 
 ```
@@ -511,12 +566,16 @@ for (name in names(res_RXR)) {
   #write.csv(res_RXR[[name]]$table, dataname)
 }
 
-topDEgenes <- c(rownames(res_RXR$PNARXR$table[res_RXR$PNARXR$table$p_value_FDR<0.001 & 
-                                           abs(res_RXR$PNARXR$table$logFC)>1,])[1:20],
-                rownames(res_RXR$PNARXRscr$table[res_RXR$PNARXRscr$table$p_value_FDR<0.001 & 
-                                           abs(res_RXR$PNARXRscr$table$logFC)>1,])[1:20],
-                rownames(res_RXR$RXR$table[res_RXR$RXR$table$p_value_FDR<0.001 & 
-                                           abs(res_RXR$RXR$table$logFC)>1,])[1:20], 
+pttr <- res_RXR$PNARXR$table[order(res_RXR$PNARXR$table$PValue),]
+ptscrr <- res_RXR$PNARXRscr$table[order(res_RXR$PNARXRscr$table$PValue),]
+ttr <- res_RXR$RXR$table[order(res_RXR$RXR$table$PValue),]
+
+topDEgenes <- c(rownames(pttr[pttr$p_value_FDR<0.001 & 
+                                           abs(pttr$logFC)>1,])[1:20],
+                rownames(ptscrr[ptscrr$p_value_FDR<0.001 & 
+                                           abs(ptscrr$logFC)>1,])[1:20],
+                rownames(ttr[ttr$p_value_FDR<0.001 & 
+                                           abs(ttr$logFC)>1,])[1:20], 
                 "SL1344_1133", "SL1344_1134")
 topDEgenes <- unique(topDEgenes[!is.na(topDEgenes)])
 
@@ -597,8 +656,8 @@ nr_degenes <- dim(logCPM_T)[2]
 
 
 ht3 <- Heatmap(logCPM_T, cluster_rows = F, name = "Log CPM",
-               show_row_names = F,
-               show_heatmap_legend = T, cluster_columns = F,
+               show_row_names = F,col=c1,
+               show_heatmap_legend = F, cluster_columns = F,
                row_title_side = "right", row_title_rot = 0,
                border = TRUE, 
                column_names_max_height=max_text_width(colnames(logCPM)),
@@ -611,7 +670,7 @@ ht3 <- Heatmap(logCPM_T, cluster_rows = F, name = "Log CPM",
 
 ht4 <- Heatmap(logchange_T, name = "Log2 FC",
                col = circlize::colorRamp2(c(-2, 0, 2), c("darkblue", "white", "green")),
-               cluster_rows = F, cluster_columns = F, show_heatmap_legend = T,
+               cluster_rows = F, cluster_columns = F, show_heatmap_legend = F,
                cell_fun = function(j, i, x, y, width, height, fill) {
                  grid.text(sprintf("%.1s", pvals_T[i, j]), x, y)
                }, 
@@ -622,8 +681,10 @@ ht4 <- Heatmap(logchange_T, name = "Log2 FC",
 
 ht_list = ht3 %v% ht4 
 ht_list
-svg("../analysis/heatmaps/heatmap_RXR_reduced.svg", width = nr_degenes, height = 10)
+pdf("../analysis/heatmaps/heatmap_RXR_reduced.pdf", width = 28, height = 10)
 draw(ht_list, ht_gap = unit(0.5, "cm"))
+draw(lgd1, x = unit(5, "cm"), y = unit(14.3, "cm"), just = c("left", "bottom"))
+draw(lgd2, x = unit(5, "cm"), y = unit(7.3, "cm"), just = c("left", "bottom"))
 dev.off()
 
 ```
@@ -642,12 +703,17 @@ for (name in names(res_TAT)) {
   #write.csv(res_TAT[[name]]$table, dataname)
 }
 
-topDEgenes <- c(rownames(res_TAT$PNATAT$table[res_TAT$PNATAT$table$p_value_FDR<0.001 & 
-                                           abs(res_TAT$PNATAT$table$logFC)>1,])[1:20],
-                rownames(res_TAT$PNATATscr$table[res_TAT$PNATATscr$table$p_value_FDR<0.001 & 
-                                           abs(res_TAT$PNATATscr$table$logFC)>1,])[1:20],
-                rownames(res_TAT$TAT$table[res_TAT$TAT$table$p_value_FDR<0.001 & 
-                                           abs(res_TAT$TAT$table$logFC)>1,])[1:20], 
+
+pttt <- res_TAT$PNATAT$table[order(res_TAT$PNATAT$table$PValue),]
+ptscrt <- res_TAT$PNATATscr$table[order(res_TAT$PNATATscr$table$PValue),]
+ttt <- res_TAT$TAT$table[order(res_TAT$TAT$table$PValue),]
+
+
+topDEgenes <- c(rownames(pttt[pttt$p_value_FDR<0.001 & abs(pttt$logFC)>1,])[1:20],
+                rownames(ptscrt[ptscrt$p_value_FDR<0.001 & 
+                                           abs(ptscrt$logFC)>1,])[1:20],
+                rownames(ttt[ttt$p_value_FDR<0.001 & 
+                                           abs(ttt$logFC)>1,])[1:20], 
                 "SL1344_1133", "SL1344_1134")
 topDEgenes <- unique(topDEgenes[!is.na(topDEgenes)])
 
@@ -656,7 +722,7 @@ topDEgenes <- unique(topDEgenes[!is.na(topDEgenes)])
 logCPM <- cpm(y, prior.count = 2, log = TRUE) 
 logCPM <- logCPM[rownames(logCPM)%in%topDEgenes,]
 logCPM <- t(scale(t(logCPM))) #centered around 0
-
+logCPM <- logCPM[topDEgenes,]
 
 #prefname <- ifelse(rownames(logCPM) %in% rownames(GO),GO[rownames(logCPM),]$Preferred_name, "" )
 #rownames(logCPM) <- ifelse(prefname != "", prefname, rownames(logCPM))
@@ -682,6 +748,7 @@ pvals <- data.frame(PNATAT = (res_TAT$PNATAT$table$p_value_FDR<0.001 & abs(res_T
                         row.names = rownames(res_TAT$PNATAT$table))
 #select only significant ones:
 logchange <- logchange[rownames(logchange)%in%topDEgenes,]
+logchange <- logchange[topDEgenes,]
 
 colnames(logchange) <- factor(c("TAT-PNA ", "TAT-PNA-scr ", "TAT "))
 
@@ -701,6 +768,8 @@ rownames(logchange) <- ifelse(prefname != "", prefname, rownames(logchange))
 
 #select only significant ones:
 pvals <- pvals[rownames(pvals)%in%topDEgenes,]
+pvals <- pvals[topDEgenes,]
+
 #rownames(pvals) <- x$Prefname
 colnames(pvals) <- factor(c("on-target PPNA ", "scrambled PPNA ", "peptide alone "))
 pvals <-sapply(pvals, function(x) ifelse(x, x <- "*",x<-"") )
@@ -734,8 +803,8 @@ logCPM_T <- logCPM_T[sort(rownames(logCPM_T)),]
 nr_degenes <- dim(logCPM_T)[2]
 
 ht3 <- Heatmap(logCPM_T, cluster_rows = F, name = "Log CPM",
-               show_row_names = F,
-               show_heatmap_legend = T, cluster_columns = F,
+               show_row_names = F, col=c1,
+               show_heatmap_legend = F, cluster_columns = F,
                row_title_side = "right", row_title_rot = 0,
                border = TRUE, 
                column_names_max_height=max_text_width(colnames(logCPM)),
@@ -747,8 +816,8 @@ ht3 <- Heatmap(logCPM_T, cluster_rows = F, name = "Log CPM",
 
 
 ht4 <- Heatmap(logchange_T, name = "Log2 FC",
-               col = circlize::colorRamp2(c(-2, 0, 2), c("darkblue", "white", "green")),
-               cluster_rows = F, cluster_columns = F, show_heatmap_legend = T,
+               col = c2,
+               cluster_rows = F, cluster_columns = F, show_heatmap_legend = F,
                cell_fun = function(j, i, x, y, width, height, fill) {
                  grid.text(sprintf("%.1s", pvals_T[i, j]), x, y)
                }, 
@@ -759,11 +828,163 @@ ht4 <- Heatmap(logchange_T, name = "Log2 FC",
 
 ht_list = ht3 %v% ht4 
 ht_list
-svg("../analysis/heatmaps/heatmap_TAT_reduced.svg", width = nr_degenes, height = 10)
+pdf("../analysis/heatmaps/heatmap_TAT_reduced.pdf", width = 28, height = 10)
 draw(ht_list, ht_gap = unit(0.5, "cm"))
+draw(lgd1, x = unit(5, "cm"), y = unit(14.3, "cm"), just = c("left", "bottom"))
+draw(lgd2, x = unit(5, "cm"), y = unit(7.3, "cm"), just = c("left", "bottom"))
 dev.off()
 
 ```
+# sRNAs plot (significant ones):
+
+```{r}
+topDE <- c(rownames(res_TAT$PNATAT$table[res_TAT$PNATAT$table$p_value_FDR<0.001 & 
+                                           abs(res_TAT$PNATAT$table$logFC)>1,]),
+                rownames(res_TAT$PNATATscr$table[res_TAT$PNATATscr$table$p_value_FDR<0.001 & 
+                                           abs(res_TAT$PNATATscr$table$logFC)>1,]),
+                rownames(res_TAT$TAT$table[res_TAT$TAT$table$p_value_FDR<0.001 & 
+                                           abs(res_TAT$TAT$table$logFC)>1,]),
+                rownames(res_RXR$PNARXR$table[res_RXR$PNARXR$table$p_value_FDR<0.001 & 
+                                           abs(res_RXR$PNARXR$table$logFC)>1,]),
+                rownames(res_RXR$PNARXRscr$table[res_RXR$PNARXRscr$table$p_value_FDR<0.001 & 
+                                           abs(res_RXR$PNARXRscr$table$logFC)>1,]),
+                rownames(res_RXR$RXR$table[res_RXR$RXR$table$p_value_FDR<0.001 & 
+                                           abs(res_RXR$RXR$table$logFC)>1,]),
+                rownames(res_KFF$PNAKFF$table[res_KFF$PNAKFF$table$p_value_FDR<0.001 & 
+                                           abs(res_KFF$PNAKFF$table$logFC)>1,]),
+                rownames(res_KFF$PNAKFFscr$table[res_KFF$PNAKFFscr$table$p_value_FDR<0.001 & 
+                                           abs(res_KFF$PNAKFFscr$table$logFC)>1,]),
+                rownames(res_KFF$KFF$table[res_KFF$KFF$table$p_value_FDR<0.001 & 
+                                           abs(res_KFF$KFF$table$logFC)>1,]))
+topDE_srnas <- unique(topDE[topDE %in% sRNAs])
+
+logchange_TAT <- data.frame(PNATAT = res_TAT$PNATAT$table$logFC,PNATATscr =res_TAT$PNATATscr$table$logFC,
+                              TAT =res_TAT$TAT$table$logFC, row.names = rownames(res_TAT$PNATAT$table))
+
+pvals_TAT <- data.frame(PNATAT = (res_TAT$PNATAT$table$p_value_FDR<0.001 & abs(res_TAT$PNATAT$table$logFC)>1),
+                        PNATATscr=(res_TAT$PNATATscr$table$p_value_FDR<0.001 & abs(res_TAT$PNATATscr$table$logFC)>1),
+                        TAT =(res_TAT$TAT$table$p_value_FDR<0.001 & abs(res_TAT$TAT$table$logFC)>1),
+                        row.names = rownames(res_TAT$PNATAT$table))
+#select only significant ones:
+logchange_TAT <- logchange_TAT[rownames(logchange_TAT)%in%topDE_srnas,]
+logchange_TAT <- logchange_TAT[rownames(logchange_TAT),]
+colnames(logchange_TAT) <- factor(c("TAT-acpP ", "TAT-acpP-scrambled ", "TAT "))
+
+prefname <- ifelse(rownames(logchange_TAT) %in% pnames$V2 ,pnames[rownames(logchange_TAT),]$V1, "" )
+prefname <- ifelse(isUnique(prefname), prefname, "")
+rownames(logchange_TAT) <- ifelse(prefname != "", prefname, rownames(logchange_TAT))
+
+
+#select only significant ones:
+pvals_TAT <- pvals_TAT[rownames(pvals_TAT)%in%topDE_srnas,]
+pvals_TAT <- pvals_TAT[rownames(pvals_TAT),]
+pvals_TAT <-sapply(pvals_TAT, function(x) ifelse(x, x <- "*",x<-"") )
+rownames(pvals_TAT) <- rownames(logchange_TAT)
+
+
+
+
+##RXR
+logchange_RXR <- data.frame(PNARXR = res_RXR$PNARXR$table$logFC,PNARXRscr =res_RXR$PNARXRscr$table$logFC,
+                              RXR =res_RXR$RXR$table$logFC, row.names = rownames(res_RXR$PNARXR$table))
+
+pvals_RXR <- data.frame(PNARXR = (res_RXR$PNARXR$table$p_value_FDR<0.001 & abs(res_RXR$PNARXR$table$logFC)>1),
+                        PNARXRscr=(res_RXR$PNARXRscr$table$p_value_FDR<0.001 & abs(res_RXR$PNARXRscr$table$logFC)>1),
+                        RXR =(res_RXR$RXR$table$p_value_FDR<0.001 & abs(res_RXR$RXR$table$logFC)>1),
+                        row.names = rownames(res_RXR$PNARXR$table))
+#select only significant ones:
+logchange_RXR <- logchange_RXR[rownames(logchange_RXR)%in%topDE_srnas,]
+logchange_RXR <- logchange_RXR[rownames(logchange_RXR),]
+colnames(logchange_RXR) <- factor(c("RXR-acpP ", "RXR-acpP-scrambled ", "RXR "))
+
+prefname <- ifelse(rownames(logchange_RXR) %in% pnames$V2 ,pnames[rownames(logchange_RXR),]$V1, "" )
+prefname <- ifelse(isUnique(prefname), prefname, "")
+rownames(logchange_RXR) <- ifelse(prefname != "", prefname, rownames(logchange_RXR))
+
+
+#select only significant ones:
+pvals_RXR <- pvals_RXR[rownames(pvals_RXR)%in%topDE_srnas,]
+pvals_RXR <- pvals_RXR[rownames(pvals_RXR),]
+pvals_RXR <-sapply(pvals_RXR, function(x) ifelse(x, x <- "*",x<-"") )
+rownames(pvals_RXR) <- rownames(logchange_RXR)
+
+
+
+
+##KFF
+logchange_KFF <- data.frame(PNAKFF = res_KFF$PNAKFF$table$logFC,PNAKFFscr =res_KFF$PNAKFFscr$table$logFC,
+                              KFF =res_KFF$KFF$table$logFC, row.names = rownames(res_KFF$PNAKFF$table))
+
+pvals_KFF <- data.frame(PNAKFF = (res_KFF$PNAKFF$table$p_value_FDR<0.001 & abs(res_KFF$PNAKFF$table$logFC)>1),
+                        PNAKFFscr=(res_KFF$PNAKFFscr$table$p_value_FDR<0.001 & abs(res_KFF$PNAKFFscr$table$logFC)>1),
+                        KFF =(res_KFF$KFF$table$p_value_FDR<0.001 & abs(res_KFF$KFF$table$logFC)>1),
+                        row.names = rownames(res_KFF$PNAKFF$table))
+#select only significant ones:
+logchange_KFF <- logchange_KFF[rownames(logchange_KFF)%in%topDE_srnas,]
+logchange_KFF <- logchange_KFF[rownames(logchange_KFF),]
+colnames(logchange_KFF) <- factor(c("KFF-acpP ", "KFF-acpP-scrambled ", "KFF "))
+
+prefname <- ifelse(rownames(logchange_KFF) %in% pnames$V2 ,pnames[rownames(logchange_KFF),]$V1, "" )
+prefname <- ifelse(isUnique(prefname), prefname, "")
+rownames(logchange_KFF) <- ifelse(prefname != "", prefname, rownames(logchange_KFF))
+
+
+#select only significant ones:
+pvals_KFF <- pvals_KFF[rownames(pvals_KFF)%in%topDE_srnas,]
+pvals_KFF <- pvals_KFF[rownames(pvals_KFF),]
+
+pvals_KFF <-sapply(pvals_KFF, function(x) ifelse(x, x <- "*",x<-"") )
+rownames(pvals_KFF) <- rownames(logchange_KFF)
+
+
+logfcsrnas <- cbind(logchange_KFF, logchange_RXR, logchange_TAT)
+pvalssrnas <- cbind(pvals_KFF, pvals_RXR, pvals_TAT)
+logfcsrnas <-logfcsrnas[order(logfcsrnas$`KFF-acpP `),] 
+pvalssrnas <- pvalssrnas[rownames(logfcsrnas),]
+
+#pvals <- pvals[order(logchange$`on-target PPNA `, decreasing = T),]
+#logCPM <-logCPM[order(logchange$`on-target PPNA `, decreasing = T),]
+#logchange <- logchange[order(logchange$`on-target PPNA `, decreasing = T),]
+
+#logCPM_T <- t(logCPM)
+#logchange_T <- t(logchange)
+#pvals_T <- t(pvals)
+
+#rownames(logchange) <- gsub("(.*)", " \\1",rownames(logchange))
+
+```
+Heatmap:
+```{r}
+col_fun = colorRamp2(c(-2, 0, 2), c("darkblue", "beige", "red"))
+ht_vert <- Heatmap(logfcsrnas, cluster_rows = F, cluster_columns = F,
+               name = "sRNA", col = col_fun,
+               show_heatmap_legend = F, 
+               row_title_side = "left", row_title_rot = 0,
+               #border = TRUE, 
+               cell_fun = function(j, i, x, y, width, height, fill) {
+                 grid.text(sprintf("%.1s", pvalssrnas[i, j]), x, y)
+               }, 
+               column_names_gp = gpar(fontsize = 10),
+               row_names_gp = gpar(fontsize = 10),
+               column_split = factor(c(rep("KFF",3),rep("RXR",3),rep("TAT",3))), 
+               width = unit(9*0.7, "cm"), height = unit(dim(logfcsrnas)[1]/2, "cm"),
+               column_names_rot = 45,  border = TRUE)
+               #, rect_gp = gpar(col = "black", lwd = 0.01))
+
+lgd = Legend(col_fun = col_fun, title = expression("Log"[2]*" FC"), labels_gp = gpar(fontsize = 8),
+             title_gp = gpar(fontsize = 12),
+             at = c(-2, 0, 2), legend_width = unit(4, "cm"),
+             labels = c("-2", "  0", "  2"), legend_height = unit(3, "cm"),
+             title_position = "leftcenter-rot")
+
+pdf("../analysis/heatmaps/heatmap_srnas.pdf")
+draw(ht_vert)
+draw(lgd, x = unit(2, "cm"), y = unit(8, "cm"), just = c("left", "bottom"))
+dev.off()
+```
+
+
+
 
 #Venn diagrams:
 ```{r}
@@ -1066,7 +1287,7 @@ for (i in names(kegg_frysig)) {
   print(i)
   print(dim(kegg_frysig[[i]]))
   print(kegg_frysig[[i]][,c(1,2,4,7)])
-  kegg_siggos <- c(kegg_siggos, rownames(kegg_frysig[[i]][,]))  # can be modified
+  kegg_siggos <- c(kegg_siggos, rownames(kegg_frysig[[i]][1:10,]))  # can be modified
 }
 
 kegg_siggos <- unique(kegg_siggos[!grepl("NA", kegg_siggos)])
@@ -1140,8 +1361,7 @@ ht_vert <- Heatmap(hm_kegg_fry_logfc, cluster_rows = F, cluster_columns = F,
                row_title = NULL,
                row_gap = unit(0.1, "cm"),
                width = unit(5, "cm"), height = unit(20, "cm"),
-               column_names_rot = 45,
-               rect_gp = gpar(col = "black", lwd = 0.1))
+               column_names_rot = 45)
 
 ht_hor <- Heatmap(t(hm_kegg_fry_logfc), cluster_rows = F, cluster_columns = F,
         name = "GO-analysis", col = col_fun,
@@ -1158,13 +1378,20 @@ ht_hor <- Heatmap(t(hm_kegg_fry_logfc), cluster_rows = F, cluster_columns = F,
         column_title = NULL,
         column_gap = unit(0.1, "cm"),
         width = unit(w*0.8, "cm"), height = unit(h*0.8, "cm"),
-        column_names_rot = 40,
-        rect_gp = gpar(col = "black", lwd = 0.1))
+        column_names_rot = 40)
+        #rect_gp = gpar(col = "black", lwd = 0.1))
 
-lgd = Legend(col_fun = col_fun, title = "median logFC", direction = "horizontal",
+lgd = Legend(col_fun = col_fun, title = expression("Median logFC"), direction = "horizontal",
+             title_gp = gpar(fontsize = 12),
              at = c(-1, 0, 1), legend_width = unit(4, "cm"))
 
-svg("../analysis/gene_set_analysis/hm_KEGG_complete.svg", width = unit(w*0.45, "cm"))
+lgd1 = Legend(col_fun = c1, title = expression("Log CPM"), labels_gp = gpar(fontsize = 10),
+             title_gp = gpar(fontsize = 15),
+             at = c(-2, 0, 2), legend_width = unit(4, "cm"), grid_width =  unit(0.8, "cm"),
+             labels = c("-2", "  0", "  2"), legend_height = unit(3, "cm"),
+             title_position = "leftcenter-rot")
+
+pdf("../analysis/gene_set_analysis/hm_KEGG_collapsed.pdf", width = unit(w*0.45, "cm"))
 draw(ht_hor)
 draw(lgd, x = unit(w*0.45, "cm"), y = unit(0.8, "cm"), just = c("left", "bottom"))
 dev.off()
@@ -1174,7 +1401,29 @@ dev.off()
 # SPI2 analysis:
 load data:
 ```{r}
-df_spi2 <- read.delim("../data/PhoPQ_analysis_salcom/salcom_spi2genes_colgan.txt", header = T, sep="\t")
+topDEgenes <- c(rownames(pttt[pttt$p_value_FDR<0.001 & abs(pttt$logFC)>1,])[1:10],
+                rownames(ptscrt[ptscrt$p_value_FDR<0.001 & 
+                                           abs(ptscrt$logFC)>1,])[1:10],
+                rownames(ttt[ttt$p_value_FDR<0.001 & 
+                                           abs(ttt$logFC)>1,])[1:10], 
+                rownames(pttr[pttr$p_value_FDR<0.001 & abs(pttr$logFC)>1,])[1:10],
+                rownames(ptscrr[ptscrr$p_value_FDR<0.001 & 
+                                           abs(ptscrr$logFC)>1,])[1:10],
+                rownames(ttr[ttr$p_value_FDR<0.001 & 
+                                           abs(ttr$logFC)>1,])[1:10],
+                rownames(pttk[pttk$p_value_FDR<0.001 & abs(pttk$logFC)>1,])[1:10],
+                rownames(ptscrk[ptscrk$p_value_FDR<0.001 & 
+                                           abs(ptscrk$logFC)>1,])[1:10],
+                rownames(ttk[ttk$p_value_FDR<0.001 & 
+                                           abs(ttk$logFC)>1,])[1:10],
+                "SL1344_1133", "SL1344_1134")
+topDEgenes <- unique(topDEgenes[!is.na(topDEgenes)])
+write_delim(data.frame(topDEgenes), "../data/PhoPQ_analysis_salcom/upgenes.txt"," ")
+
+
+
+
+df_spi2 <- read.delim("../data/PhoPQ_analysis_salcom/salcom_query_degenes.txt", header = T, sep="\t")
 df_phopq <- read.delim("../data/PhoPQ_analysis_salcom/salcom_query.phopq.txt", header = T, sep="\t")
 
 df_salcom_spi2 <- data.frame(Wildtype = df_spi2$WT.MEP, SPI2 = df_spi2$WT.InSPI2, 
@@ -1192,8 +1441,12 @@ tpm_salcom_spi2 <- tpm_salcom_spi2[order(tpm_salcom_spi2$SPI2),]
 tpm_salcom_phopq <- tpm_salcom_phopq[order(tpm_salcom_phopq$SPI2),]
 tpm_salcom_spi2 <- tpm_salcom_spi2[!(rownames(tpm_salcom_spi2)=="SL1344_1325"),]
 
-tpm_salcom_spi2$condition <- "SPI2"
+tpm_salcom_spi2 <- tpm_salcom_spi2[!(rownames(tpm_salcom_spi2) %in% rownames(tpm_salcom_phopq)),]
+
+tpm_salcom_spi2$condition <- "DE genes"
 tpm_salcom_phopq$condition <- "PhoPQ"
+
+
 
 rownames(tpm_salcom_phopq) <- gsub(".*MgrR", "MgrR", rownames(tpm_salcom_phopq))
 tpm_salcom <- data.frame(rbind(tpm_salcom_phopq, tpm_salcom_spi2), row.names = c(rownames(tpm_salcom_phopq),
@@ -1257,7 +1510,7 @@ Plot Heatmap:
 ```{r}
 h <- dim(logchanges_spi2)[1] # width of plot (nr pws)
 
-col_fun = colorRamp2(c(-2, 0, 2), c("darkblue", "beige", "red"))
+col_fun = colorRamp2(c(-2, 0, 2), c("blue", "beige", "red"))
 ht_vert <- Heatmap(logchanges_spi2, cluster_rows = F, cluster_columns = F,
                name = "SPI2 analysis", col = col_fun,
                show_heatmap_legend = F, 
@@ -1266,14 +1519,13 @@ ht_vert <- Heatmap(logchanges_spi2, cluster_rows = F, cluster_columns = F,
                cell_fun = function(j, i, x, y, width, height, fill) {
                  grid.text(sprintf("%.1s", pvalues_spi2[i, j]), x, y)
                }, 
-               column_names_gp = gpar(fontsize = 10),
+               column_names_gp = gpar(fontsize = 11),
                row_names_gp = gpar(fontsize = 10),
                column_split = factor(ord, levels = lev), 
                row_split = factor(tpm_salcom$condition),
                row_gap = unit(0.2, "cm"),
-               width = unit(9*0.7, "cm"), height = unit(h/2, "cm"),
-               column_names_rot = 45,
-               rect_gp = gpar(col = "black", lwd = 0.1))
+               width = unit(9*0.8, "cm"), height = unit(h/2, "cm"),
+               column_names_rot = 45)
 
 
 col_col_fun = colorRamp2(c(0, 2,3), c("lightgrey", "yellow", "red"))
@@ -1283,47 +1535,35 @@ ht_colgan <- Heatmap(log10(tpm_salcom[,1:3]), cluster_rows = F, cluster_columns 
                row_title_side = "right", row_title_rot = 0,
                border = TRUE, 
                row_split = factor(tpm_salcom$condition),
-               column_names_gp = gpar(fontsize = 10),
+               column_names_gp = gpar(fontsize = 11),
                row_names_gp = gpar(fontsize = 10),
                row_gap = unit(0.2, "cm"),
-               width = unit(3*0.7, "cm"), height = unit(h/2, "cm"),
-               column_names_rot = 45,
-               rect_gp = gpar(col = "black", lwd = 0.1))
+               width = unit(3*0.8, "cm"), height = unit(h/2, "cm"),
+               column_names_rot = 45)
 
-col_fun_cpm = colorRamp2(c(0, 1.7, 2), c("lightgrey", "yellow", "red"))
 order = factor(c(rep("KFF", 3), rep("RXR", 3), rep("TAT", 3), "Control"))
-ht_cpm <- Heatmap(log10(spi2_cpm), cluster_rows = F, cluster_columns = F,
-        name = "SPI2 analysis", col = col_fun_cpm,
-        show_heatmap_legend = F, 
-        row_title_side = "right", row_title_rot = 0,
-        border = TRUE, 
-        column_names_gp = gpar(fontsize = 10),
-        row_names_gp = gpar(fontsize = 10),
-        column_split = factor(order), 
-        row_title = NULL,
-        row_gap = unit(0.1, "cm"),
-        width = unit(9*0.7, "cm"), height = unit(h/2, "cm"),
-        column_names_rot = 45,
-        rect_gp = gpar(col = "black", lwd = 0.1))
+
 
 
 ht_list =  ht_vert + ht_colgan 
 ht_list
 
-lgd = Legend(col_fun = col_fun, title = "Mean log2FC",
+lgd = Legend(col_fun = col_fun, title = expression("Log"[2]*" FC"),
              at = c(-2, 0, 2), legend_width = unit(4, "cm"),
-             labels = c("-2", " 0", " 2"), legend_height = unit(3, "cm"),
+             title_gp  = gpar(fontsize(14)),
+             labels = c("-2", "  0", "  2"), legend_height = unit(3, "cm"),
              title_position = "leftcenter-rot")
-lgd_col = Legend(col_fun = col_col_fun, title = "Transcripts per million",
+lgd_col = Legend(col_fun = col_col_fun, title = expression("TPM"),
              at = c(0, 1, 2, 3), labels = c(0,10,100,1000), legend_width = unit(3, "cm"),
+             title_gp  = gpar(fontsize(14)),
              legend_height = unit(3, "cm"),
              title_position = "leftcenter-rot")
 
 
-svg("../analysis/PhoPQ_Salcom/hm_salcom_phopq_spi2.svg", width = 10, height = 15)
+pdf("../analysis/PhoPQ_Salcom/hm_salcom_phopq_spi2.pdf", width = 10, height = 15)
 draw(ht_list, ht_gap = unit(0.5, "cm"))
 draw(lgd, x = unit(4, "cm"), y = unit(18, "cm"), just = c("left", "bottom"))
-draw(lgd_col, x = unit(20, "cm"), y = unit(18, "cm"), just = c("left", "bottom"))
+draw(lgd_col, x = unit(21, "cm"), y = unit(18, "cm"), just = c("left", "bottom"))
 dev.off()
 ```
 
@@ -1397,6 +1637,47 @@ for (resname in names(all_res)){
     dev.off()
   }
 }
+```
+
+save csv of all raw counts:
+```{r}
+counts <- y$counts 
+test <- c("Water1", "KFF_acpP1", "KFF_acpP_scrambled1", "KFF1", "RXR_acpP1", "RXR_acpP_scrambled1", 
+          "RXR1", "TAT_acpP1", "TAT_acpP_scrambled1", "TAT1",
+          "Water2", "KFF_acpP2", "KFF_acpP_scrambled2", "KFF2", "RXR_acpP2", "RXR_acpP_scrambled2", 
+          "RXR2", "TAT_acpP2", "TAT_acpP_scrambled2", "TAT2",
+          "Water3", "KFF_acpP3", "KFF_acpP_scrambled3", "KFF3", "RXR_acpP3", "RXR_acpP_scrambled3", 
+          "RXR3", "TAT_acpP3", "TAT_acpP_scrambled3", "TAT3")
+colnames(counts) <- test
+
+prefname <- ifelse(rownames(counts) %in% pnames$V2 ,pnames[rownames(counts),]$V1, "" )
+prefname <- ifelse(isUnique(prefname), prefname, "")
+gene_name <- ifelse(prefname != "", prefname, rownames(counts))
+
+locus_tag <- rownames(counts)
+
+counts_raw <- cbind(locus_tag, gene_name, counts)
+
+write.csv(counts_raw, "../analysis/analysis_complete/supp_tables/raw_counts.csv")
+
+for (i in all_res) {
+  for (l in names(i)){
+    tab <- i[[l]]$table[order(i[[l]]$table$FDR),]
+    prefname <- ifelse(rownames(tab) %in% pnames$V2 ,pnames[rownames(tab),]$V1, "" )
+    prefname <- ifelse(isUnique(prefname), prefname, "")
+    genename <- ifelse(prefname != "", prefname, rownames(tab))
+    tabs <- cbind(genename,tab) 
+    write.csv(tabs, paste("../analysis/analysis_complete/supp_tables/",l,"_vs_water",".csv", sep = ""))
+  }
+}  
+
+
+for (l in names(list_kegg_fry)){
+  tabs <- list_kegg_fry[[l]]
+  write.csv(tabs, paste("../analysis/analysis_complete/supp_tables/",l,"_vs_water",".csv", sep = ""))
+}
+
+
 ```
 
 
