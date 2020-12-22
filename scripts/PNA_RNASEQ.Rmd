@@ -7,18 +7,17 @@ output:
   html_document:
     df_print: paged
 ---
-Here I perform the downstream analysis of the RNAseq experiment, in which Salmonella was challenged with PNA targeting the acpP gene and the carrier peptide KFF (3 biological replicates of 4 combinations). Then RNAseq was performed to determine which genes were silenced and DE between conditions. 
+Here I perform the downstream analysis of the RNAseq experiment, in which Salmonella was challenged with PNA targeting the acpP gene and different carrier peptides: KFF, RXR and TAT (3 biological replicates of 4 combinations). RNAseq was performed to determine transcriptome changes upon exposure to PNA. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = TRUE)
 ```
 
 # Packages
-Here the necessary packages are imported. They can be installed from Bioconductor or CRAN if not statet otherwise:
+I import the packages needed for all analysis. They can all be installed from Bioconductor or CRAN if not statet otherwise:
 ```{r, message=FALSE}
 library(edgeR)
 library(circlize)
-library(VennDiagram)
 library(dplyr)
 library(ggplot2)
 library('RUVSeq')
@@ -28,19 +27,24 @@ library(EDASeq)
 library(gplots)
 library(ggrepel)
 library(svglite)
-```
+library(ComplexHeatmap)
+library(VennDiagram)
+library(eulerr)
+library(tidyverse)
+library(grid)
 
+```
 
 
 # Data Acquisition  
 
-A tab file containing gene counts was generated after upstream processing. Upstream processing included folowing steps (starting with fastq-files): 
+I generated a tab file containing gene counts after upstream processing. Upstream processing included folowing steps (starting with fastq-files): 
  
- - BBtools pipeliine for filtering, trimming and mapping 
- - HTSeq-count for read-counting 
+ - BBtools for filtering, trimming and mapping 
+ - featureCounts for generating a count matrix
 
 
-Let's import the gene-wise counts:
+Firstly, I import the gene-wise counts:
 ```{r}
 GenewiseCounts <- read.delim(
   "../data/rna_align/counttable.txt",sep = "\t",
@@ -48,18 +52,10 @@ GenewiseCounts <- read.delim(
 
 dim(GenewiseCounts)
 head(GenewiseCounts[,1:6])
-
-#geo <- GenewiseCounts
-#colnames(geo) <- gsub("\\.\\.\\.data\\.rna_align\\.(.*_S\\d\\d?_R1_001)\\.bam", "\\1", 
-#                                 colnames(geo))
-#colnames(geo) <- gsub("ID\\.", "ID-", 
-#                                 colnames(geo))
-#write.csv(geo, "../data/GEO/counttable.csv")
-
 ```
 \hfill\break
 
-We have to change colnames, since they include the whole path:
+I have to change column names, since they include the whole path:
 ```{r}
 gwc <- GenewiseCounts[,5:length(GenewiseCounts[1,])]
 pnapat <- "\\.\\.\\.data\\.rna_align\\..*_(S\\d\\d?)_R1_001\\.bam"
@@ -67,20 +63,15 @@ colnames (gwc) <- gsub(pnapat,"\\1", colnames(gwc))
 colnames (gwc)
 ```
 
-We also create a variable for groups of the sample data manually (from the colnames):
+I also create a facor variable for groups of the sample data manually (from assigning sample codes to condition):
 ```{r}
-#test <- rep(c("Water control", "KFF-acpP", "KFF-acpP-scr", "KFF", "RXR-acpP", "RXR-acpP-scr", 
-#          "RXR", "TAT-acpP", "TAT-acpP-scr", "TAT"), 3)
 test <- rep(c("Water", "KFF_acpP", "KFF_acpP_scrambled", "KFF", "RXR_acpP", "RXR_acpP_scrambled", 
           "RXR", "TAT_acpP", "TAT_acpP_scrambled", "TAT"), 3)
 test <- as.factor(test)
 test
 ```
-The meaning of sample names is:
 
-- #replicate_#sample
-
-Now that we have these two dataframes, we can import them into the edgeR environment:
+Now that I have the read count dataframe with sample names, I import them into the edgeR environment:
 ```{r}
 y <- DGEList(gwc[,-1], group = test, genes = gwc[,1,drop=FALSE])
 options(digits = 3)
@@ -89,8 +80,8 @@ head(y$samples)
 
 
 # Filtering
-Now we want to filter out Genes which have very low counts across all libraries. 
-We do this by creating a cutoff $$\frac {10} {L} $$
+Now I want to filter out Genes which have very low counts across all libraries. 
+I do this by creating a cutoff $$\frac {10} {L} $$
 where L is the minimum library size in millions. We delete genes that are below the cutoff in at least 2 libraries:
 ```{r}
 L <- min(y$samples$lib.size) / 1000000
@@ -98,17 +89,15 @@ cutoff <- 10/L
 keep <- rowSums(cpm(y) > cutoff) >= 2 
 table(keep)
 ```
-We retain only the unfiltered genes:
+I retain only the unfiltered genes,and delete 519 genes below the threshold:
 ```{r}
 y <- y[keep, , keep.lib.sizes=FALSE]
 ```
 
 
 
-
-
 # Design matrix
-We create a design matrix for the samples:
+I create a design matrix for the samples:
 ```{r}
 design <- model.matrix(~0+test)
 colnames(design) <- levels(test)
@@ -118,82 +107,46 @@ design[1:5,]
 
 
 # Normalization
-Here, we check different Normalization techniques and access their effectivity.
 
-## TMM Normalization
-Let's check how the usually recommended TMM normalization of edgeR performs. for this we use RLE and PCA plots:
-```{r}
+I check how the standard TMM normalization of edgeR performs. I start with calculating normalization factors:
+```{r, error=FALSE}
 y <- calcNormFactors(y)
 y <- estimateDisp(y, design, robust = T)
-colors <- c(brewer.pal(10, "Set1"),"blue")
-plotRLE(cpm(y), outline=FALSE, ylim=c(-1, 1), col=colors[as.factor(test)])
-plotPCA(cpm(y), col=colors[as.factor(test)], cex=0.7)
 ```
-We can see that the TMM was succesful (TMM centers the RLE around 0). Also the variability is approximately similar for all samples. This can also be seen in the PCA plot, where the samples separating quite well. Anyway, we'll test whether we can get some improvement using the RUV normalization method.
 
-
-we save the PCA and heatmap:
+And now I create PCA and RLE plots:
 ```{r}
 colors <- c(c("#f5a2a2", "#ffe8e8", "#f7c6c6", "#235a71", "#5facc9", 
               "#578ca1", "#71a876", "#dcf2dd", "#91c497", "#d3ebf5"))
-
 pch <- c(24,21,22,24,21,22,24,21,22,21)
-#save as pdfs:
-#pdf("../analysis/TAT_TMM_PCA_RLE_hm")
-plotPCA(cpm(y), col=colors[test], cex=3,labels=F, pch=pch[test], main="PCA")
-legend("bottomright", legend = levels(test), pch=pch, col=colors, ncol=2, cex=1)
-
-plotRLE(cpm(y), outline=FALSE, ylim=c(-1, 1), col=colors[as.factor(test)],
-        main="RLE")
-#dev.off()
 lt <- levels(test)[c(2,3,1,5,6,4,8,9,7,10)]
 newtest <- factor(test, levels = lt)
 newpch <- c(21,22,24,21,22,24,21,22,24,21)
 newcols <- colors[c(2,3,1,5,6,4,8,9,7,10)]
 
+plotPCA(cpm(y), col="black", bg=newcols[newtest],  labels=F, pch=newpch[newtest], cex=3)
+legend("bottomright", legend = levels(newtest), pch=newpch, 
+       cex=1.2, col="black",  pt.bg = newcols, pt.cex = 2)
+
+plotRLE(cpm(y), outline=FALSE, ylim=c(-1, 1), col=colors[as.factor(newtest)],
+        main="RLE")
+```
+
+You can see that the TMM was succesful (TMM centers the RLE around 0). Also the variability is rather similar for all samples. This can also be seen in the PCA plot, where the samples separating by condition well, and no batch effects are visible.
+
+
+I save the PCA as SVG:
+```{r}
 svg("../analysis/PCA_TMM.svg")
 plotPCA(cpm(y), col="black", bg=newcols[newtest],  labels=F, pch=newpch[newtest], cex=3)
 legend("bottomright", legend = levels(newtest), pch=newpch, 
        cex=1.2, col="black",  pt.bg = newcols, pt.cex = 2)
 dev.off()
-
-
-plotRLE(cpm(y), col=colors[test], cex=9,labels=F,  outline=FALSE, ylim=c(-2, 2), xaxt="none")
-legend("topleft", legend = levels(test),  col=colors, pch=rep(15,3))
-
 ```
-
-Create PCAs for each CPP experiment:
-```{r}
-KFF_nrs <- c(1,2,3,4,11,12,13,14,21,22,23,24)
-RXR_nrs <- c(1,5,6,7,11,15,16,17,21,25,26,27)
-TAT_nrs <- c(1,8,9,10,11,18,19,20,21,28,29,30)
-
-test_KFF <- droplevels(test[KFF_nrs])
-test_RXR <- droplevels(test[RXR_nrs])
-test_TAT <- droplevels(test[TAT_nrs]) 
-
-svg("../analysis/PCA_KFF.svg")
-plotPCA(cpm(y)[,KFF_nrs], col=colors[test_KFF], labels=F, pch=pch[test_KFF], cex=2)
-legend("bottomright", legend = levels(test_KFF), pch=pch, cex=1, col=colors)
-dev.off()
-
-svg("../analysis/PCA_RXR.svg")
-plotPCA(cpm(y)[,RXR_nrs], col=colors[test_RXR], labels=F, pch=pch[test_RXR], cex=2)
-legend("bottomright", legend = levels(test_RXR), pch=pch, cex=1, col=colors)
-dev.off()
-
-svg("../analysis/PCA_TAT.svg")
-plotPCA(cpm(y)[,TAT_nrs], col=colors[test_TAT], labels=F, pch=pch[test_TAT], cex=2)
-legend("bottomright", legend = levels(test_TAT), pch=pch, cex=1, col=colors)
-dev.off()
-```
-
 
 
 # Differential Expression analysis using TMM
-Next, we do differential expression analysis using the TMM-normalized dataset:
-
+Next, I perform differential expression analysis using TMM-normalized dataset:
 ```{r}
 # make a contrast:
 con <- makeContrasts(PNAKFF_vs_ctrl = KFF_acpP - Water,
@@ -235,10 +188,8 @@ plotQLDisp(fit)
 The quality looks decent.
 
 
-Now we create a function which makes nice volcano-plots and run it on all the results (all PNA-samples are compared to noPNA for DE):
+Now I create a function which makes nice volcano-plots and run it on all the results (all PNA-samples are compared to water control for DE):
 ```{r}
-
-
 do_volcano <- function(restab, pointsize = 2, x_limit = F,y_limit=F, show_sig = F, alpha=0.05, 
                        minlogfc=1, title = "Volcano", sRNAS = F, phopq = F) {
   rownames(restab) <- gsub("^([^A-Z].+)" , "italic('\\1')" , rownames(restab))
@@ -349,12 +300,17 @@ do_volcano <- function(restab, pointsize = 2, x_limit = F,y_limit=F, show_sig = 
 }
 ```
 
-Now we adjust p-values, create volcano plots, histograms for the results (and save as pdfs): 
+
+Now I adjust p-values (FDR), create volcano plots, histograms for the results (and save volcano plots as pdfs): 
 ```{r}
+# I create a variable containing strings of all sRNAs:
 sRNAs <- c(rownames(res_KFF$PNAKFF$table)[!grepl("SL1344_", rownames(res_KFF$PNAKFF$table))], "cpxP")
+
+# I get the links between locus tags and gene names:
 pnames <- read.delim("../data/link_lt_gn.tab", header = F)
 rownames(pnames) <- pnames$V2
 
+# I also import PhoPQ related genes:
 ppq_raw <- read.delim("../data/PHOPQ.tsv", header = F)
 ppq <- as.character(ppq_raw$V1)
 phopqvolc <- c(pnames[pnames$V1 %in% ppq,]$V2, "PinT", "SL1344_1169", "SL1344_1168")
@@ -369,24 +325,16 @@ for (resname in names(all_res)){
   all_res[[resname]][[name]]$table$FDR <- p.adjust(all_res[[resname]][[name]]$table$PValue, method = "fdr")
   restab <- all_res[[resname]][[name]]$table
   
-  #add genenames
+  #add genenames (not locustags)
   prefname <- ifelse(rownames(restab) %in% pnames$V2 ,pnames[rownames(restab),]$V1, "" )
   prefname <- ifelse(isUnique(prefname), prefname, "")
   rownames(restab) <- ifelse(prefname != "", prefname, rownames(restab))
   
   restab$genes <- rownames(restab)
-  #make_volcanoPlot(restab, paste(name,"_noPNA", sep = ""))
   
-    #make volcano plot
-  svg(paste("../analysis/volcanoplots/",name, "_TMM.svg"))
-  print(do_volcano(restab, title=paste(name," - noPNA"), 
-                   x_limit = 7,
-                   y_limit = 16,
-                   alpha=0.001, pointsize = 3, show_sig = T))
-  dev.off()
-  #hist(restab$PValue, breaks=100, main=paste(name," - noPNA"))
+  hist(restab$PValue, breaks=100, main=paste(name," - noPNA"))
   
-  # make sRNA volcanos:
+  # make volcanos:
   pdf(paste("../analysis/volcanoplots/",name, ".pdf"))
   print(do_volcano(restab, title=paste(name," - noPNA"), 
                    x_limit = 7,
@@ -400,13 +348,14 @@ for (resname in names(all_res)){
 
 
 
-
-The volcano-plots that are created look fine, and also the p-value distribution for the samples is either uniform with an increment in the lowest p-values showing DE genes.
+The volcano-plots that are created look fine, and also the p-value distributions for the samples are uniform with an increment in the lowest p-values showing DE genes.
 
 
 
 # Heatmap
-lets create a heatmap clustering all highest DE genes of all contrasts.
+I create a heatmap showing the 20 highest ranking DE genesper conditon. I start with the KFF samples:
+
+## KFF
 ```{r}
 
 for (name in names(res_KFF)) {
@@ -433,13 +382,11 @@ logCPM <- cpm(y, prior.count = 2, log = TRUE)
 logCPM <- logCPM[rownames(logCPM)%in%topDEgenes,]
 logCPM <- t(scale(t(logCPM))) #centered around 0
 
-#prefname <- ifelse(rownames(logCPM) %in% rownames(GO),GO[rownames(logCPM),]$Preferred_name, "" )
-#rownames(logCPM) <- ifelse(prefname != "", prefname, rownames(logCPM))
-
 prefname <- ifelse(rownames(logCPM) %in% pnames$V2 ,pnames[rownames(logCPM),]$V1, "" )
 prefname <- ifelse(isUnique(prefname), prefname, "")
 rownames(logCPM) <- ifelse(prefname != "", prefname, rownames(logCPM))
 
+KFF_nrs <- c(1,2,3,4,11,12,13,14,21,22,23,24)
 logCPM <- logCPM[,KFF_nrs]
 
 colnames(logCPM) <- factor(c("Untreated R1 ", "on-target PPNA R1 ","scrambled PPNA R1 ","peptide alone R1 ",
@@ -449,8 +396,8 @@ colnames(logCPM) <- factor(c("Untreated R1 ", "on-target PPNA R1 ","scrambled PP
 head(logCPM)
 ```
 Interestingly, the patterns of the samples with scrambled PNA and the test sample (PNA11 and 10 resp.) show similar patterns of the DE genes and cluster together closely.
+
 ```{r}
-library(ComplexHeatmap)
 # get log2change, between those and noPNA:
 logchange <- data.frame(PNAKFF = res_KFF$PNAKFF$table$logFC,PNAKFFscr =res_KFF$PNAKFFscr$table$logFC,
                               KFF =res_KFF$KFF$table$logFC, row.names = rownames(res_KFF$PNAKFF$table))
@@ -494,7 +441,7 @@ rownames(logchange) <- gsub("(.*)", " \\1",rownames(logchange))
 
 
 
-Now we save the heatmap as svg file:
+Now I save the heatmap as pdf:
 ```{r}
 
 ord2 <- c(rep("on-target PPNA", 3), rep("peptide alone", 3), rep("scrambled PPNA", 3),
@@ -557,7 +504,9 @@ dev.off()
 
 ```
 
-# same for RXR:
+## RXR heatmap:
+
+I do the same for RXR (redundant):
 ```{r}
 
 for (name in names(res_RXR)) {
@@ -587,6 +536,7 @@ logCPM <- t(scale(t(logCPM))) #centered around 0
 #prefname <- ifelse(rownames(logCPM) %in% rownames(GO),GO[rownames(logCPM),]$Preferred_name, "" )
 #rownames(logCPM) <- ifelse(prefname != "", prefname, rownames(logCPM))
 
+RXR_nrs <- c(1,5,6,7,11,15,16,17,21,25,26,27)
 logCPM <- logCPM[,RXR_nrs]
 
 colnames(logCPM) <- factor(c("Untreated R1 ", "on-target PPNA R1 ","scrambled PPNA R1 ","peptide alone R1 ",
@@ -644,7 +594,7 @@ rownames(logchange) <- gsub("(.*)", " \\1",rownames(logchange))
 ```
 
 
-Now we save the heatmap as svg file:
+Now I save the heatmap as pdf:
 ```{r}
 
 ord2 <- c(rep("on-target PPNA", 3), rep("peptide alone", 3), rep("scrambled PPNA", 3),
@@ -688,13 +638,10 @@ draw(lgd2, x = unit(5, "cm"), y = unit(7.3, "cm"), just = c("left", "bottom"))
 dev.off()
 
 ```
-We can see that both of KFFs DE genes are also DE in both other comparisons
 
 
-
-
-
-# same for TAT:
+## TAT:
+i do the same for TAT
 ```{r}
 
 for (name in names(res_TAT)) {
@@ -724,9 +671,8 @@ logCPM <- logCPM[rownames(logCPM)%in%topDEgenes,]
 logCPM <- t(scale(t(logCPM))) #centered around 0
 logCPM <- logCPM[topDEgenes,]
 
-#prefname <- ifelse(rownames(logCPM) %in% rownames(GO),GO[rownames(logCPM),]$Preferred_name, "" )
-#rownames(logCPM) <- ifelse(prefname != "", prefname, rownames(logCPM))
 
+TAT_nrs <- c(1,8,9,10,11,18,19,20,21,28,29,30)
 logCPM <- logCPM[,TAT_nrs]
 
 colnames(logCPM) <- factor(c("Untreated R1 ", "on-target PPNA R1 ","scrambled PPNA R1 ","peptide alone R1 ",
@@ -753,12 +699,6 @@ logchange <- logchange[topDEgenes,]
 colnames(logchange) <- factor(c("TAT-PNA ", "TAT-PNA-scr ", "TAT "))
 
 
-#pnames <- read.delim("../data/link_lt_gn.tab", header = F)
-#rownames(pnames) <- pnames$V2
-#prefname <- ifelse(rownames(logchange) %in% pnames$V2 ,pnames[rownames(logchange),]$V1, "" )
-#prefname[134] <- ""
-#rownames(logchange) <- ifelse(prefname != "", prefname, rownames(logchange))
-
 prefname <- ifelse(rownames(logchange) %in% pnames$V2 ,pnames[rownames(logchange),]$V1, "" )
 prefname <- ifelse(isUnique(prefname), prefname, "")
 rownames(logchange) <- ifelse(prefname != "", prefname, rownames(logchange))
@@ -774,8 +714,6 @@ pvals <- pvals[topDEgenes,]
 colnames(pvals) <- factor(c("on-target PPNA ", "scrambled PPNA ", "peptide alone "))
 pvals <-sapply(pvals, function(x) ifelse(x, x <- "*",x<-"") )
 
-#prefname <- ifelse(rownames(pvals) %in% rownames(GO),GO[rownames(pvals),]$Preferred_name, "" )
-#rownames(pvals) <- ifelse(prefname != "", prefname, rownames(pvals))
 
 
 colnames(logchange) <- factor(c("on-target PPNA ", "scrambled PPNA ", "peptide alone "))
@@ -792,7 +730,7 @@ rownames(logchange) <- gsub("(.*)", " \\1",rownames(logchange))
 ```
 
 
-Now we save the heatmap as svg file:
+Now I save the heatmap as pdf:
 ```{r}
 
 ord2 <- c(rep("on-target PPNA", 3), rep("peptide alone", 3), rep("scrambled PPNA", 3),
@@ -835,8 +773,9 @@ draw(lgd2, x = unit(5, "cm"), y = unit(7.3, "cm"), just = c("left", "bottom"))
 dev.off()
 
 ```
-# sRNAs plot (significant ones):
 
+# sRNAs heatmap:
+I also create a heatmap for DE sRNAs only to find enriched/reduced sRNAs:
 ```{r}
 topDE <- c(rownames(res_TAT$PNATAT$table[res_TAT$PNATAT$table$p_value_FDR<0.001 & 
                                            abs(res_TAT$PNATAT$table$logFC)>1,]),
@@ -942,15 +881,6 @@ pvalssrnas <- cbind(pvals_KFF, pvals_RXR, pvals_TAT)
 logfcsrnas <-logfcsrnas[order(logfcsrnas$`KFF-acpP `),] 
 pvalssrnas <- pvalssrnas[rownames(logfcsrnas),]
 
-#pvals <- pvals[order(logchange$`on-target PPNA `, decreasing = T),]
-#logCPM <-logCPM[order(logchange$`on-target PPNA `, decreasing = T),]
-#logchange <- logchange[order(logchange$`on-target PPNA `, decreasing = T),]
-
-#logCPM_T <- t(logCPM)
-#logchange_T <- t(logchange)
-#pvals_T <- t(pvals)
-
-#rownames(logchange) <- gsub("(.*)", " \\1",rownames(logchange))
 
 ```
 Heatmap:
@@ -987,30 +917,27 @@ dev.off()
 
 
 #Venn diagrams:
+I create some Venn diagrams (not included in manuscript) to get overview of overlapping DE genes:
 ```{r}
-library(VennDiagram)
-library(eulerr)
-library(tidyverse)
-library(grid)
 
 
-list_DEgenes <- list(PNA_TAT = rownames(res_TAT$PNATAT$table[res_TAT$PNATAT$table$p_value_FDR<0.01 & 
+list_DEgenes <- list(PNA_TAT = rownames(res_TAT$PNATAT$table[res_TAT$PNATAT$table$p_value_FDR<0.001 & 
                                            abs(res_TAT$PNATAT$table$logFC)>1,]),
-                PNA_TAT_scr = rownames(res_TAT$PNATATscr$table[res_TAT$PNATATscr$table$p_value_FDR<0.01 & 
+                PNA_TAT_scr = rownames(res_TAT$PNATATscr$table[res_TAT$PNATATscr$table$p_value_FDR<0.001 & 
                                            abs(res_TAT$PNATATscr$table$logFC)>1,]),
-                TAT = rownames(res_TAT$TAT$table[res_TAT$TAT$table$p_value_FDR<0.01 & 
+                TAT = rownames(res_TAT$TAT$table[res_TAT$TAT$table$p_value_FDR<0.001 & 
                                            abs(res_TAT$TAT$table$logFC)>1,]),
-                PNA_RXR = rownames(res_RXR$PNARXR$table[res_RXR$PNARXR$table$p_value_FDR<0.01 & 
+                PNA_RXR = rownames(res_RXR$PNARXR$table[res_RXR$PNARXR$table$p_value_FDR<0.001 & 
                                            abs(res_RXR$PNARXR$table$logFC)>1,]),
-                PNA_RXR_scr = rownames(res_RXR$PNARXRscr$table[res_RXR$PNARXRscr$table$p_value_FDR<0.01 & 
+                PNA_RXR_scr = rownames(res_RXR$PNARXRscr$table[res_RXR$PNARXRscr$table$p_value_FDR<0.001 & 
                                            abs(res_RXR$PNARXRscr$table$logFC)>1,]),
-                RXR = rownames(res_RXR$RXR$table[res_RXR$RXR$table$p_value_FDR<0.01 & 
+                RXR = rownames(res_RXR$RXR$table[res_RXR$RXR$table$p_value_FDR<0.001 & 
                                            abs(res_RXR$RXR$table$logFC)>1,]),
-                PNA_KFF = rownames(res_KFF$PNAKFF$table[res_KFF$PNAKFF$table$p_value_FDR<0.01 & 
+                PNA_KFF = rownames(res_KFF$PNAKFF$table[res_KFF$PNAKFF$table$p_value_FDR<0.001 & 
                                            abs(res_KFF$PNAKFF$table$logFC)>1,]),
-                PNA_KFF_scr = rownames(res_KFF$PNAKFFscr$table[res_KFF$PNAKFFscr$table$p_value_FDR<0.01 & 
+                PNA_KFF_scr = rownames(res_KFF$PNAKFFscr$table[res_KFF$PNAKFFscr$table$p_value_FDR<0.001 & 
                                            abs(res_KFF$PNAKFFscr$table$logFC)>1,]),
-                KFF = rownames(res_KFF$KFF$table[res_KFF$KFF$table$p_value_FDR<0.01 & 
+                KFF = rownames(res_KFF$KFF$table[res_KFF$KFF$table$p_value_FDR<0.001 & 
                                            abs(res_KFF$KFF$table$logFC)>1,]))
 
 svg("../analysis/VennDiagrams/Venn_TMM_TAT",width = 10, height = 10)
@@ -1035,202 +962,9 @@ dev.off()
 ```
 
 
-# Gene Ontology
+# KEGG pathway analysis
 
-
-Now we import preferred gene names etc from the egnog annotation:
-```{r}
-# read in eggnog file
-file <- "../data/EggNogg/query_seqs.fa.emapper.annotations"
-GO <- read.delim(file ,sep = "\t",  header = T,row.names = 1, comment.char = "#")
-rownames(GO) <- gsub("gene-", "", rownames(GO))
-head(GO)
-```
-
-
-GO-fry analysis:
-```{r}
-library(GO.db)
-#get GO terms:
-gene_GO_links <- data.frame(gene = rownames(GO), GOid = GO$GOs)
-gene_GO_links <- gene_GO_links[rownames(GO) %in% rownames(res_KFF$PNAKFF$table),]
-
-gene_GO_links$GOid <- as.character(gene_GO_links$GOid)  
-all_pw_ids <- unique(unlist(strsplit(gene_GO_links$GOid,",")))
-list_GO_ids <- strsplit(gene_GO_links$GOid,",")
-
-idx <- lapply(all_pw_ids, function(x){
-  tf <- unlist(lapply(list_GO_ids, function(y) x %in% y))
-  x <- unique(gene_GO_links$gene[tf]) # choose all genes, except duplucates
-})
-names(idx) <- all_pw_ids
-
-# add phopq pw to gos
-ppq_raw <- read.delim("../data/PHOPQ.tsv", header = F)
-ppq <- as.character(ppq_raw$V1)
-phopq <- pnames[pnames$V1 %in% ppq,]$V2
-
-idx$PhoPQ <- phopq[phopq %in% rownames(y$counts)]
-
-
-#do fry: 
-fry_PNAKFF <- fry(y, idx, design, contrast=con[,1])
-fry_KFF <- fry(y, idx, design, contrast=con[,3])
-fry_PNAKFFscr <- fry(y, idx, design, contrast=con[,2])
-
-fry_PNARXR <- fry(y, idx, design, contrast=con[,4])
-fry_RXR <- fry(y, idx, design, contrast=con[,6])
-fry_PNARXRscr <- fry(y, idx, design, contrast=con[,5])
-
-fry_PNATAT <- fry(y, idx, design, contrast=con[,7])
-fry_TAT <- fry(y, idx, design, contrast=con[,9])
-fry_PNATATscr <- fry(y, idx, design, contrast=con[,8])
-
-list_fry <- list(fry_PNAKFF=fry_PNAKFF,fry_PNAKFFscr=fry_PNAKFFscr,fry_KFF=fry_KFF,
-                 fry_PNARXR=fry_PNARXR,fry_PNARXRscr=fry_PNARXRscr,fry_RXR=fry_RXR,
-                 fry_PNATAT=fry_PNATAT,fry_PNATATscr=fry_PNATATscr,fry_TAT=fry_TAT)
-
-
-index <- rownames(fit) %in% phopq
-barcodeplot(res_KFF$KFF$table$logFC, index, 
-            labels = c("Control", "PPNA"), main = "PhoPQ")
-
-```
-
-```{r}
-link_GO_terms_fry <- select(GO.db, keys = rownames(fry_PNAKFF), columns = "TERM")
-rownames(link_GO_terms_fry) <- link_GO_terms_fry$GOID
-
-fry_PNAKFF$TERM <-  link_GO_terms_fry[rownames(fry_PNAKFF),]$TERM
-fry_PNAKFFscr$TERM <-  link_GO_terms_fry[rownames(fry_PNAKFFscr),]$TERM
-fry_KFF$TERM <-  link_GO_terms_fry[rownames(fry_KFF),]$TERM
-
-for (fryres in names(list_fry)) {
-  list_fry[[fryres]][["TERM"]] <- link_GO_terms_fry[rownames(list_fry[[fryres]]),][["TERM"]]
-  list_fry[[fryres]]["PhoPQ",][["TERM"]] <- "PhoPQ"
-}
-
-frysig <- lapply(list_fry, function(x) x[x[["FDR"]]<0.05 & x[["NGenes"]]>2,])
-
-siggos <- c()
-
-for (i in names(frysig)) {
-  print(i)
-  print(dim(frysig[[i]]))
-  print(frysig[[i]][,c(1,2,4,7)])
-  siggos <- c(siggos, rownames(frysig[[i]][1:10,]))  # we could change that
-}
-
-siggos <- unique(siggos[!grepl("NA", siggos)])
-```
-
-Create a heatmap-df  for GO-terms:
-```{r}
-idx_char <- lapply(idx, as.character)
-# I create a dataframe with mean logFC values for each significant GO-term:
-hm_fry_logfc <- t(as.data.frame(lapply(idx_char[siggos], function(x){
-  PNAKFF <- median(res_KFF$PNAKFF$table[x,]$logFC)
-  PNAKFFscr <- median(res_KFF$PNAKFFscr$table[x,]$logFC)
-  KFF <- median(res_KFF$KFF$table[x,]$logFC)
-  
-  PNARXR <- median(res_RXR$PNARXR$table[x,]$logFC)
-  PNARXRscr <- median(res_RXR$PNARXRscr$table[x,]$logFC)
-  RXR <- median(res_RXR$RXR$table[x,]$logFC)
-  
-  PNATAT <- median(res_TAT$PNATAT$table[x,]$logFC)
-  PNATATscr <- median(res_TAT$PNATATscr$table[x,]$logFC)
-  TAT <- median(res_TAT$TAT$table[x,]$logFC)
-  c(PNAKFF, PNAKFFscr, KFF, PNARXR, PNARXRscr, RXR, PNATAT, PNATATscr, TAT)
-})))
-
-colnames(hm_fry_logfc) <- c("KFF-acpP ", "KFF-acpP-scrambled ", "KFF-only ","RXR-acpP ", "RXR-acpP-scrambled ", "RXR-only ",
-                            "TAT-acpP ", "TAT-acpP-scrambled ", "TAT-only ")
-hm_fry_logfc_TAT <- as.data.frame(hm_fry_logfc)
-rownames(hm_fry_logfc) <- gsub("\\.", "\\:", rownames(hm_fry_logfc))
-```
-
-plot heatmap:
-```{r}
-hm_fry_logfc <- hm_fry_logfc[order(hm_fry_logfc[,1], decreasing = T),]
-
-pvals <- data.frame(sapply(names(list_fry), function(x) list_fry[[x]][rownames(hm_fry_logfc),"FDR"]), 
-                    row.names = rownames(hm_fry_logfc))
-
-#select only significant ones:
-pvals <-sapply(pvals, function(x) ifelse(x<0.05, x <- "*",x<-"") )
-
-
-goterms <- list_fry$fry_PNAKFF[rownames(hm_fry_logfc),] [["TERM"]]
-rownames(hm_fry_logfc) <- ifelse(!is.na(goterms),goterms, rownames(hm_fry_logfc) )
-
-seper <- c(1) 
-for (i in 2:dim(hm_fry_logfc)[1]) {
-  ifelse(sum(hm_fry_logfc[i,]) == sum(hm_fry_logfc[i-1,]),
-         seper <- c(seper,seper[i-1]), seper <- c(seper,i))
-}
-
-
-ord <- c(rep("KFF", 3), rep("RXR", 3), rep("TAT", 3))
-lev <- c("KFF", "RXR", "TAT")
-```
-
-make hm:
-```{r}
-col_fun = colorRamp2(c(-1, 0, 1), c("darkblue", "beige", "red"))
-
-w <- length(rownames(hm_fry_logfc) )# width of plot (nr pws)
-h <- 9   # height of plot 
-
-ht_vert <- Heatmap(hm_fry_logfc, cluster_rows = F, cluster_columns = F,
-               name = "GO-analysis", col = col_fun,
-               show_heatmap_legend = F, 
-               row_title_side = "right", row_title_rot = 0,
-               border = TRUE, 
-               cell_fun = function(j, i, x, y, width, height, fill) {
-                 grid.text(sprintf("%.1s", pvals[i, j]), x, y)
-               }, 
-               column_names_gp = gpar(fontsize = 10),
-               row_names_gp = gpar(fontsize = 10),
-               column_split = factor(ord, levels = lev), 
-               row_split = factor(seper), 
-               row_title = NULL,
-               row_gap = unit(0.1, "cm"),
-               width = unit(5, "cm"), height = unit(20, "cm"),
-               column_names_rot = 45,
-               rect_gp = gpar(col = "black", lwd = 0.1))
-
-ht_hor <- Heatmap(t(hm_fry_logfc), cluster_rows = F, cluster_columns = F,
-        name = "GO-analysis", col = col_fun,
-        show_heatmap_legend = F, 
-        row_title_side = "left", row_title_rot = 0,
-        column_names_side = "top",
-        border = TRUE, 
-        cell_fun = function(j, i, x, y, width, height, fill) {
-          grid.text(sprintf("%.1s", t(pvals)[i, j]), x, y)
-        }, 
-        row_names_gp = gpar(fontsize = 10),
-        column_names_gp = gpar(fontsize = 10),
-        row_split = factor(ord, levels = lev), 
-        column_split = factor(seper), 
-        column_title = NULL,
-        column_gap = unit(0.1, "cm"),
-        width = unit(w*0.8, "cm"), height = unit(h*0.8, "cm"),
-        column_names_rot = 40,
-        rect_gp = gpar(col = "black", lwd = 0.1))
-
-lgd = Legend(col_fun = col_fun, title = "median logFC", direction = "horizontal",
-             at = c(-1, 0, 1), legend_width = unit(4, "cm"))
-
-svg("../analysis/gene_set_analysis/hm_GO_collapsed.svg", width = unit(0.45*w, "cm"))
-draw(ht_hor)
-draw(lgd, x = unit(0.45*w, "cm"), y = unit(0.8, "cm"), just = c("left", "bottom"))
-dev.off()
-```
-
-
-
-
-KEGG-analysis:
+I perform the KEGG-analysis using the FRY gene set analysis tool from limma:
 ```{r}
 library(KEGGREST)
 # get link and list to get kegg info:
@@ -1247,6 +981,11 @@ link_kegg <- link_kegg[names(link_kegg) %in% rownames(res_KFF$PNAKFF$table)] #re
 idx_kegg <- sapply(kegg_pw_ids, function(x){
   x <- unique(names(link_kegg[link_kegg == x])) # choose all genes, except duplucates
 })
+# add phopq pw to kegg
+ppq_raw <- read.delim("../data/PHOPQ.tsv", header = F)
+ppq <- as.character(ppq_raw$V1)
+phopq <- pnames[pnames$V1 %in% ppq,]$V2
+
 idx_kegg$PhoPQ <- phopq[phopq %in% rownames(y$counts)] # add PhoPQ genes
 
 
@@ -1269,7 +1008,7 @@ list_kegg_fry <- list(kegg_fry_PNAKFF=kegg_fry_PNAKFF,kegg_fry_PNAKFFscr=kegg_fr
 
 ```
 
-add terms:
+add KEGG terms:
 ```{r}
 for (fryres in names(list_kegg_fry)) {
   list_kegg_fry[[fryres]][["TERM"]] <- list_kegg[rownames(list_kegg_fry[[fryres]])]
@@ -1339,7 +1078,7 @@ ord <- c(rep("KFF", 3), rep("RXR", 3), rep("TAT", 3))
 lev <- c("KFF", "RXR", "TAT")
 ```
 
-plot hm:
+plot hm (save as pdf):
 ```{r}
 library(circlize)
 col_fun = colorRamp2(c(-1, 0, 1), c("darkblue", "beige", "red"))
@@ -1381,6 +1120,8 @@ ht_hor <- Heatmap(t(hm_kegg_fry_logfc), cluster_rows = F, cluster_columns = F,
         column_names_rot = 40)
         #rect_gp = gpar(col = "black", lwd = 0.1))
 
+ht_hor
+
 lgd = Legend(col_fun = col_fun, title = expression("Median logFC"), direction = "horizontal",
              title_gp = gpar(fontsize = 12),
              at = c(-1, 0, 1), legend_width = unit(4, "cm"))
@@ -1399,7 +1140,9 @@ dev.off()
 
 
 # SPI2 analysis:
-load data:
+Here I perform a SPI2 analysis as described in the manuscript.
+
+First, I read in the dataframes:
 ```{r}
 topDEgenes <- c(rownames(pttt[pttt$p_value_FDR<0.001 & abs(pttt$logFC)>1,])[1:10],
                 rownames(ptscrt[ptscrt$p_value_FDR<0.001 & 
@@ -1419,9 +1162,6 @@ topDEgenes <- c(rownames(pttt[pttt$p_value_FDR<0.001 & abs(pttt$logFC)>1,])[1:10
                 "SL1344_1133", "SL1344_1134")
 topDEgenes <- unique(topDEgenes[!is.na(topDEgenes)])
 write_delim(data.frame(topDEgenes), "../data/PhoPQ_analysis_salcom/upgenes.txt"," ")
-
-
-
 
 df_spi2 <- read.delim("../data/PhoPQ_analysis_salcom/salcom_query_degenes.txt", header = T, sep="\t")
 df_phopq <- read.delim("../data/PhoPQ_analysis_salcom/salcom_query.phopq.txt", header = T, sep="\t")
@@ -1454,7 +1194,7 @@ tpm_salcom <- data.frame(rbind(tpm_salcom_phopq, tpm_salcom_spi2), row.names = c
 
 str(tpm_salcom)
 ```
-Get all genes which are in our dataset:
+Get all genes which are included in both datasets:
 ```{r}
 all_spi2_genes <- rownames(tpm_salcom)[rownames(tpm_salcom) %in% rownames(y)]
 str(all_spi2_genes)
@@ -1484,7 +1224,7 @@ colnames(logchanges_spi2) <- c("KFF-acpP ", "KFF-acpP-scrambled ", "KFF-only ","
 
 # get mean cpm values of all conditions:
 countscpm <- cpm(y)[all_spi2_genes,]
-#levels(test) <- levels(test)[c(2,3,1,5,6,4,8,9,7,10)]
+
 spi2_cpm <- sapply(levels(test), function(t) {
   rowMeans(countscpm[,t == test])
 })
@@ -1498,8 +1238,6 @@ pvalues_spi2 <- data.frame(lapply(reslist, function(l) {
 })) 
 
 pvalues_spi2 <-sapply(pvalues_spi2, function(x) ifelse(x , x <- "*",x<-"")) 
-
-
 
 ```
 
@@ -1567,79 +1305,8 @@ draw(lgd_col, x = unit(21, "cm"), y = unit(18, "cm"), just = c("left", "bottom")
 dev.off()
 ```
 
-```{r}
-for (resname in names(all_res)){
-  for (name in names(all_res[[resname]])){
-    rtnew <- all_res[[resname]][[name]]$table
-    rtold <- old_reslist[[resname]][[name]]$table
-    rtold <- rtold[rownames(rtold)%in%rownames(rtnew),]
-    rtnew <- rtnew[rownames(rtnew)%in%rownames(rtold),]
-    rtold <- rtold[rownames(rtnew),]
-    
-    prefname <- ifelse(rownames(rtnew) %in% pnames$V2 ,pnames[rownames(rtnew),]$V1, "" )
-    prefname <- ifelse(isUnique(prefname), prefname, "")
-    cnames <- ifelse(prefname != "", prefname, rownames(rtnew))
-    
-    
 
-    
-    d <- data.frame(new_logFC = rtnew$logFC,old_logfc = rtold$logFC, change = abs(rtold$logFC-rtnew$logFC),
-                    new_pval = rtnew$FDR, old_pval = p.adjust(rtold$PValue, method = "fdr"),
-                    row.names = cnames)
-    
-    old_DE <- rownames(d[(d$old_logfc>1|d$old_logfc<(-1)) & d$old_pval< 0.001,])
-    new_DE <- rownames(d[(d$new_logFC>1|d$new_logFC<(-1)) & d$new_pval< 0.001,])
-    both_DE <- old_DE[old_DE %in% new_DE]
-    
-    on <- unique(c(new_DE, old_DE))
-    on <- on[!(on %in% both_DE)]
-    topon <- d[on,]
-    topon <- topon[order(topon$change, decreasing = TRUE),]
-    topon <- rownames(head(topon, n=20))
-    
-    cols <- rep("not DE", length(cnames))
-    cols[(d$old_logfc>1|d$old_logfc<(-1)) & d$old_pval< 0.001] <- "old DE"
-    cols[(d$new_logFC>1|d$new_logFC<(-1)) & d$new_pval< 0.001] <- "new DE"
-    cols[((d$new_logFC>1|d$new_logFC<(-1)) & d$new_pval< 0.001)|
-           ((d$old_logfc>1|d$old_logfc<(-1)) & d$old_pval< 0.001)] <- "both DE"
-    d$DE <- factor(cols)
-    
-    g <- ggplot(d, aes(x = new_logFC, y = old_logfc),color = "black",cex = 2) + 
-      geom_point() + stat_smooth(method=lm) + ggtitle(name) + xlim(-3,7)+ ylim(-3,7)+
-      theme_bw()
-  
-    colors <- c("old DE" = "blue", "new DE" = "red", "both DE" = "green")
-    g <- g + geom_point(
-          data = d[old_DE,],
-          aes(x = new_logFC, y = old_logfc),
-          color = colors["old DE"], 
-          cex = 2) +
-      geom_point(
-          data = d[new_DE,],
-          aes(x = new_logFC, y = old_logfc),
-          color = colors["new DE"], 
-          cex = 2) +
-      geom_point(
-          data = d[both_DE,],
-          aes(x = new_logFC, y = old_logfc),
-          color = colors["both DE"], 
-          cex = 2) 
-    
-    g <- g +geom_label_repel(  data = d[topon,] ,
-     aes(x = new_logFC, y = old_logfc,label = rownames(d[topon,])),
-      hjust = 0.1,
-      vjust = 2,
-      size = 4, segment.alpha = 0.5,min.segment.length=0, segment.color = "black")
-    
-    print(g)
-    svg(paste("../analysis/comparison_experiments/", name, ".svg", sep = ""))
-    print(g)
-    dev.off()
-  }
-}
-```
-
-save csv of all raw counts:
+save csv of all raw counts for supplementary material:
 ```{r}
 counts <- y$counts 
 test <- c("Water1", "KFF_acpP1", "KFF_acpP_scrambled1", "KFF1", "RXR_acpP1", "RXR_acpP_scrambled1", 

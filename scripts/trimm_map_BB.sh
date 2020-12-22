@@ -3,18 +3,15 @@
 main(){                                                                                                                                                                                                    
     # go to project directory where the reads and reference sequences are stored:                                                                                                                          
                                                                                                                                                                                                            
-    PROJECT=../data                                                                                                                                                                                        
+    PROJECT=../data                                                                                                                                                                                      
+    echo "Start trimming"                                                                                                                                                                                
+    rename_trim_rna_libs                                                                                                                                                                                 
+    echo "Trimming done. Start maopping"                                                                                                                                                                 
+    align_rna_reads_genome                                                                                                                                                                               
+    echo "Finished mapping. Start connecting all tab files"                                                                                                                                              
+                                                                                                                                                                                                         
                                                                                                                                                                                                            
-    echo "Start trimming"                                                                                                                                                                                  
-    rename_trim_rna_libs                                                                                                                                                                                   
-    echo "Trimming done. Start maopping"                                                                                                                                                                   
-    align_rna_reads_genome                                                                                                                                                                                 
-    echo "Finished mapping. Start connecting all tab files"                                                                                                                                                
-                                                                                                                                                                                                           
-                                                                                                                                                                                                           
-    featureCounts -T 5 -t CDS,sRNA -g locus_tag -a $PROJECT/reference_sequences/FQ312003.1.gff -o $PROJECT/rna_align/counttable.txt $PROJECT/rna_align/*.bam                                         
-    #featureCounts -T 5 -t gene -g Name -a $PROJECT/../reference_sequences/Salmonella_combined_BMG2.gff -o $PROJECT/rna_align/count_table_genenames.txt $PROJECT/rna_align/*.bam                           
-   # featureCounts -T 5 -t CDS,sRNA  -g locus_tag -a $PROJECT/reference_sequences/FQ312003.1_srnas_plasmids.gff -o $PROJECT/rna_align/count_table_locustags.txt $PROJECT/rna_align/*.bam                   
+    featureCounts -T 5 -t CDS,sRNA -g locus_tag -a $PROJECT/reference_sequences/FQ312003.1.gff -o $PROJECT/rna_align/counttable.txt $PROJECT/rna_align/*.bam                   
                                                                                                                                                                                                            
                                                                                                                                                                                                            
 }                                                                                                                                                                                                          
@@ -43,9 +40,9 @@ align_rna_reads_genome(){
         echo "Starting mapping for sample: $NAME"                                                                                                                                                          
         ~/bin/bbmap/bbmap.sh in=$i trimreaddescription=t  t=20 ref=$PROJECT/reference_sequences/FQ312003_wplasmids.fa  k=8 ambig=random outm=$DIR/$NAME.bam                                                  
         # sort sam file, create BAM file:                                                                                                                                                                  
-        # samtools sort -O BAM -@ 40 $DIR/$NAME.sam > $DIR/$NAME.bam                                                                                                                                         
+        samtools sort -O BAM -@ 40 $DIR/$NAME.sam > $DIR/$NAME.bam                                                                                                                                         
         # remove sam file: (not actually needed)                                                                                                                                                                                
-        # rm $DIR/$NAME.sam                                                                                                                                                                                  
+        rm $DIR/$NAME.sam                                                                                                                                                                                  
     done                                                                                                                                                                                                   
 }                                                                                                                                                                                                          
                                                                                                                                                                                                            
