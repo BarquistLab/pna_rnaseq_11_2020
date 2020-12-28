@@ -1,6 +1,6 @@
 # data
 
-Here, all data is stored
+Here, all data is stored, which was used to generate the results.
 
 ## reference_sequences
 
@@ -24,7 +24,9 @@ Includes data from [O'Rurke et al. ](https://aac.asm.org/content/64/3/e01207-19.
 
 
 
+## fastq
 
+Contains all raw fastQ files
 
 
 
@@ -43,3 +45,12 @@ sed -r 's/^.*Name=([^;]+).*locus_tag=([^; ]+).*$/\1\t\2/' | \
 sed -r 's/^ID=.*Name=([^;]+).*$/\1\t\1/'  > link_lt_gn.tab
 ```
 
+
+
+## PHOPQ.tsv
+
+genes related to PHOPQ
+
+da39a3ee5e6b4b0d3255bfef95601890afd80709  fastq
+c01a3ef84d137f15cf79ed43e7de5e61a453986d  link_lt_gn.tab
+b14aa1ed02882b7a7f33a7fb781eaae5195c84a3  PHOPQ.tsv

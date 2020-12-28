@@ -1,4 +1,4 @@
-# O'Rurke et al.
+# O'Rurke_metaanalysis
 
 
 
@@ -42,3 +42,30 @@ Now we're ready to run proteinortho.
 proteinortho6.pl -project=ecoli_salmonella ./MG1655_locustags.fna SL1344_locustags.fna -p=blastn
 ```
 
+
+
+### AAC.01207-19-sd009(1).xlsx
+
+Read count data downloaded from the publicaton of O'Rurke et al. downloaded on 06-08-2020. 
+
+ab_data.csv contains same data, processed to csv.
+
+
+
+### Other files
+
+The other files are mainly intermediate files to prepare the proteinortho query and the results file of it (ecoli_salmonella.proteinortho.tsv).
+
+
+
+### Checksums
+
+521bf1fffbf245d3c28f701b3767cbbcaa3e98a6  AAC.01207-19-sd009(1).xlsx
+05ddf4bffac7d804f8abccff608a0aa16e10582b  ab_data.csv
+aca15da9638ebfc51517a353ea6a0970b651688e  ecoli_salmonella.info
+aeed62aa812daa1d078cc6fe4598242c9479226c  ecoli_salmonella.proteinortho.tsv
+dad8fa94cb4827efc00f7891851e8ae6b15f54c7  MG1655.fna
+95523f9b6074d85ae3cbbe456833c61525cec56c  MG1655_locustags.fna
+cca9d07d2a8779e37dec7d9af62d45adf31188a1  README.md
+0f785da1032ddaeb3c24f7dd2181506b707fb08b  SL1344_locustags.fna
+a5e6382351e7ff16a921e757da149cae04bc3372  SL1344_transcripts.fna

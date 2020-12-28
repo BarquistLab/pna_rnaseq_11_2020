@@ -61,3 +61,6 @@ to put all fastqc files in the fastQC folder.
 
 
 
+### Other files
+
+the 2 pdf files are information from the vertis sequencing company. 
