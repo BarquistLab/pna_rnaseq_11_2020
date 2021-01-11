@@ -1,6 +1,6 @@
 # RNA-seq analysis to Popella et al. 2021
 
-- Dara analysis: Jakob Jung
+- Data analysis: Jakob Jung
 - Experiments: Linda Popella
 - Supervision: Lars Barquist, Jörg Vogel
 - Start: September 2020
