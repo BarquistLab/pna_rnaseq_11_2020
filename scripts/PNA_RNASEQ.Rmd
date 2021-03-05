@@ -94,6 +94,21 @@ I retain only the unfiltered genes,and delete 519 genes below the threshold:
 y <- y[keep, , keep.lib.sizes=FALSE]
 ```
 
+Find highest expressed genes in raw data controls:
+```{r}
+controls_raw <- y$counts[,c(1,11,21)]
+highest <- names(sort(rowMeans(controls_raw),decreasing = T)[1:1000])
+hc_raw <- as.data.frame(controls_raw[highest,])
+
+pnames <- read.delim("../data/link_lt_gn.tab", header = F)
+rownames(pnames) <- pnames$V2
+
+prefname <- ifelse(rownames(hc_raw) %in% pnames$V2 ,pnames[rownames(hc_raw),]$V1, "" )
+prefname <- ifelse(isUnique(prefname), prefname, "")
+hc_raw$genename <- ifelse(prefname != "", prefname, rownames(hc_raw))
+
+write.csv(hc_raw,"../analysis/strong_control.csv")
+```
 
 
 # Design matrix
@@ -116,13 +131,17 @@ y <- estimateDisp(y, design, robust = T)
 
 And now I create PCA and RLE plots:
 ```{r}
-colors <- c(c("#f5a2a2", "#ffe8e8", "#f7c6c6", "#235a71", "#5facc9", 
-              "#578ca1", "#71a876", "#dcf2dd", "#91c497", "#d3ebf5"))
+colors <- c(c("#f5a2a2", "#f5a2a2", "#f5a2a2", "#5facc9", "#5facc9", 
+              "#5facc9", "#91c497", "#91c497", "#91c497", "white"))
 pch <- c(24,21,22,24,21,22,24,21,22,21)
 lt <- levels(test)[c(2,3,1,5,6,4,8,9,7,10)]
+
+#t <- gsub("acpP", test)
+
 newtest <- factor(test, levels = lt)
 newpch <- c(21,22,24,21,22,24,21,22,24,21)
 newcols <- colors[c(2,3,1,5,6,4,8,9,7,10)]
+
 
 plotPCA(cpm(y), col="black", bg=newcols[newtest],  labels=F, pch=newpch[newtest], cex=3)
 legend("bottomright", legend = levels(newtest), pch=newpch, 
@@ -137,9 +156,16 @@ You can see that the TMM was succesful (TMM centers the RLE around 0). Also the 
 
 I save the PCA as SVG:
 ```{r}
-svg("../analysis/PCA_TMM.svg")
+svg("../analysis/PCA_TMM_new.svg")
+#kursiv machen (acpP)
+newtest_str <- levels(newtest)
+nts <- c(expression( paste("KFF_", italic("acpP"))), expression(paste("KFF_", italic("acpP"), "_scr")), expression("KFF"),
+         expression( paste("RXR_", italic("acpP"))), expression(paste("RXR_", italic("acpP"), "_scr")), expression("RXR"),
+         expression( paste("Tat_", italic("acpP"))), expression(paste("Tat_", italic("acpP"), "_scr")), expression("Tat"),
+         expression("Water control"))
+
 plotPCA(cpm(y), col="black", bg=newcols[newtest],  labels=F, pch=newpch[newtest], cex=3)
-legend("bottomright", legend = levels(newtest), pch=newpch, 
+legend("bottomright", legend = nts, pch=newpch, 
        cex=1.2, col="black",  pt.bg = newcols, pt.cex = 2)
 dev.off()
 ```
@@ -177,6 +203,23 @@ res_TAT <- list(PNATAT = glmQLFTest(fit, contrast = con[,7]),
 
 all_res <- list(KFF = res_KFF,RXR = res_RXR, TAT = res_TAT)
 ```
+
+do same for CPP vs. scrambled controls:
+```{r}
+con_cpep <- makeContrasts(KFF_vs_PNAKFFscr = KFF - KFF_acpP_scrambled,
+                     RXR_vs_PNARXRscr = RXR - RXR_acpP_scrambled,
+                     TAT_vs_PNATATscr = TAT - TAT_acpP_scrambled,
+                     levels = design)
+cpep_res <- list(KFF_vs_KFFscr = glmQLFTest(fit, contrast = con_cpep[,1]), 
+            RXR_vs_RXRscr = glmQLFTest(fit, contrast = con_cpep[,2]),
+            TAT_vs_TATscr = glmQLFTest(fit, contrast = con_cpep[,3]))
+
+```
+
+
+
+
+
 
 We now create MD, BCV and QLDisp plots to access qualiy of data:
 ```{r}
@@ -285,13 +328,13 @@ do_volcano <- function(restab, pointsize = 2, x_limit = F,y_limit=F, show_sig = 
 
     top_peaks <- rbind(top_up, top_down)
     top_peaks <- na.omit(top_peaks)
-    
+
     g <- g + geom_label_repel(
     data = top_peaks ,
     aes(x = logFC, y = -log10(FDR), 
         label = rownames(top_peaks)),
     hjust = 0.1,
-    vjust = 2, 
+    #vjust = 2, 
     size = 5, segment.alpha = 0.5, segment.color = "black", min.segment.length=unit(0, "cm"), parse = T) 
   }
   
@@ -311,8 +354,8 @@ pnames <- read.delim("../data/link_lt_gn.tab", header = F)
 rownames(pnames) <- pnames$V2
 
 # I also import PhoPQ related genes:
-ppq_raw <- read.delim("../data/PHOPQ.tsv", header = F)
-ppq <- as.character(ppq_raw$V1)
+ppq_raw <- read.delim("../data/PHOPQ.tsv", header = T)
+ppq <- as.character(ppq_raw$PhoPQ[ppq_raw$PhoPQ != ""])
 phopqvolc <- c(pnames[pnames$V1 %in% ppq,]$V2, "PinT", "SL1344_1169", "SL1344_1168")
 prefname <- ifelse(phopqvolc %in% pnames$V2 ,pnames[phopqvolc,]$V1, "" )
 prefname <- ifelse(isUnique(prefname), prefname, "")
@@ -345,6 +388,37 @@ for (resname in names(all_res)){
 }
 ```
 
+do volcanos for peptide vs scrambled:
+```{r}
+for (name in names(cpep_res)){
+  # adjust p-values FDR
+cpep_res[[name]]$table$FDR <- p.adjust(cpep_res[[name]]$table$PValue, method = "fdr")
+restab <- cpep_res[[name]]$table
+
+#add genenames (not locustags)
+prefname <- ifelse(rownames(restab) %in% pnames$V2 ,pnames[rownames(restab),]$V1, "" )
+prefname <- ifelse(isUnique(prefname), prefname, "")
+#rownames(restab) <- ifelse(prefname != "", prefname, rownames(restab))
+restab$genename <- ifelse(prefname != "", prefname, rownames(restab))
+#restab$gene <- rownames(restab)
+
+hist(restab$PValue, breaks=100, main=paste(name," - noPNA"))
+
+# make volcanos:
+pdf(paste("../analysis/volcanoplots/",name, ".pdf"))
+print(do_volcano(restab, title=name, 
+                 x_limit = 7,
+                 y_limit = 16,
+                 alpha=0.001, pointsize = 3, show_sig = T, phopq = phopqvolc))
+dev.off()
+
+# write csv file:
+
+dataname <- paste("../analysis/", name, ".csv", sep = "")
+write.csv(restab[order(restab$FDR),], dataname)
+}
+
+```
 
 
 
@@ -982,11 +1056,18 @@ idx_kegg <- sapply(kegg_pw_ids, function(x){
   x <- unique(names(link_kegg[link_kegg == x])) # choose all genes, except duplucates
 })
 # add phopq pw to kegg
-ppq_raw <- read.delim("../data/PHOPQ.tsv", header = F)
-ppq <- as.character(ppq_raw$V1)
-phopq <- pnames[pnames$V1 %in% ppq,]$V2
+ppq_raw <- read.delim("../data/PHOPQ.tsv", header = T)
 
-idx_kegg$PhoPQ <- phopq[phopq %in% rownames(y$counts)] # add PhoPQ genes
+for (c in colnames(ppq_raw)) {
+  gs <- ppq_raw[[c]][ppq_raw[[c]]!=""]
+  gs_lt <- pnames[pnames$V1 %in% gs,]$V2
+  idx_kegg[[c]] <- gs_lt[gs_lt %in% rownames(y$counts)]
+}
+
+#ppq <- as.character(ppq_raw$V1)
+#phopq <- pnames[pnames$V1 %in% ppq,]$V2
+
+#idx_kegg$PhoPQ <- phopq[phopq %in% rownames(y$counts)] # add PhoPQ genes
 
 
 #do fry: 
@@ -1011,10 +1092,13 @@ list_kegg_fry <- list(kegg_fry_PNAKFF=kegg_fry_PNAKFF,kegg_fry_PNAKFFscr=kegg_fr
 add KEGG terms:
 ```{r}
 for (fryres in names(list_kegg_fry)) {
-  list_kegg_fry[[fryres]][["TERM"]] <- list_kegg[rownames(list_kegg_fry[[fryres]])]
+  list_kegg_fry[[fryres]][["TERM"]] <- ifelse(grepl("path",rownames(list_kegg_fry[[fryres]])),
+                                              list_kegg[rownames(list_kegg_fry[[fryres]])],
+                                              rownames(list_kegg_fry[[fryres]]))
   list_kegg_fry[[fryres]][["TERM"]] <- gsub("(.*) - Salmonella enterica subsp. enterica serovar Typhimurium SL1344",
                                             "\\1", list_kegg_fry[[fryres]][["TERM"]])
-  list_kegg_fry[[fryres]]["PhoPQ",][["TERM"]] <- "PhoPQ"
+  write.csv(list_kegg_fry[[fryres]], paste("../analysis/analysis_complete/supp_tables/", fryres, ".csv"))
+  #list_kegg_fry[[fryres]]["PhoPQ",][["TERM"]] <- "PhoPQ"
 }
 
 
@@ -1083,6 +1167,9 @@ plot hm (save as pdf):
 library(circlize)
 col_fun = colorRamp2(c(-1, 0, 1), c("darkblue", "beige", "red"))
 
+nnames <- c("KFF-_acpP_", "KFF-_acpP_-scrambled", "KFF", "RXR-_acpP_", "RXR-_acpP_-scrambled", 
+          "RXR", "TAT-_acpP_", "TAT-_acpP_-scrambled", "TAT")
+
 w <- length(hm_kegg_fry_logfc$`KFF-acpP `) # width of plot (nr pws)
 h <- 9   # height of plot 
 
@@ -1110,14 +1197,17 @@ ht_hor <- Heatmap(t(hm_kegg_fry_logfc), cluster_rows = F, cluster_columns = F,
         border = TRUE, 
         cell_fun = function(j, i, x, y, width, height, fill) {
           grid.text(sprintf("%.1s", t(pvals)[i, j]), x, y)
-        }, 
+        }, row_labels = gt_render(nnames),
         row_names_gp = gpar(fontsize = 10),
-        column_names_gp = gpar(fontsize = 10),
+        #column_names_gp = gpar(fontsize = 10),
         row_split = factor(ord, levels = lev), 
         column_title = NULL,
         column_gap = unit(0.1, "cm"),
         width = unit(w*0.8, "cm"), height = unit(h*0.8, "cm"),
-        column_names_rot = 40)
+        column_names_rot = 40,
+        column_names_gp = gpar(col = c("black", rep("darkgreen",2), rep("black", 2), "darkgreen", rep("black", 9),
+                                    "darkgreen", "black", "darkgreen", "black", "darkgreen",rep("black", 3)), fontsize = 10)
+        )
         #rect_gp = gpar(col = "black", lwd = 0.1))
 
 ht_hor
@@ -1132,7 +1222,7 @@ lgd1 = Legend(col_fun = c1, title = expression("Log CPM"), labels_gp = gpar(font
              labels = c("-2", "  0", "  2"), legend_height = unit(3, "cm"),
              title_position = "leftcenter-rot")
 
-pdf("../analysis/gene_set_analysis/hm_KEGG_collapsed.pdf", width = unit(w*0.45, "cm"))
+pdf("../analysis/gene_set_analysis/hm_KEGG_collapsed_new.pdf", width = unit(w*0.45, "cm"))
 draw(ht_hor)
 draw(lgd, x = unit(w*0.45, "cm"), y = unit(0.8, "cm"), just = c("left", "bottom"))
 dev.off()

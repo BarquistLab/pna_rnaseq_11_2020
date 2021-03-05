@@ -393,11 +393,29 @@ colnames(polymyxin_de) <- gsub("(.*)", "\\1_Polymyxin", colnames(polymyxin_de))
 PNAKFF_de <- res_KFF$PNAKFF$table
 colnames(PNAKFF_de) <- gsub("(.*)", "\\1_PNA-KFF", colnames(PNAKFF_de))
 
+PNAKFFscr_de <- res_KFF$PNAKFFscr$table
+colnames(PNAKFFscr_de) <- gsub("(.*)", "\\1_PNA-KFF", colnames(PNAKFFscr_de))
+
+KFF_de <- res_KFF$KFF$table
+colnames(KFF_de) <- gsub("(.*)", "\\1_PNA-KFF", colnames(KFF_de))
+
 PNARXR_de <- res_RXR$PNARXR$table
 colnames(PNARXR_de) <- gsub("(.*)", "\\1_PNA-RXR", colnames(PNARXR_de))
 
+PNARXRscr_de <- res_RXR$PNARXRscr$table
+colnames(PNARXRscr_de) <- gsub("(.*)", "\\1_PNA-RXR", colnames(PNARXRscr_de))
+
+RXR_de <- res_RXR$RXR$table
+colnames(RXR_de) <- gsub("(.*)", "\\1_PNA-RXR", colnames(RXR_de))
+
 PNATAT_de <- res_TAT$PNATAT$table
 colnames(PNATAT_de) <- gsub("(.*)", "\\1_PNA-TAT", colnames(PNATAT_de))
+
+PNATATscr_de <- res_TAT$PNATATscr$table
+colnames(PNATATscr_de) <- gsub("(.*)", "\\1_PNA-TAT", colnames(PNATATscr_de))
+
+TAT_de <- res_TAT$TAT$table
+colnames(TAT_de) <- gsub("(.*)", "\\1_PNA-TAT", colnames(TAT_de))
 ```
 
 Now we have to get allgenes which are orthologous in e. coli and salmonella:
@@ -406,9 +424,18 @@ Now we have to get allgenes which are orthologous in e. coli and salmonella:
 orthotable <- read.delim("../data/orurke_metaanalysis/ecoli_salmonella.proteinortho.tsv")[-(1:9),4:5]
 
 # merge all tables to get
-tot <- merge(orthotable, PNATAT_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(orthotable, PNAKFF_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(tot, PNAKFFscr_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(tot, KFF_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+
 tot <- merge(tot, PNARXR_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
-tot <- merge(tot, PNAKFF_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(tot, PNARXRscr_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(tot, RXR_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+
+tot <- merge(tot, PNATAT_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(tot, PNATATscr_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+tot <- merge(tot, TAT_de[,c(1,5)], by.y=0 ,by.x="SL1344_locustags.fna")
+
 
 tot <-  merge(tot, colistin_de[,c(1,5)], by.y=0 ,by.x="MG1655_locustags.fna")
 tot <-  merge(tot, polymyxin_de[,c(1,5)], by.y=0 ,by.x="MG1655_locustags.fna")
@@ -432,11 +459,11 @@ de_ab <- unique(c(rownames(colistin_de[colistin_de$p_value_FDR<0.01 & abs(colist
              rownames(polymyxin_de[polymyxin_de$p_value_FDR<0.01 & abs(polymyxin_de$logFC)>1,])))
 de_ab <- de_ab[de_ab %in% tot$MG1655_locustags.fna]
 
-pvs_de <- tot[(tot$MG1655_locustags.fna %in% de_ab),c(4,6,8,10,12)] #|(tot$SL1344_locustags.fna %in% degenes)
+pvs_de <- tot[(tot$MG1655_locustags.fna %in% de_ab),c(4,6,8,10,12,14,16,18,20,22,24)] #|(tot$SL1344_locustags.fna %in% degenes)
 pvs_de <- pvs_de < 0.01
 pvs_de <- ifelse(pvs_de, pvs_de <- "*",pvs_de<-"") 
 
-logfc_de <- tot[(tot$MG1655_locustags.fna %in% de_ab),c(3,5,7,9,11)] # |(tot$SL1344_locustags.fna %in% degenes)
+logfc_de <- tot[(tot$MG1655_locustags.fna %in% de_ab),c(3,5,7,9,11,13,15,17,19,21,23)] # |(tot$SL1344_locustags.fna %in% degenes)
 
 logfc_de <- logfc_de[order(logfc_de$logFC_Polymyxin),]
 pvs_de <- pvs_de[rownames(logfc_de),]
@@ -448,28 +475,38 @@ prefname <- ifelse(rownames(logfc_de) %in% pnames$V2 ,pnames[rownames(logfc_de),
 prefname <- ifelse(isUnique(prefname), prefname, "")
 rownames(logfc_de) <- ifelse(prefname != "", prefname, rownames(logfc_de))
 
-colnames(logfc_de) <- c("TAT-acpP", "RXR-acpP", "KFF-acpP", "Colistin", "Polymyxin")
-logfc_de <- logfc_de[,c(3,2,1,4,5)]
+colnames(logfc_de) <- c("KFF_acpP", "KFF_acpP_scrambled", "KFF", "RXR_acpP", "RXR_acpP_scrambled", 
+          "RXR", "TAT_acpP", "TAT_acpP_scrambled", "TAT", "Colistin", "Polymyxin")
 
-pvs_de <- pvs_de[,c(3,2,1,4,5)]
+nnames <- c("KFF-_acpP_ ", "KFF-_acpP_-scrambled ", "KFF ", "RXR-_acpP_ ", "RXR-_acpP_-scrambled ", 
+          "RXR ", "TAT-_acpP_ ", "TAT-_acpP_-scrambled ", "TAT ", "Colistin ", "Polymyxin ")
+
+#logfc_de <- logfc_de[,c(3,2,1,4,5)]
+
+#pvs_de <- pvs_de[,c(3,2,1,4,5)]
 ```
 
 create Heatmap to compare Dff. expressions 
 ```{r}
 library(circlize)
+library(gridtext)
 col_fun = colorRamp2(c(-2, 0, 2), c("darkblue", "beige", "red"))
 
-ht2 <- Heatmap(logfc_de, name = "Log2 FC",
+logfc_de_m <- as.matrix(logfc_de)
+
+ht2 <- Heatmap(logfc_de_m, name = "Log2 FC",
                col = col_fun,
                cluster_rows = F, cluster_columns = F, show_heatmap_legend = F,
                cell_fun = function(j, i, x, y, width, height, fill) {
                  grid.text(sprintf("%.1s", pvs_de[i, j]), x, y, gp = gpar(fontsize = 10))
-               },column_split = as.factor(c(rep("",3), rep(" ", 2))), column_gap = unit(0.3, "cm"),
-               border = T, width = unit(3.5, "cm"), height = unit(18, "cm"),
+               },column_split = as.factor(c(rep("",3), rep(" ", 3), rep("   ",3), rep("    ", 2))), 
+               column_gap = unit(0.2, "cm"),
+               border = T, width = unit(9, "cm"), height = unit(18, "cm"),
+               column_labels = gt_render(nnames),
                row_names_gp = gpar(fontsize =9), column_names_gp = gpar(fontsize =10),
                column_names_rot = 45)
-
-pdf("../analysis/orurke_analysis/antibiotics_hm.pdf", width = 5, height = 10)
+    
+pdf("../analysis/orurke_analysis/antibiotics_hm_new.pdf", width = 8, height = 10)
 ht2
 lgd2 = Legend(col_fun = col_fun, title = expression("Log"[2]*" FC"), 
               title_gp = gpar(fontsize =10), title_position = "leftcenter-rot", at = c(-2,-1,0,1,2),
