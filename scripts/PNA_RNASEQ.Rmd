@@ -1206,7 +1206,10 @@ ht_hor <- Heatmap(t(hm_kegg_fry_logfc), cluster_rows = F, cluster_columns = F,
         width = unit(w*0.8, "cm"), height = unit(h*0.8, "cm"),
         column_names_rot = 40,
         column_names_gp = gpar(col = c("black", rep("darkgreen",2), rep("black", 2), "darkgreen", rep("black", 9),
-                                    "darkgreen", "black", "darkgreen", "black", "darkgreen",rep("black", 3)), fontsize = 10)
+                                    "darkgreen", "black", "darkgreen", "black", "darkgreen",rep("black", 3)), 
+                               fontsize = 10, fontface =  c("plain", rep("bold",2), rep("plain", 2), "bold", rep("plain", 9),
+                                    "bold", "plain", "bold", "plain", "bold",rep("plain", 3))
+                              )
         )
         #rect_gp = gpar(col = "black", lwd = 0.1))
 
@@ -1309,7 +1312,7 @@ logchanges_spi2 <- data.frame(lapply(reslist, function(l) {
 
 colnames(logchanges_spi2) <- c("KFF-acpP ", "KFF-acpP-scrambled ", "KFF-only ","RXR-acpP ",
                           "RXR-acpP-scrambled ", "RXR-only ",
-                          "TAT-acpP ", "TAT-acpP-scrambled ", "TAT-only")
+                          "Tat-acpP ", "Tat-acpP-scrambled ", "Tat-only")
 
 
 # get mean cpm values of all conditions:
